@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDesign.Designer", "WPFDe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDesign.XamlDom", "WPFDesign.XamlDom\WPFDesign.XamlDom.csproj", "{42ADFE8C-0451-4FC3-B4BC-5DA03A3EE07C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDesign", "WPFDesign\WPFDesign.csproj", "{E1B5BA57-08EF-4F51-80BA-85780144F9A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{42ADFE8C-0451-4FC3-B4BC-5DA03A3EE07C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42ADFE8C-0451-4FC3-B4BC-5DA03A3EE07C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42ADFE8C-0451-4FC3-B4BC-5DA03A3EE07C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1B5BA57-08EF-4F51-80BA-85780144F9A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1B5BA57-08EF-4F51-80BA-85780144F9A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1B5BA57-08EF-4F51-80BA-85780144F9A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1B5BA57-08EF-4F51-80BA-85780144F9A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

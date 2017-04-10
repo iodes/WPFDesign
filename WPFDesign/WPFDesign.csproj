@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E1B5BA57-08EF-4F51-80BA-85780144F9A1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WPFDesign</RootNamespace>
+    <AssemblyName>WPFDesign</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adorners\AdornerPanel.cs" />
+    <Compile Include="Adorners\AdornerPlacement.cs" />
+    <Compile Include="Adorners\AdornerPlacementSpace.cs" />
+    <Compile Include="Adorners\AdornerProvider.cs" />
+    <Compile Include="Adorners\AdornerProviderClasses.cs" />
+    <Compile Include="Adorners\RelativePlacement.cs" />
+    <Compile Include="ChangeGroup.cs" />
+    <Compile Include="DesignContext.cs" />
+    <Compile Include="DesignerException.cs" />
+    <Compile Include="DesignItem.cs" />
+    <Compile Include="DesignItemProperty.cs" />
+    <Compile Include="DesignPanelHitTestResult.cs" />
+    <Compile Include="DrawItemExtension.cs" />
+    <Compile Include="DummyValueInsteadOfNullTypeDescriptionProvider.cs" />
+    <Compile Include="EventArgs.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Extensions\BehaviorExtension.cs" />
+    <Compile Include="Extensions\CustomInstanceFactory.cs" />
+    <Compile Include="Extensions\DefaultExtension.cs" />
+    <Compile Include="Extensions\DefaultInitializer.cs" />
+    <Compile Include="Extensions\DesignItemInitializer.cs" />
+    <Compile Include="Extensions\Extension.cs" />
+    <Compile Include="Extensions\ExtensionAttribute.cs" />
+    <Compile Include="Extensions\ExtensionForAttribute.cs" />
+    <Compile Include="Extensions\ExtensionInterfaces.cs" />
+    <Compile Include="Extensions\ExtensionManager.cs" />
+    <Compile Include="Extensions\ExtensionServer.cs" />
+    <Compile Include="Extensions\ExtensionServerAttribute.cs" />
+    <Compile Include="Extensions\LogicalExtensionServers.cs" />
+    <Compile Include="Extensions\NeverApplyExtensionsExtensionServer.cs" />
+    <Compile Include="Extensions\SelectionExtensionServer.cs" />
+    <Compile Include="Extensions\XamlInstanceFactory.cs" />
+    <Compile Include="HitTestType.cs" />
+    <Compile Include="Interfaces\IObservableList.cs" />
+    <Compile Include="Metadata.cs" />
+    <Compile Include="MouseInteraction.cs" />
+    <Compile Include="PlacementAlignment.cs" />
+    <Compile Include="PlacementBehavior.cs" />
+    <Compile Include="PlacementInformation.cs" />
+    <Compile Include="PlacementOperation.cs" />
+    <Compile Include="PlacementType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyGrid\Category.cs" />
+    <Compile Include="PropertyGrid\EditorManager.cs" />
+    <Compile Include="PropertyGrid\PropertyEditorAttribute.cs" />
+    <Compile Include="PropertyGrid\PropertyNode.cs" />
+    <Compile Include="PropertyGrid\SortedObservableCollection.cs" />
+    <Compile Include="PropertyGrid\TypeEditorAttribute.cs" />
+    <Compile Include="PropertyGrid\TypeHelper.cs" />
+    <Compile Include="ServiceContainer.cs" />
+    <Compile Include="ServiceRequiredException.cs" />
+    <Compile Include="Services.cs" />
+    <Compile Include="Tools.cs" />
+    <Compile Include="UIExtensions\MouseHorizontalWheelEnabler.cs" />
+    <Compile Include="UIExtensions\MouseHorizontalWheelEventArgs.cs" />
+    <Compile Include="UIExtensions\UIHelpers.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
