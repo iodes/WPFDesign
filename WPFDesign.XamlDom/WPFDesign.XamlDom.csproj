@@ -30,17 +30,52 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionElementsCollection.cs" />
+    <Compile Include="CollectionSupport.cs" />
+    <Compile Include="DesignInstanceExtension.cs" />
+    <Compile Include="DesignTimeProperties.cs" />
+    <Compile Include="IXamlErrorSink.cs" />
+    <Compile Include="MarkupCompatibilityProperties.cs" />
+    <Compile Include="MarkupExtensionParser.cs" />
+    <Compile Include="MarkupExtensionPrinter.cs" />
+    <Compile Include="MarkupExtensionWrapper.cs" />
+    <Compile Include="MarkupExtensionWrapperAttribute.cs" />
+    <Compile Include="NameScopeHelper.cs" />
+    <Compile Include="PositionXmlDocument.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateHelper.cs" />
+    <Compile Include="XamlConstants.cs" />
+    <Compile Include="XamlDocument.cs" />
+    <Compile Include="XamlElementLineInfo.cs" />
+    <Compile Include="XamlFormatter.cs" />
+    <Compile Include="XamlLoadException.cs" />
+    <Compile Include="XamlNamespaceProperties.cs" />
+    <Compile Include="XamlObject.cs" />
+    <Compile Include="XamlObjectServiceProvider.cs" />
+    <Compile Include="XamlParser.cs" />
+    <Compile Include="XamlParserSettings.cs" />
+    <Compile Include="XamlProperty.cs" />
+    <Compile Include="XamlPropertyInfo.cs" />
+    <Compile Include="XamlPropertyValue.cs" />
+    <Compile Include="XamlStaticTools.cs" />
+    <Compile Include="XamlTextValue.cs" />
+    <Compile Include="XamlTypeFinder.cs" />
+    <Compile Include="XamlTypeResolverProvider.cs" />
+    <Compile Include="XamlXmlWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
