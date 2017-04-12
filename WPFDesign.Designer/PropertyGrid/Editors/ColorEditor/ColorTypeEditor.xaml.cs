@@ -25,7 +25,7 @@ using System.Windows.Media;
 using WPFDesign.Core;
 using WPFDesign.Core.PropertyGrid;
 using WPFDesign.Designer.PropertyGrid.Editors.BrushEditor;
-using WPFDesign.Designer.themes;
+using WPFDesign.Designer.Themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors.ColorEditor
 {

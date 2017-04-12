@@ -21,7 +21,7 @@ using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using WPFDesign.Core.PropertyGrid;
-using WPFDesign.Designer.themes;
+using WPFDesign.Designer.Themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors
 {

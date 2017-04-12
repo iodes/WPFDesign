@@ -272,7 +272,7 @@
     <Compile Include="Services\XamlErrorService.cs" />
     <Compile Include="SharedInstances.cs" />
     <Compile Include="StretchDirection.cs" />
-    <Compile Include="themes\VersionedAssemblyResourceDictionary.cs" />
+    <Compile Include="Themes\VersionedAssemblyResourceDictionary.cs" />
     <Compile Include="ThumbnailView\ThumbnailView.cs" />
     <Compile Include="Translations.cs" />
     <Compile Include="Xaml\XamlComponentService.cs" />
@@ -449,7 +449,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="themes\generic.xaml">
+    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

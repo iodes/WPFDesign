@@ -24,7 +24,7 @@ using System.Windows;
 using System.Windows.Controls;
 using WPFDesign.Core;
 using WPFDesign.Designer.OutlineView;
-using WPFDesign.Designer.themes;
+using WPFDesign.Designer.Themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors
 {

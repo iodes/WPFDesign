@@ -20,7 +20,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using WPFDesign.Core;
-using WPFDesign.Designer.themes;
+using WPFDesign.Designer.Themes;
 
 namespace WPFDesign.Designer.Extensions
 {

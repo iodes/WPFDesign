@@ -18,7 +18,7 @@
 
 using System;
 using System.Windows;
-using WPFDesign.Designer.themes;
+using WPFDesign.Designer.Themes;
 
 namespace WPFDesign.Designer.OutlineView
 {

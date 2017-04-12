@@ -20,7 +20,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 
-namespace WPFDesign.Designer.themes
+namespace WPFDesign.Designer.Themes
 {
     internal class VersionedAssemblyResourceDictionary : ResourceDictionary, ISupportInitialize
     {
@@ -33,7 +33,7 @@ namespace WPFDesign.Designer.themes
             var nm = typeof(VersionedAssemblyResourceDictionary).Assembly.GetName();
             _uriStart = string.Format(@"/{0};v{1};component/", nm.Name, nm.Version);
 
-            _subLength = "ICSharpCode.WpfDesign.Designer.".Length;
+            _subLength = "WPFDesign.Designer.".Length;
         }
 
         public string RelativePath { get; set; }

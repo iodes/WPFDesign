@@ -166,8 +166,7 @@ namespace WPFDesign.Designer.Extensions
         }
 
         private readonly Dictionary<int, Point> _selectedPoints = new Dictionary<int, Point>();
-#pragma
- warning disable 0414 // For future use, disable Warning CS0414: The field is assigned but its value is never used
+#pragma warning disable 0414 // For future use, disable Warning CS0414: The field is assigned but its value is never used
         private bool _isDragging;
 #pragma warning restore 0414
         ZoomControl _zoom;

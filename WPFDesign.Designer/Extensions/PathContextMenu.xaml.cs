@@ -21,7 +21,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using WPFDesign.Core;
-using WPFDesign.Designer.themes;
+using WPFDesign.Designer.Themes;
 
 namespace WPFDesign.Designer.Extensions
 {

@@ -24,7 +24,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using WPFDesign.Core;
 using WPFDesign.Core.UIExtensions;
-using WPFDesign.Designer.themes;
+using WPFDesign.Designer.Themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 {
