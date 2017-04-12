@@ -1,0 +1,14 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFDesignSample"
+        xmlns:Designer="clr-namespace:WPFDesign.Designer;assembly=WPFDesign.Designer" x:Class="WPFDesignSample.MainWindow"
+        mc:Ignorable="d"
+        Title="WPFDesign Sample" Height="350" Width="525">
+
+    <Border BorderBrush="#FF007ACC" BorderThickness="1" Margin="10">
+        <Designer:DesignSurface x:Name="designSurface"/>
+    </Border>
+</Window>
