@@ -21,10 +21,9 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using WPFDesign.Core.Adorners;
 
-using ICSharpCode.WpfDesign.Adorners;
-
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Describes a tool that can handle input on the design surface.

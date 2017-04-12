@@ -20,8 +20,9 @@ using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	/// <summary>
 	/// Base class for classes handling mouse gestures on the design surface.

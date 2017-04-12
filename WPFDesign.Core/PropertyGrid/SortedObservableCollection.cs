@@ -18,11 +18,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections.ObjectModel;
 
-namespace ICSharpCode.WpfDesign.PropertyGrid
+namespace WPFDesign.Core.PropertyGrid
 {
 	/// <summary>
 	/// Extends ObservableCollection{T} with an AddSorted method to insert items in a sorted collection.

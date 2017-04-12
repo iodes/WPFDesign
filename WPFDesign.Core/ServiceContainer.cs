@@ -19,7 +19,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// The <see cref="ServiceContainer"/> is a built-in service that manages the list of services.

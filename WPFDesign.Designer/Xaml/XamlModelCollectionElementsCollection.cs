@@ -17,14 +17,15 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
-using ICSharpCode.WpfDesign.Interfaces;
-using ICSharpCode.WpfDesign.XamlDom;
-using ICSharpCode.WpfDesign.Designer.Services;
 using System.Collections.Specialized;
+using System.Diagnostics;
+using WPFDesign.Core;
+using WPFDesign.Core.Interfaces;
+using WPFDesign.Designer.Services;
+using WPFDesign.XamlDom;
 
-namespace ICSharpCode.WpfDesign.Designer.Xaml
+namespace WPFDesign.Designer.Xaml
 {
 	sealed class XamlModelCollectionElementsCollection : IObservableList<DesignItem>, INotifyCollectionChanged
 	{

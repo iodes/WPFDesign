@@ -23,7 +23,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	public static class ExtensionMethods
 	{

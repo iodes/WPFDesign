@@ -20,13 +20,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using ICSharpCode.WpfDesign.UIExtensions;
-using ICSharpCode.WpfDesign.Extensions;
-using System.Linq;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Core.UIExtensions;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// The DesignItem connects a component with the service system and the designers.

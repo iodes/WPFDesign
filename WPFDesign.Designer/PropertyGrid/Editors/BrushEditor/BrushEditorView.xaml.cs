@@ -18,9 +18,9 @@
 
 using System;
 using System.Windows;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
+namespace WPFDesign.Designer.PropertyGrid.Editors.BrushEditor
 {
 	public partial class BrushEditorView
 	{

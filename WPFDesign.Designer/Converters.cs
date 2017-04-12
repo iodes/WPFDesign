@@ -17,12 +17,13 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows.Data;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Media;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.Converters
+namespace WPFDesign.Designer
 {
 	public class IntFromEnumConverter : IValueConverter
 	{

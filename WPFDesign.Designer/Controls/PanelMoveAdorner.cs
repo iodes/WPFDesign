@@ -16,16 +16,16 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.Services;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.Designer.Converters;
+using System.Windows.Controls;
 using System.Windows.Data;
-using ICSharpCode.WpfDesign.UIExtensions;
+using System.Windows.Input;
+using System.Windows.Media;
+using WPFDesign.Core;
+using WPFDesign.Core.UIExtensions;
+using WPFDesign.Designer.Services;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	public class PanelMoveAdorner : Control
 	{

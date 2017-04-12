@@ -20,9 +20,10 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Core;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// Interaction logic for GridUnitSelector.xaml

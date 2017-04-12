@@ -18,7 +18,7 @@
 
 using System;
 
-namespace ICSharpCode.WpfDesign.PropertyGrid
+namespace WPFDesign.Core.PropertyGrid
 {
 	/// <summary>
 	/// Attribute to specify that the decorated class is a editor for properties with the specified

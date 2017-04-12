@@ -6,10 +6,10 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;
+
 using System.Xml;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// A special XamlXmlWriter wich fixes &amp; and &quot; in MarkupExtensions where not correctly handled.

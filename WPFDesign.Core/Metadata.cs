@@ -17,13 +17,13 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Collections;
 using System.Windows;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Contains helper methods for retrieving meta data.

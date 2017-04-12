@@ -21,7 +21,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	public delegate void DragHandler(DragListener drag);
 

@@ -20,10 +20,10 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using ICSharpCode.WpfDesign.PropertyGrid;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Core.PropertyGrid;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
+namespace WPFDesign.Designer.PropertyGrid.Editors.BrushEditor
 {
 	[TypeEditor(typeof(Brush))]
 	public partial class BrushTypeEditor

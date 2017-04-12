@@ -16,9 +16,9 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.ComponentModel;			  
+using System.ComponentModel;
 
-namespace ICSharpCode.WpfDesign.PropertyGrid
+namespace WPFDesign.Core.PropertyGrid
 {
 	/// <summary>
 	/// View-Model class for a property grid category.

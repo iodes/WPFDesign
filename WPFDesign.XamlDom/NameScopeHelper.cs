@@ -21,7 +21,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// Static methods to help with <see cref="System.Windows.Markup.INameScope"/> operations on Xaml elements.

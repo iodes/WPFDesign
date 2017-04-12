@@ -18,7 +18,9 @@
 
 using System;
 using System.Windows.Media;
-namespace ICSharpCode.WpfDesign.Designer.Services
+using WPFDesign.Core;
+
+namespace WPFDesign.Designer.Services
 {
 	// See IToolService for description.
 	sealed class DefaultToolService : IToolService, IDisposable

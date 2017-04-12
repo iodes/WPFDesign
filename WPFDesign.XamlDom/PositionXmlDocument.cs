@@ -20,10 +20,9 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using System.Windows.Controls;
 using System.Xml;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	// SuppressMessage justification: we're just adding position info to XmlDocument and don't want to fix
 	// any of it's other issues.

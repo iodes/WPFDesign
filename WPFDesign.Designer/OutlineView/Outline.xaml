@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="ICSharpCode.WpfDesign.Designer.OutlineView.Outline"
+﻿<UserControl x:Class="WPFDesign.Designer.OutlineView.Outline"
              x:Name="root"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Default="clr-namespace:ICSharpCode.WpfDesign.Designer.OutlineView"
-             xmlns:Controls="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls">
+             xmlns:Default="clr-namespace:WPFDesign.Designer.OutlineView"
+             xmlns:controls="clr-namespace:WPFDesign.Designer.Controls">
 	
 	<UserControl.Resources>
 		
@@ -76,7 +76,7 @@
 	
 	
 	<DockPanel LastChildFill="True">
-		<Controls:ClearableTextBox DockPanel.Dock="Top" Height="20" Text="{Binding Filter, ElementName=OutlineTreeView}" />
+		<controls:ClearableTextBox DockPanel.Dock="Top" Height="20" Text="{Binding Filter, ElementName=OutlineTreeView}" />
 		
 		<Default:OutlineTreeView x:Name="OutlineTreeView" Root="{Binding Root, ElementName=root}">
 			<ItemsControl.ItemContainerStyle>

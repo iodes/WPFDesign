@@ -20,7 +20,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 
-namespace ICSharpCode.WpfDesign.Designer.themes
+namespace WPFDesign.Designer.themes
 {
 	internal class VersionedAssemblyResourceDictionary : ResourceDictionary, ISupportInitialize
 	{

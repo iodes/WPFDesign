@@ -22,7 +22,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ICSharpCode.WpfDesign.PropertyGrid
+namespace WPFDesign.Core.PropertyGrid
 {
 	/// <summary>
 	/// Manages registered type and property editors.

@@ -20,7 +20,7 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ICSharpCode.WpfDesign.Designer.OutlineView
+namespace WPFDesign.Designer.OutlineView
 {
 	public class DragListener
 	{

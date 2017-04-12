@@ -18,8 +18,9 @@
 
 using System.Diagnostics;
 using System.Windows.Input;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	/// <summary>
 	/// Mouse gesture for moving elements inside a container or between containers.

@@ -19,7 +19,7 @@
 using System;
 using System.Windows;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// A combination of HorizontalAlignment/VerticalAlignment.

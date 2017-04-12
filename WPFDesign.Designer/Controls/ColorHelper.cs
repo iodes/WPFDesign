@@ -19,7 +19,7 @@
 using System;
 using System.Windows.Media;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	public static class ColorHelper
 	{

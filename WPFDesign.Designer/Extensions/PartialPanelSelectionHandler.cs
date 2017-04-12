@@ -20,10 +20,11 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using ICSharpCode.WpfDesign.Designer.Services;
-using ICSharpCode.WpfDesign.Extensions;
+using WPFDesign.Core;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Designer.Services;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	public class PartialPanelSelectionHandler : BehaviorExtension, IHandlePointerToolMouseDown
 	{

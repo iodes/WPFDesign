@@ -20,7 +20,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Description of DummyValueInsteadOfNullTypeDescriptionProvider.

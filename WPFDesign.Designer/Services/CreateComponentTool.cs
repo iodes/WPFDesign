@@ -16,13 +16,14 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System;
 using System.Linq;
 using System.Windows;
-using System;
 using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.Xaml;
+using WPFDesign.Core;
+using WPFDesign.Designer.Xaml;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	/// <summary>
 	/// A tool that creates a component.

@@ -1,4 +1,4 @@
-﻿namespace ICSharpCode.WpfDesign.Designer
+﻿namespace WPFDesign.Designer
 {
     public enum ArrangeDirection
     {

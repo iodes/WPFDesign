@@ -19,9 +19,9 @@
 using System;
 using System.Windows;
 using System.Windows.Media;
-using ICSharpCode.WpfDesign.Adorners;
+using WPFDesign.Core.Adorners;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Describes the result of a <see cref="IDesignPanel.HitTest(Point, bool, bool, HitTestType)"/> call.

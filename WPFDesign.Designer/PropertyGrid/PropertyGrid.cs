@@ -18,12 +18,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel;
-using ICSharpCode.WpfDesign.PropertyGrid;
+using System.Linq;
 using System.Windows.Threading;
+using WPFDesign.Core;
+using WPFDesign.Core.PropertyGrid;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid
+namespace WPFDesign.Designer.PropertyGrid
 {
 	public interface IPropertyGrid
 	{

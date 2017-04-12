@@ -19,10 +19,9 @@
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.UIExtensions;
+using WPFDesign.Core.UIExtensions;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	public class ZoomButtons : RangeBase
 	{

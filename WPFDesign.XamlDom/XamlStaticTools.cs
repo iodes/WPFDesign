@@ -16,13 +16,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
 using System.Xml;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// Static methods to help with designer operations which require access to internal Xaml elements.

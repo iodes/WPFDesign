@@ -18,10 +18,10 @@
 
 using System;
 using System.Windows;
-using ICSharpCode.WpfDesign.PropertyGrid;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Core.PropertyGrid;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid
+namespace WPFDesign.Designer.PropertyGrid
 {
 	public partial class PropertyContextMenu
 	{

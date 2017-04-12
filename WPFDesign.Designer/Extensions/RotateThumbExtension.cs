@@ -22,11 +22,13 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Designer.Controls;
-using ICSharpCode.WpfDesign.Extensions;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Designer.Controls;
+using WPFDesign.Designer.Controls.Thumbs;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// The resize thumb around a component.
@@ -118,7 +120,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			ModelTools.ApplyTransform(this.ExtendedItem, new RotateTransform() { Angle = destAngle });
 		}
 
-		void drag_Rotate_Completed(ICSharpCode.WpfDesign.Designer.Controls.DragListener drag)
+		void drag_Rotate_Completed(DragListener drag)
 		{
 			operation.Commit();
 		}

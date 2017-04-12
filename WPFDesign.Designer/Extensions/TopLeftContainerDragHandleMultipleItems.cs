@@ -20,13 +20,13 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Extensions;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Designer.Controls;
+using WPFDesign.Designer.Services;
 
-using ICSharpCode.WpfDesign.Designer.Services;
-using ICSharpCode.WpfDesign.Designer.Controls;
-
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	
 	/// <summary>

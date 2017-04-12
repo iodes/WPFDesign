@@ -20,17 +20,18 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Effects;
-using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Data;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Extensions;
-using ICSharpCode.WpfDesign.Designer.Controls;
-using ICSharpCode.WpfDesign.UIExtensions;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Effects;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Core.UIExtensions;
+using WPFDesign.Designer.Controls;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// Extends In-Place editor to edit any text in the designer which is wrapped in the Visual tree under TexBlock

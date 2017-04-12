@@ -21,10 +21,10 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using ICSharpCode.WpfDesign.Designer.Controls;
-using ICSharpCode.WpfDesign.UIExtensions;
+using WPFDesign.Core.UIExtensions;
+using WPFDesign.Designer.Controls;
 
-namespace ICSharpCode.WpfDesign.Designer.ThumbnailView
+namespace WPFDesign.Designer.ThumbnailView
 {
 	public class ThumbnailView : Control, INotifyPropertyChanged
 	{

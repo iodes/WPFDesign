@@ -1,4 +1,8 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Converters="clr-namespace:ICSharpCode.WpfDesign.Designer.Converters" xmlns:PropertyGrid="clr-namespace:ICSharpCode.WpfDesign.Designer.PropertyGrid" xmlns:PropertyGridBase="clr-namespace:ICSharpCode.WpfDesign.PropertyGrid;assembly=WPFDesign.Core" xmlns:Controls="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls" xmlns:propertyGrid="clr-namespace:ICSharpCode.WpfDesign.Designer.PropertyGrid">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:PropertyGrid="clr-namespace:WPFDesign.Designer.PropertyGrid"
+                    xmlns:PropertyGridBase="clr-namespace:WPFDesign.Core.PropertyGrid;assembly=WPFDesign.Core"
+                    xmlns:Converters="clr-namespace:WPFDesign.Designer"
+                    xmlns:controls="clr-namespace:WPFDesign.Designer.Controls">
 	<Style x:Key="ExpandButtonStyle" TargetType="{x:Type ToggleButton}">
 		<Setter Property="Focusable" Value="False" />
 		<Setter Property="Template">
@@ -206,8 +210,8 @@
 							<TextBlock Grid.Column="1" Text="Name:" Margin="6,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 							<TextBlock Grid.Column="1" Text="Type:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,8,0,0" />
 							<TextBlock Grid.Column="1" Text="Filter:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,54,0,0" />
-							<Controls:EnterTextBox Grid.Column="1" x:Name="NameTextBox" Text="{Binding Name}" IsEnabled="{Binding IsNameEnabled}" Margin="44,28,6,0" Height="19.277" VerticalAlignment="Top">
-								<Controls:EnterTextBox.Style>
+							<controls:EnterTextBox Grid.Column="1" x:Name="NameTextBox" Text="{Binding Name}" IsEnabled="{Binding IsNameEnabled}" Margin="44,28,6,0" Height="19.277" VerticalAlignment="Top">
+								<controls:EnterTextBox.Style>
 									<Style TargetType="{x:Type TextBox}">
 										<Style.Triggers>
 											<DataTrigger Binding="{Binding IsNameCorrect}" Value="False">
@@ -223,10 +227,10 @@
 											</MultiDataTrigger>
 										</Style.Triggers>
 									</Style>
-								</Controls:EnterTextBox.Style>
-							</Controls:EnterTextBox>
+								</controls:EnterTextBox.Style>
+							</controls:EnterTextBox>
 							<TextBlock Grid.Column="1" Text="{Binding SingleItem.ComponentType.Name}" ToolTip="{Binding SingleItem.ComponentType}" Margin="44,8,6,0" Height="13.277" VerticalAlignment="Top" />
-							<Controls:ClearableTextBox Grid.Column="1" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Margin="44,52,6,0" VerticalAlignment="Top" Height="19" />
+							<controls:ClearableTextBox Grid.Column="1" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Margin="44,52,6,0" VerticalAlignment="Top" Height="19" />
 						</Grid>
 						<Grid DockPanel.Dock="Top" Height="30">
 							<StackPanel Orientation="Horizontal">

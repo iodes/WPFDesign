@@ -17,15 +17,14 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Diagnostics;
-using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// Represents a property assignable in XAML.

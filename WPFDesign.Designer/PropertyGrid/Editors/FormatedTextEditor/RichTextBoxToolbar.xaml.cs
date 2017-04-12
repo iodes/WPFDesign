@@ -21,9 +21,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
+namespace WPFDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 {
 	/// <summary>
 	/// Interaktionslogik für RichTextBoxToolbar.xaml

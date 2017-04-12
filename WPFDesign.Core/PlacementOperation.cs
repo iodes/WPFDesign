@@ -24,7 +24,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Stores data about a placement operation.

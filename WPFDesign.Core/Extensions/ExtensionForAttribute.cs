@@ -18,7 +18,8 @@
 
 using System;
 using System.Collections.Generic;
-namespace ICSharpCode.WpfDesign.Extensions
+
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// Attribute to specify that the decorated class is a WPF extension for the specified item type.

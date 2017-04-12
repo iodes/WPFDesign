@@ -15,12 +15,13 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
-										
+
 using System.Linq;
 using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.Controls;
+using WPFDesign.Core;
+using WPFDesign.Designer.Controls;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	/// <summary>
 	/// Manages the Focus/Primary Selection using TAB for down-the-tree navigation and Shift+TAB for up-the-tree navigation. 

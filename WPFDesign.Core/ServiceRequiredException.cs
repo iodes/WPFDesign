@@ -20,7 +20,7 @@ using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Exception class used for designer failures.

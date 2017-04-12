@@ -17,16 +17,16 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Markup;
-using System.Xml;
 using System.IO;
 using System.Linq;
-using System.Windows.Media;
-using System.Collections.Generic;
 using System.Reflection;
+using System.Windows.Markup;
+using System.Windows.Media;
+using System.Xml;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// Represents a .xaml document.

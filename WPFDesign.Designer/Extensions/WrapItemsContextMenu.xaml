@@ -1,8 +1,7 @@
-﻿<ContextMenu x:Class="ICSharpCode.WpfDesign.Designer.Extensions.WrapItemsContextMenu"
+﻿<ContextMenu x:Class="WPFDesign.Designer.Extensions.WrapItemsContextMenu"
              xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Translation="clr-namespace:ICSharpCode.WpfDesign.Designer"
->
+             xmlns:Translation="clr-namespace:WPFDesign.Designer">
 	<MenuItem Header="{Binding WrapInCanvas, Source={x:Static Translation:Translations.Instance}}" Click="Click_WrapInCanvas">
         <MenuItem.Icon>
             <Image Width="16" Source="/ICSharpCode.WpfDesign.Designer;component/Images/canvas.png" />

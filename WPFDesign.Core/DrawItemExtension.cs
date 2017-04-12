@@ -19,7 +19,7 @@
 using System;
 using System.Windows.Input;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Behavior interface implemented by container elements to support resizing

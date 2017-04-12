@@ -18,7 +18,7 @@
 
 using System;
 
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	// An extension server that never applies its extensions - used for special extensions
 	// like CustomInstanceFactory

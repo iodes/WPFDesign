@@ -16,7 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	/// <summary>
 	/// Contains a set of options regarding the default designer components.

@@ -1,4 +1,4 @@
-﻿namespace ICSharpCode.WpfDesign.XamlDom
+﻿namespace WPFDesign.XamlDom
 {
 	public class XamlElementLineInfo
 	{

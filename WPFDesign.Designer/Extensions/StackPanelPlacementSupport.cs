@@ -16,17 +16,17 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
 
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Extensions;
-
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// Provides <see cref="IPlacementBehavior"/> for <see cref="StackPanel"/>.

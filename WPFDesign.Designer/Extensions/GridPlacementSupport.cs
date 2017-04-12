@@ -17,13 +17,14 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Collections.Generic;
-using System.Windows;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
-using ICSharpCode.WpfDesign.Extensions;
-using ICSharpCode.WpfDesign.Designer.Controls;
+using WPFDesign.Core;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Designer.Controls;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// Provides <see cref="IPlacementBehavior"/> behavior for <see cref="Grid"/>.

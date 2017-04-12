@@ -17,16 +17,12 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows;
-using ICSharpCode.WpfDesign.XamlDom;
-using System.Collections;
 using System.Collections.Generic;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.Xaml
+namespace WPFDesign.Designer.Xaml
 {
-	using System.Linq;
-
-	sealed class XamlModelPropertyCollection : DesignItemPropertyCollection
+    sealed class XamlModelPropertyCollection : DesignItemPropertyCollection
 	{
 		XamlDesignItem _item;
 		Dictionary<string, XamlModelProperty> propertiesDictionary = new Dictionary<string, XamlModelProperty>();

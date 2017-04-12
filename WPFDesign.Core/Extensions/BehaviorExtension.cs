@@ -16,9 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// Base class for extensions that provide a behavior interface for the designed item.

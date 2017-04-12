@@ -16,9 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// Combines two extension servers using a logical OR.

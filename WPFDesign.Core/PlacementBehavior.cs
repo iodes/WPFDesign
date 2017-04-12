@@ -19,7 +19,7 @@
 using System.Collections.Generic;
 using System.Windows;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Behavior interface implemented by container elements to support resizing

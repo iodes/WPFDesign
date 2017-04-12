@@ -21,11 +21,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Controls.Primitives;
-using ICSharpCode.WpfDesign.PropertyGrid;
+using System.Windows.Input;
+using WPFDesign.Core;
+using WPFDesign.Core.PropertyGrid;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid
+namespace WPFDesign.Designer.PropertyGrid
 {
 	[TemplatePart(Name = "PART_Thumb", Type = typeof(Thumb))]
 	public class PropertyGridView : Control

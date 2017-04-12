@@ -20,13 +20,14 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
-using ICSharpCode.WpfDesign.XamlDom;
-using ICSharpCode.WpfDesign.Designer.OutlineView;
-using ICSharpCode.WpfDesign.Designer.Services;
-using ICSharpCode.WpfDesign.PropertyGrid;
-using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors;
+using WPFDesign.Core;
+using WPFDesign.Core.PropertyGrid;
+using WPFDesign.Designer.OutlineView;
+using WPFDesign.Designer.PropertyGrid.Editors;
+using WPFDesign.Designer.Services;
+using WPFDesign.XamlDom;
 
-namespace ICSharpCode.WpfDesign.Designer.Xaml
+namespace WPFDesign.Designer.Xaml
 {
 	/// <summary>
 	/// The design context implementation used when editing XAML.

@@ -23,13 +23,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Markup;
-using System.Xml;
-using System.Windows.Data;
 using System.Windows;
+using System.Windows.Data;
+using System.Windows.Markup;
 using System.Xaml;
+using System.Xml;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// Represents a xaml object element.

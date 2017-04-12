@@ -18,11 +18,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Input;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	/// <summary>
 	/// Manages the collection of selected components and the primary selection.

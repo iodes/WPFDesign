@@ -21,10 +21,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
+using WPFDesign.Core;
+using WPFDesign.XamlDom;
 
-using ICSharpCode.WpfDesign.XamlDom;
-
-namespace ICSharpCode.WpfDesign.Designer.Xaml
+namespace WPFDesign.Designer.Xaml
 {
 	sealed class XamlComponentService : IComponentService
 	{

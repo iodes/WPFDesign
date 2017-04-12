@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:thumbnailView="clr-namespace:ICSharpCode.WpfDesign.Designer.ThumbnailView">
+	xmlns:thumbnailView="clr-namespace:WPFDesign.Designer.ThumbnailView">
 	
 	<Style TargetType="{x:Type thumbnailView:ThumbnailView}">
 		<Setter Property="SnapsToDevicePixels" Value="true" />

@@ -19,7 +19,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// Display height of the element.

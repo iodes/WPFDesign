@@ -1,8 +1,7 @@
-﻿<ContextMenu x:Class="ICSharpCode.WpfDesign.Designer.Extensions.ArrangeItemsContextMenu"
+﻿<ContextMenu x:Class="WPFDesign.Designer.Extensions.ArrangeItemsContextMenu"
              xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Translation="clr-namespace:ICSharpCode.WpfDesign.Designer"
->
+             xmlns:Translation="clr-namespace:WPFDesign.Designer">
 	<MenuItem Header="{Binding ArrangeLeft, Source={x:Static Translation:Translations.Instance}}" Click="Click_ArrangeLeft">
 		<MenuItem.Icon>
 			<Image Source="/ICSharpCode.WpfDesign.Designer;component/Images/layers-alignment-left.png" />

@@ -17,11 +17,12 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	/// <summary>
 	/// Intializes different behaviors for the Root item.

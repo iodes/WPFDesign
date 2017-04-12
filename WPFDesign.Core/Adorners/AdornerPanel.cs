@@ -17,12 +17,10 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
-namespace ICSharpCode.WpfDesign.Adorners
+namespace WPFDesign.Core.Adorners
 {
 	/// <summary>
 	/// Manages display of adorners on the design surface.

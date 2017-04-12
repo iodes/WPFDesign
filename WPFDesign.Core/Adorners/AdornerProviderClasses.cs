@@ -16,10 +16,9 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-using ICSharpCode.WpfDesign.Extensions;
+using WPFDesign.Core.Extensions;
 
-namespace ICSharpCode.WpfDesign.Adorners
+namespace WPFDesign.Core.Adorners
 {
 	// Some classes that derive from AdornerProvider to specify a certain ExtensionServer.
 	

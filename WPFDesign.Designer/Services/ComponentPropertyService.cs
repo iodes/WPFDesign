@@ -19,9 +19,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using ICSharpCode.WpfDesign.PropertyGrid;
+using WPFDesign.Core;
+using WPFDesign.Core.PropertyGrid;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	public class ComponentPropertyService : IComponentPropertyService
 	{

@@ -24,9 +24,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ICSharpCode.WpfDesign.Adorners;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// A control that displays adorner panels.

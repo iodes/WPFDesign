@@ -16,12 +16,9 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using ICSharpCode.WpfDesign.UIExtensions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls.Thumbs
 {
 	public class UserControlPointsObjectThumb : DesignerThumb
 	{

@@ -19,7 +19,7 @@
 using System;
 using System.Windows.Input;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// A command that invokes a delegate.

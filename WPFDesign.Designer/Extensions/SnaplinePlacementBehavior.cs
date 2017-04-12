@@ -18,17 +18,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using ICSharpCode.WpfDesign.Adorners;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Diagnostics;
-using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.Services;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Designer.Services;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	public class SnaplinePlacementBehavior : RasterPlacementBehavior
 	{

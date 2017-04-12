@@ -16,11 +16,9 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-using System.Diagnostics;
 using System.Windows;
 
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// Base class for all Extensions.

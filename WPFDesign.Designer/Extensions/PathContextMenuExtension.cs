@@ -18,10 +18,10 @@
 
 using System.Windows.Controls;
 using System.Windows.Shapes;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Extensions;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// 

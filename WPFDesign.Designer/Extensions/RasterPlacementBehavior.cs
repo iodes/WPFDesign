@@ -17,14 +17,15 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using ICSharpCode.WpfDesign.Adorners;
-using System.Windows;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	public class RasterPlacementBehavior : DefaultPlacementBehavior
 	{

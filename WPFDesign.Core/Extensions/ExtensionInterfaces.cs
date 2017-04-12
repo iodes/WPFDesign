@@ -6,10 +6,10 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;
+
 using System.Windows.Input;
 
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// interface that can be implemented if a control is to be alerted of  KeyDown Event on DesignPanel

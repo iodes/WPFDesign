@@ -17,10 +17,10 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Media;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
+namespace WPFDesign.Designer.PropertyGrid.Editors.BrushEditor
 {
 	public class NormalizedPanel : Panel
 	{

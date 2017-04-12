@@ -18,8 +18,9 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.OutlineView
+namespace WPFDesign.Designer.OutlineView
 {
 	public interface IOutlineNode
 	{

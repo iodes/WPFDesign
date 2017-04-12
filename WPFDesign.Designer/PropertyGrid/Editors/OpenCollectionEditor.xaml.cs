@@ -20,10 +20,10 @@ using System;
 using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
-using ICSharpCode.WpfDesign.PropertyGrid;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Core.PropertyGrid;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
+namespace WPFDesign.Designer.PropertyGrid.Editors
 {
 	[TypeEditor(typeof(ICollection))]
 	public partial class OpenCollectionEditor : UserControl

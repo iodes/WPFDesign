@@ -19,9 +19,9 @@
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
+namespace WPFDesign.Designer.PropertyGrid.Editors
 {
 	public partial class ComboBoxEditor
 	{

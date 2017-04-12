@@ -18,7 +18,7 @@
 
 using System;
 
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// Attribute to specify that the decorated class is an extension using the specified extension server.

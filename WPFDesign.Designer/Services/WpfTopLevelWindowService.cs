@@ -17,8 +17,9 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Windows;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	sealed class WpfTopLevelWindowService : ITopLevelWindowService
 	{

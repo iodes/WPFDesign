@@ -25,9 +25,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	public partial class ChooseClassDialog
 	{

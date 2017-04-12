@@ -18,15 +18,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
-using ICSharpCode.WpfDesign.PropertyGrid;
-using System.Windows.Media;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media;
+using WPFDesign.Core.PropertyGrid;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
+namespace WPFDesign.Designer.PropertyGrid.Editors.BrushEditor
 {
 	public class BrushEditor : INotifyPropertyChanged
 	{

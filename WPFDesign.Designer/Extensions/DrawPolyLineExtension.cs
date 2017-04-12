@@ -23,10 +23,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using ICSharpCode.WpfDesign.Extensions;
-using ICSharpCode.WpfDesign.Designer.Services;
+using WPFDesign.Core;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Designer.Services;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	[ExtensionFor(typeof(Canvas))]
 	[ExtensionFor(typeof(Grid))]

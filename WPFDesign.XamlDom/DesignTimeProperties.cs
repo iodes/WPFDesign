@@ -20,7 +20,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// Helper Class for the Design Time Properties used by VS and Blend

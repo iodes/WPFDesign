@@ -16,11 +16,12 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.Windows.Controls;
-using ICSharpCode.WpfDesign.Extensions;
 using System.Windows;
+using System.Windows.Controls;
+using WPFDesign.Core;
+using WPFDesign.Core.Extensions;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions.Initializers
+namespace WPFDesign.Designer.Extensions
 {
 	[ExtensionFor(typeof(ContentControl))]
 	public class ContentControlInitializer : DefaultInitializer

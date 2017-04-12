@@ -18,10 +18,10 @@
 
 using System;
 using System.Windows;
-using ICSharpCode.WpfDesign.PropertyGrid;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Core.PropertyGrid;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
+namespace WPFDesign.Designer.PropertyGrid.Editors
 {
 	[TypeEditor(typeof(bool))]
 	public partial class BoolEditor

@@ -17,9 +17,9 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Windows.Controls;
-using ICSharpCode.WpfDesign.Extensions;
+using WPFDesign.Core.Extensions;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// Makes TabItems clickable.

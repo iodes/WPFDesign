@@ -21,10 +21,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor;
+using WPFDesign.Core;
+using WPFDesign.Designer.PropertyGrid.Editors.FormatedTextEditor;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// Supports editing Text in the Designer

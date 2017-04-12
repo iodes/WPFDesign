@@ -18,7 +18,7 @@
 
 using System;
 
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// Applies an extension to the selected components.

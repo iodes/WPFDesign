@@ -1,8 +1,7 @@
-﻿<ContextMenu x:Class="ICSharpCode.WpfDesign.Designer.Extensions.TextBlockRightClickContextMenu"
+﻿<ContextMenu x:Class="WPFDesign.Designer.Extensions.TextBlockRightClickContextMenu"
              xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Translation="clr-namespace:ICSharpCode.WpfDesign.Designer"
->
+             xmlns:Translation="clr-namespace:WPFDesign.Designer">
 	<MenuItem Header="{Binding FormatedTextEditor, Source={x:Static Translation:Translations.Instance}}" Click="Click_EditFormatedText">
 		<MenuItem.Icon>
 			<Image Source="/ICSharpCode.WpfDesign.Designer;component/Images/edit.png" />

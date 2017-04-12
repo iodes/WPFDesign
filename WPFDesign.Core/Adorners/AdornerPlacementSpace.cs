@@ -16,12 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Media;
-
-namespace ICSharpCode.WpfDesign.Adorners
+namespace WPFDesign.Core.Adorners
 {
 	/// <summary>
 	/// Describes the space in which an adorner is placed.

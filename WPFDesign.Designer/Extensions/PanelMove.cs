@@ -16,12 +16,12 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Extensions;
 using System.Windows.Controls;
-using ICSharpCode.WpfDesign.Designer.Controls;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Designer.Controls;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	[ExtensionFor(typeof(Panel))]
 	[ExtensionFor(typeof(Border))]

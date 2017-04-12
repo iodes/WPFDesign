@@ -20,13 +20,14 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;			   
-using ICSharpCode.WpfDesign.Designer.Controls;
-using ICSharpCode.WpfDesign.Extensions;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors;
+using System.Windows.Media;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Designer.Controls;
+using WPFDesign.Designer.PropertyGrid.Editors;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// Extends the Quick operation menu for the designer.

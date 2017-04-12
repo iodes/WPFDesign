@@ -17,16 +17,17 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.PropertyGrid;
-using ICSharpCode.WpfDesign.Designer.themes;
-using System.Windows.Input;
 using System.ComponentModel;
-using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor;
 using System.Linq;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using WPFDesign.Core;
+using WPFDesign.Core.PropertyGrid;
+using WPFDesign.Designer.PropertyGrid.Editors.BrushEditor;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.ColorEditor
+namespace WPFDesign.Designer.PropertyGrid.Editors.ColorEditor
 {
 	[TypeEditor(typeof(Color))]
 	public partial class ColorTypeEditor

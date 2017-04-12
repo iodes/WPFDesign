@@ -17,16 +17,11 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Markup;
 using System.Xml;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	sealed class XamlTypeResolverProvider : IXamlTypeResolver, IServiceProvider
 	{

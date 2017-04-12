@@ -21,12 +21,13 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
-using ICSharpCode.WpfDesign.UIExtensions;
+using WPFDesign.Core;
+using WPFDesign.Core.UIExtensions;
 
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "ICSharpCode.WpfDesign.Designer.MarkupExtensions")]
 
 
-namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
+namespace WPFDesign.Designer.MarkupExtensions
 {
 	/// <summary>
 	/// A Binding to a DesignItem of Object

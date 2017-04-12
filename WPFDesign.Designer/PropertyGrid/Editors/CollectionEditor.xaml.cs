@@ -17,15 +17,16 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.ComponentModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using ICSharpCode.WpfDesign.Designer.OutlineView;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Core;
+using WPFDesign.Designer.OutlineView;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
+namespace WPFDesign.Designer.PropertyGrid.Editors
 {
 	public partial class CollectionEditor : Window
 	{

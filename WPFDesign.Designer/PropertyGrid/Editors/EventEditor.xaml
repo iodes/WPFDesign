@@ -1,5 +1,5 @@
 ﻿<TextBox 
-    x:Class="ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.EventEditor"
+    x:Class="WPFDesign.Designer.PropertyGrid.Editors.EventEditor"
     xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     BorderThickness="0"

@@ -16,19 +16,20 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.Windows.Media;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Documents;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media.Media3D;
-using System.Windows.Shapes;
-using System.Windows.Media.Animation;
 using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	public static class BasicMetadata
 	{

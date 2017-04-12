@@ -22,10 +22,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ICSharpCode.WpfDesign.Designer.Extensions;
-using ICSharpCode.WpfDesign.XamlDom;
+using WPFDesign.Core;
+using WPFDesign.XamlDom;
 
-namespace ICSharpCode.WpfDesign.Designer.Xaml
+namespace WPFDesign.Designer.Xaml
 {
 	/// <summary>
 	/// Deals with operations on controls which also require access to internal XML properties of the XAML Document.

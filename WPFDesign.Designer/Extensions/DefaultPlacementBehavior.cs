@@ -19,14 +19,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
-using ICSharpCode.WpfDesign.Extensions;
-using System.Windows.Controls;
 using System.Windows;
-using ICSharpCode.WpfDesign.Designer.Controls;
-using ICSharpCode.WpfDesign.XamlDom;
+using System.Windows.Controls;
+using System.Windows.Input;
+using WPFDesign.Core;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Designer.Controls;
+using WPFDesign.XamlDom;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	[ExtensionFor(typeof(Panel))]
 	[ExtensionFor(typeof(Control))]

@@ -16,11 +16,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ICSharpCode.WpfDesign.Designer.OutlineView
+namespace WPFDesign.Designer.OutlineView
 {
 	public class IconItem : Control
 	{

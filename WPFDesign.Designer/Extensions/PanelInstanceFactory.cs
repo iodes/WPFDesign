@@ -18,11 +18,12 @@
 
 using System;
 using System.ComponentModel;
-using System.Windows.Media;
 using System.Windows.Controls;
-using ICSharpCode.WpfDesign.Extensions;
+using System.Windows.Media;
+using WPFDesign.Core;
+using WPFDesign.Core.Extensions;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// Instance factory used to create Panel instances.

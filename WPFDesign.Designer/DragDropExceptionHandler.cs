@@ -19,7 +19,7 @@
 using System;
 using System.Threading;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	/// <summary>
 	/// When the designer is hosted in a Windows.Forms application, exceptions in

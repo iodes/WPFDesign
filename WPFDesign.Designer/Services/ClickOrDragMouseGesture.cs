@@ -21,7 +21,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	/// <summary>
 	/// Base class for mouse gestures that should start dragging only after a minimum drag distance.

@@ -20,8 +20,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.OutlineView
+namespace WPFDesign.Designer.OutlineView
 { 
 	public class OutlineNode: OutlineNodeBase
 	{

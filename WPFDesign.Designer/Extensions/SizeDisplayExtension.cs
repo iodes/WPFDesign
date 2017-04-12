@@ -17,10 +17,11 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Windows;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Extensions;
-using ICSharpCode.WpfDesign.Designer.Controls;
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Designer.Controls;
+
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// Display Height/Width on the primary selection

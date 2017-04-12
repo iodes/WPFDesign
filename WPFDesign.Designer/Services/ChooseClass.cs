@@ -19,10 +19,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Data;
 using System.Reflection;
+using System.Windows.Data;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	public class ChooseClass : INotifyPropertyChanged
 	{

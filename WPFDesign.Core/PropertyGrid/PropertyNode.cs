@@ -17,15 +17,15 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Linq;
-using System.ComponentModel;
-using System.Windows;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 using System.Windows.Markup;
+using System.Windows.Media;
 
-namespace ICSharpCode.WpfDesign.PropertyGrid
+namespace WPFDesign.Core.PropertyGrid
 {
 	/// <summary>
 	/// View-Model class for the property grid.

@@ -20,8 +20,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {	
 	class DesignerKeyBindings : IKeyBindingService
     {

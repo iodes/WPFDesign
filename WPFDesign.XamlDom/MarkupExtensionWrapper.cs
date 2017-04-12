@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Markup;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// A wrapper for markup extensions if custom behavior of <see cref="System.Windows.Markup.MarkupExtension.ProvideValue"/> is needed in the designer.

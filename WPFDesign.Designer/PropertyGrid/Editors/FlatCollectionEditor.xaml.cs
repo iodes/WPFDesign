@@ -18,12 +18,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Core;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
+namespace WPFDesign.Designer.PropertyGrid.Editors
 {
 	public partial class FlatCollectionEditor : Window
 	{

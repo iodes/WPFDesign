@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="ICSharpCode.WpfDesign.Designer.Controls.ColorPicker"
+﻿<UserControl x:Class="WPFDesign.Designer.Controls.ColorPicker"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:widgets="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls"
+             xmlns:controls="clr-namespace:WPFDesign.Designer.Controls"
              x:Name="this"
              Padding="5"
              Width="373">
@@ -53,7 +53,7 @@
 			</Border>
 			
 			<DockPanel Margin="0 3 0 0">
-				<widgets:HexTextBox Text="{Binding Hex, ElementName=this, UpdateSourceTrigger=PropertyChanged}"
+				<controls:HexTextBox Text="{Binding Hex, ElementName=this, UpdateSourceTrigger=PropertyChanged}"
 					Width="70"
 					Margin="5 0 0 0"
 					DockPanel.Dock="Right" />
@@ -63,7 +63,7 @@
 			</DockPanel>
 			
 			<DockPanel Margin="0 3 0 0">
-				<widgets:NumericUpDown Value="{Binding H, ElementName=this}"
+				<controls:NumericUpDown Value="{Binding H, ElementName=this}"
 					Maximum="360"
 					Width="70"
 					Margin="5 0 0 0"
@@ -74,7 +74,7 @@
 			</DockPanel>
 			
 			<DockPanel Margin="0 3 0 0">
-				<widgets:NumericUpDown Value="{Binding S, ElementName=this}"
+				<controls:NumericUpDown Value="{Binding S, ElementName=this}"
 					Width="70"
 					Margin="5 0 0 0"
 					DockPanel.Dock="Right" />
@@ -84,7 +84,7 @@
 			</DockPanel>
 			
 			<DockPanel Margin="0 3 0 0">
-				<widgets:NumericUpDown Value="{Binding V, ElementName=this}"
+				<controls:NumericUpDown Value="{Binding V, ElementName=this}"
 					Width="70"
 					Margin="5 0 0 0"
 					DockPanel.Dock="Right" />
@@ -94,7 +94,7 @@
 			</DockPanel>
 			
 			<DockPanel Margin="0 3 0 0">
-				<widgets:NumericUpDown Value="{Binding R, ElementName=this}"
+				<controls:NumericUpDown Value="{Binding R, ElementName=this}"
 					Maximum="255"
 					Width="70"
 					Margin="5 0 0 0"
@@ -105,7 +105,7 @@
 			</DockPanel>
 			
 			<DockPanel Margin="0 3 0 0">
-				<widgets:NumericUpDown Value="{Binding G, ElementName=this}"
+				<controls:NumericUpDown Value="{Binding G, ElementName=this}"
 					Maximum="255"
 					Width="70"
 					Margin="5 0 0 0"
@@ -116,7 +116,7 @@
 			</DockPanel>
 			
 			<DockPanel Margin="0 3 0 0">
-				<widgets:NumericUpDown Value="{Binding B, ElementName=this}"
+				<controls:NumericUpDown Value="{Binding B, ElementName=this}"
 					Maximum="255"
 					Width="70"
 					Margin="5 0 0 0"
@@ -127,7 +127,7 @@
 			</DockPanel>
 			
 			<DockPanel Margin="0 3 0 0">
-				<widgets:NumericUpDown Value="{Binding A, ElementName=this}"
+				<controls:NumericUpDown Value="{Binding A, ElementName=this}"
 					Maximum="255"
 					Width="70"
 					Margin="5 0 0 0"
@@ -141,7 +141,7 @@
 		
 		<Border Margin="10 0 0 0"
 		        DockPanel.Dock="Right">
-			<widgets:Picker Orientation="Vertical"
+			<controls:Picker Orientation="Vertical"
 				Value="{Binding H, ElementName=this}"
 				Minimum="360"
 				Maximum="0"
@@ -178,15 +178,15 @@
 					      Data="M 0 0 L -5 5 L 0 10 Z"
 					      Fill="Black" />
 				</Grid>
-			</widgets:Picker>
+			</controls:Picker>
 		</Border>
 		
 		<Border BorderBrush="Black"
 		        BorderThickness="1">
-			<widgets:Picker Value="{Binding S, ElementName=this}"
+			<controls:Picker Value="{Binding S, ElementName=this}"
 				Marker="{Binding ElementName=point}"
 				ClipToBounds="True">
-				<widgets:Picker Orientation="Vertical"
+				<controls:Picker Orientation="Vertical"
 					Value="{Binding V, ElementName=this}"
 					Minimum="100"
 					Maximum="0"
@@ -223,8 +223,8 @@
 						         Margin="1"
 						         IsHitTestVisible="False" />
 					</Grid>
-				</widgets:Picker>
-			</widgets:Picker>
+				</controls:Picker>
+			</controls:Picker>
 		</Border>
 	
 	</DockPanel>

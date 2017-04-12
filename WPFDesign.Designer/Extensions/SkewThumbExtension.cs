@@ -20,12 +20,13 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Designer.Controls;
-using ICSharpCode.WpfDesign.Extensions;
-using ICSharpCode.WpfDesign.UIExtensions;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Core.UIExtensions;
+using WPFDesign.Designer.Controls;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	[ExtensionServer(typeof(OnlyOneItemSelectedExtensionServer))]
 	[ExtensionFor(typeof(FrameworkElement))]
@@ -112,7 +113,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			_adornerLayer.UpdateAdornersForElement(this.ExtendedItem.View, true);
 		}
 		
-		void dragX_Completed(ICSharpCode.WpfDesign.Designer.Controls.DragListener drag)
+		void dragX_Completed(DragListener drag)
 		{
 			operation.Commit();
 		}
@@ -175,7 +176,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			_adornerLayer.UpdateAdornersForElement(this.ExtendedItem.View, true);
 		}
 		
-		void dragY_Completed(ICSharpCode.WpfDesign.Designer.Controls.DragListener drag)
+		void dragY_Completed(DragListener drag)
 		{
 			operation.Commit();
 		}

@@ -17,14 +17,11 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.ComponentModel;
 using System.IO;
-using System.Windows;
 using System.Windows.Controls;
 using System.Xaml;
-using System.Xml;
 
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// 

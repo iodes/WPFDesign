@@ -20,13 +20,8 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.Designer.Converters;
-using System.Windows.Data;
-using ICSharpCode.WpfDesign.UIExtensions;
 
-
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// A Small icon which shows up a menu containing common properties

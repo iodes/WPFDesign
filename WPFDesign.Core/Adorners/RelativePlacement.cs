@@ -17,11 +17,9 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Media;
 
-namespace ICSharpCode.WpfDesign.Adorners
+namespace WPFDesign.Core.Adorners
 {
 	// We have to support the different coordinate spaces as explained in
 	// http://myfun.spaces.live.com/blog/cns!AC1291870308F748!242.entry

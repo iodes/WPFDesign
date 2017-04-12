@@ -18,12 +18,9 @@
 
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
-using System.Xaml;
-using System.Xml;
 
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// A special kind of extension that is used to create instances of objects when loading XAML inside

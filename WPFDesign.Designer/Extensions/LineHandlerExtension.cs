@@ -17,14 +17,17 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using ICSharpCode.WpfDesign.Extensions;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Designer.Controls;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shapes;
-using System.Windows.Controls;
-using ICSharpCode.WpfDesign.UIExtensions;
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Core.UIExtensions;
+using WPFDesign.Designer.Controls;
+using WPFDesign.Designer.Controls.Thumbs;
+
+namespace WPFDesign.Designer.Extensions
 {
 #pragma warning disable CS3016 // Arrays as attribute arguments is not CLS-compliant
 							  /// <summary>

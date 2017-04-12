@@ -19,11 +19,10 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
 
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Extensions;
-
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	[ExtensionFor(typeof(Panel))]
 	[ExtensionFor(typeof(Border))]

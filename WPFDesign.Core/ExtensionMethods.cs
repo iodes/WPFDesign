@@ -20,7 +20,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Extension methods used in the WPF designer.

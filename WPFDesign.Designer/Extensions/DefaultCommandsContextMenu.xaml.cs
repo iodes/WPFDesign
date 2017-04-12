@@ -18,9 +18,10 @@
 
 using System;
 using System.Windows;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Core;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	public partial class DefaultCommandsContextMenu
 	{

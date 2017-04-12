@@ -24,13 +24,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Designer.Controls;
-using ICSharpCode.WpfDesign.UIExtensions;
-using ICSharpCode.WpfDesign.Designer.Xaml;
-using ICSharpCode.WpfDesign.Extensions;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Core.UIExtensions;
+using WPFDesign.Designer.Controls;
+using WPFDesign.Designer.Xaml;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	public sealed class DesignPanel : Decorator, IDesignPanel, INotifyPropertyChanged
 	{

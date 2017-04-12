@@ -19,20 +19,21 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml;
-using ICSharpCode.WpfDesign.Designer.Xaml;
-using ICSharpCode.WpfDesign.Designer.Services;
-using ICSharpCode.WpfDesign.Designer.Controls;
-using System.Diagnostics;
-using System.Threading;
-using System.Globalization;
+using WPFDesign.Core;
+using WPFDesign.Designer.Controls;
+using WPFDesign.Designer.Services;
+using WPFDesign.Designer.Xaml;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	/// <summary>
 	/// Surface hosting the WPF designer.

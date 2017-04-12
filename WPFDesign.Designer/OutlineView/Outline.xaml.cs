@@ -18,9 +18,9 @@
 
 using System;
 using System.Windows;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.OutlineView
+namespace WPFDesign.Designer.OutlineView
 {
 	public partial class Outline
 	{

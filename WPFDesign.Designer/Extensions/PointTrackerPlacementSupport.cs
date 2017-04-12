@@ -18,9 +18,10 @@
 
 using System.Windows;
 using System.Windows.Shapes;
-using ICSharpCode.WpfDesign.Adorners;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	public class PointTrackerPlacementSupport : AdornerPlacement
 	{

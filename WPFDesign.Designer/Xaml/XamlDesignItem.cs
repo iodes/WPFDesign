@@ -25,11 +25,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using ICSharpCode.WpfDesign.XamlDom;
-using ICSharpCode.WpfDesign.Designer.Services;
 using System.Windows.Markup;
+using WPFDesign.Core;
+using WPFDesign.Designer.Services;
+using WPFDesign.XamlDom;
 
-namespace ICSharpCode.WpfDesign.Designer.Xaml
+namespace WPFDesign.Designer.Xaml
 {
 	[DebuggerDisplay("XamlDesignItem: {ComponentType.Name}")]
 	public sealed class XamlDesignItem : DesignItem

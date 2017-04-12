@@ -17,9 +17,10 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Collections.Generic;
-using ICSharpCode.WpfDesign.UIExtensions;
+using WPFDesign.Core;
+using WPFDesign.Core.UIExtensions;
 
-namespace ICSharpCode.WpfDesign.Designer.OutlineView
+namespace WPFDesign.Designer.OutlineView
 {
 	public class OutlineTreeView : DragTreeView
 	{

@@ -18,7 +18,7 @@
 
 using System;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Base class for change groups.

@@ -18,9 +18,10 @@
 
 using System.Diagnostics;
 using System.Windows;
-using ICSharpCode.WpfDesign.Adorners;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls.Thumbs
 {
 	/// <summary>
 	/// Resize thumb that automatically disappears if the adornered element is too small.

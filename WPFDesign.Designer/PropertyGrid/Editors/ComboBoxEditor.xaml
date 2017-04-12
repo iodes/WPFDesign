@@ -1,8 +1,8 @@
-﻿<local:NullableComboBox
-	x:Class="ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.ComboBoxEditor"
+﻿<controls:NullableComboBox
+	x:Class="WPFDesign.Designer.PropertyGrid.Editors.ComboBoxEditor"
 	xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:local="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls"
+	xmlns:controls="clr-namespace:WPFDesign.Designer.Controls"
 	BorderThickness="0"
 	SelectedItem="{Binding Value}"
 	Background="{x:Null}"
@@ -12,9 +12,9 @@
 	VirtualizingStackPanel.IsVirtualizing="True" 
 	ScrollViewer.CanContentScroll="True"
 >
-	<local:NullableComboBox.ItemsPanel>
+	<controls:NullableComboBox.ItemsPanel>
 		<ItemsPanelTemplate>
 			<VirtualizingStackPanel />
 		</ItemsPanelTemplate>
-	</local:NullableComboBox.ItemsPanel>
-</local:NullableComboBox>
+	</controls:NullableComboBox.ItemsPanel>
+</controls:NullableComboBox>

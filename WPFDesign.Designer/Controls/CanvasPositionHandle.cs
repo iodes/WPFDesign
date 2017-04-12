@@ -22,9 +22,10 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
-using ICSharpCode.WpfDesign.Adorners;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// Adorner that displays the margin of a control in a Grid.

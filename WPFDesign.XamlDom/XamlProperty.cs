@@ -21,13 +21,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using System.Xml;
 using System.Windows;
 using System.Windows.Markup;
 using System.Xaml;
+using System.Xml;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// Describes a property on a <see cref="XamlObject"/>.

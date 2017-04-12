@@ -6,7 +6,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 
-namespace ICSharpCode.WpfDesign.UIExtensions
+namespace WPFDesign.Core.UIExtensions
 {
 	public static class MouseHorizontalWheelEnabler
 	{

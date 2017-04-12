@@ -16,14 +16,15 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using ICSharpCode.WpfDesign.Designer.Controls;
-using System.Windows.Shapes;
-using ICSharpCode.WpfDesign.Adorners;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections;
+using System.Windows.Shapes;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Designer.Controls.Thumbs;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// base class for the Line, Polyline and Polygon extension classes

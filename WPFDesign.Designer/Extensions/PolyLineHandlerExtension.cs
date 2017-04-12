@@ -17,19 +17,21 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using ICSharpCode.WpfDesign.Extensions;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Designer.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using ICSharpCode.WpfDesign.UIExtensions;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Core.Extensions;
+using WPFDesign.Core.UIExtensions;
+using WPFDesign.Designer.Controls;
+using WPFDesign.Designer.Controls.Thumbs;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	/// <summary>
 	/// Description of PolyLineHandlerExtension.

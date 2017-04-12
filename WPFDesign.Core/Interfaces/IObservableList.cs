@@ -19,8 +19,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-
-namespace ICSharpCode.WpfDesign.Interfaces
+namespace WPFDesign.Core.Interfaces
 {
 	/// <summary>
 	/// A IList wich implements INotifyCollectionChanged

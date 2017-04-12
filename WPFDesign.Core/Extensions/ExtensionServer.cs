@@ -19,7 +19,7 @@
 using System;
 using System.Diagnostics;
 
-namespace ICSharpCode.WpfDesign.Extensions
+namespace WPFDesign.Core.Extensions
 {
 	/// <summary>
 	/// An ExtensionServer manages a creating and removing extensions of the specific extension type.

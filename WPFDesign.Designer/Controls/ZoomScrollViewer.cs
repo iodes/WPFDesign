@@ -21,9 +21,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using ICSharpCode.WpfDesign.UIExtensions;
+using WPFDesign.Core.UIExtensions;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	public class ZoomScrollViewer : ScrollViewer
 	{

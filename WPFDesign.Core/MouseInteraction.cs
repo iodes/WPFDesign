@@ -18,7 +18,7 @@
 
 using System.Windows.Input;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	// Interfaces for mouse interaction on the design surface.
 	

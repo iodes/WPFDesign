@@ -21,11 +21,12 @@ using System.IO;
 using System.Windows;
 using System.Windows.Markup;
 using System.Xml;
-using ICSharpCode.WpfDesign.Designer.Xaml;
-using ICSharpCode.WpfDesign.XamlDom;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Core;
+using WPFDesign.Designer.themes;
+using WPFDesign.Designer.Xaml;
+using WPFDesign.XamlDom;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
+namespace WPFDesign.Designer.Extensions
 {
 	public partial class EditStyleContextMenu
 	{

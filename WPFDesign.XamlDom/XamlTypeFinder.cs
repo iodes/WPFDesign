@@ -25,7 +25,7 @@ using System.Windows.Markup;
 using System.Xaml;
 using XamlReader = System.Windows.Markup.XamlReader;
 
-namespace ICSharpCode.WpfDesign.XamlDom
+namespace WPFDesign.XamlDom
 {
 	/// <summary>
 	/// Allows finding types in a set of assemblies.

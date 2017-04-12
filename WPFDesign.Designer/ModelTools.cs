@@ -18,17 +18,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Linq;
 using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Xps.Serialization;
-using ICSharpCode.WpfDesign.Designer.Xaml;
+using WPFDesign.Core;
+using WPFDesign.Designer.Xaml;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	/// <summary>
 	/// Static helper methods for working with the designer DOM.

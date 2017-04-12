@@ -19,10 +19,10 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using ICSharpCode.WpfDesign.Designer.Services;
-using ICSharpCode.WpfDesign.XamlDom;
+using WPFDesign.Designer.Services;
+using WPFDesign.XamlDom;
 
-namespace ICSharpCode.WpfDesign.Designer.Xaml
+namespace WPFDesign.Designer.Xaml
 {
 	/// <summary>
 	/// Settings used to load a XAML document.

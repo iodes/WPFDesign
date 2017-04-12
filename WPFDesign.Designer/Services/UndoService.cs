@@ -19,8 +19,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	#region ITransactionItem
 	interface ITransactionItem : IUndoAction

@@ -18,7 +18,7 @@
 
 using System.Windows.Input;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	/// <summary>
 	/// Description of Commands.

@@ -17,12 +17,12 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.ComponentModel;
-using System.Windows.Input;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	#region ISelectionService
 	/// <summary>

@@ -18,10 +18,9 @@
 
 using System.Windows;
 using System.Windows.Media;
-using ICSharpCode.WpfDesign.Adorners;
-using System.Windows.Data;
+using WPFDesign.Core.Adorners;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls.Thumbs
 {
 	/// <summary>
 	/// Description of MultiPointThumb.

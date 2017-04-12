@@ -24,10 +24,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
+using WPFDesign.Core.Extensions;
 
-using ICSharpCode.WpfDesign.Extensions;
-
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// A custom control that imitates the properties of <see cref="Window"/>, but is not a top-level control.

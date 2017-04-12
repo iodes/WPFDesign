@@ -16,13 +16,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.Extensions;
+using WPFDesign.Core.Extensions;
 
-namespace ICSharpCode.WpfDesign.Adorners
+namespace WPFDesign.Core.Adorners
 {
 	/// <summary>
 	/// Base class for extensions that present adorners on the screen.

@@ -20,9 +20,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
-using ICSharpCode.WpfDesign.Interfaces;
+using WPFDesign.Core.Interfaces;
 
-namespace ICSharpCode.WpfDesign
+namespace WPFDesign.Core
 {
 	/// <summary>
 	/// Represents a property of a DesignItem.

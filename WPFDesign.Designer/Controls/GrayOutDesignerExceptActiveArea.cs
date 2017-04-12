@@ -21,12 +21,13 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Threading;
 using System.Windows.Media.Animation;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Designer.Services;
+using System.Windows.Threading;
+using WPFDesign.Core;
+using WPFDesign.Core.Adorners;
+using WPFDesign.Designer.Services;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// Gray out everything except a specific area.

@@ -19,9 +19,9 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
+namespace WPFDesign.Designer.PropertyGrid.Editors.BrushEditor
 {
 	public partial class BrushEditorPopup
 	{

@@ -22,10 +22,11 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using ICSharpCode.WpfDesign.Designer.Xaml;
-using ICSharpCode.WpfDesign.XamlDom;
+using WPFDesign.Core;
+using WPFDesign.Designer.Xaml;
+using WPFDesign.XamlDom;
 
-namespace ICSharpCode.WpfDesign.Designer.OutlineView
+namespace WPFDesign.Designer.OutlineView
 {
 	/// <summary>
 	/// Description of OutlineNodeBase.

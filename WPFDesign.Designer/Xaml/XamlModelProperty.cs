@@ -21,13 +21,13 @@
 
 using System;
 using System.Diagnostics;
-using ICSharpCode.WpfDesign.Interfaces;
-using ICSharpCode.WpfDesign.XamlDom;
-using ICSharpCode.WpfDesign.Designer.Services;
 using System.Windows;
-using System.Windows.Markup;
+using WPFDesign.Core;
+using WPFDesign.Core.Interfaces;
+using WPFDesign.Designer.Services;
+using WPFDesign.XamlDom;
 
-namespace ICSharpCode.WpfDesign.Designer.Xaml
+namespace WPFDesign.Designer.Xaml
 {
 	[DebuggerDisplay("XamlModelProperty: {Name}")]
 	sealed class XamlModelProperty : DesignItemProperty, IEquatable<XamlModelProperty>

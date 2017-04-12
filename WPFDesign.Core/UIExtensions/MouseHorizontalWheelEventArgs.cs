@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace ICSharpCode.WpfDesign.UIExtensions
+namespace WPFDesign.Core.UIExtensions
 {
 	public class MouseHorizontalWheelEventArgs : MouseEventArgs
 	{

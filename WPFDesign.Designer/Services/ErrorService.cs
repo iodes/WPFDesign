@@ -18,9 +18,10 @@
 
 using System;
 using System.Windows;
-using ICSharpCode.WpfDesign.Designer.Controls;
+using WPFDesign.Core;
+using WPFDesign.Designer.Controls;
 
-namespace ICSharpCode.WpfDesign.Designer.Services
+namespace WPFDesign.Designer.Services
 {
 	sealed class DefaultErrorService : IErrorService
 	{

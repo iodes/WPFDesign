@@ -19,9 +19,9 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.themes;
+using WPFDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.ColorEditor
+namespace WPFDesign.Designer.PropertyGrid.Editors.ColorEditor
 {
 	public partial class ColorEditorPopup
 	{

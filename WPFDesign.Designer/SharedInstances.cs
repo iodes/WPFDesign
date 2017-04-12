@@ -18,8 +18,9 @@
 
 using System;
 using System.Collections.Generic;
+using WPFDesign.Core;
 
-namespace ICSharpCode.WpfDesign.Designer
+namespace WPFDesign.Designer
 {
 	static class SharedInstances
 	{

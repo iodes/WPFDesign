@@ -16,14 +16,13 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.Designer.Converters;
+using System.Windows.Controls;
 using System.Windows.Data;
-using ICSharpCode.WpfDesign.UIExtensions;
+using System.Windows.Media;
+using WPFDesign.Core.UIExtensions;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// A thumb where the look can depend on the IsPrimarySelection property.

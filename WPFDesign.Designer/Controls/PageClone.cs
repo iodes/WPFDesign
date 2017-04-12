@@ -26,9 +26,9 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Navigation;
-using ICSharpCode.WpfDesign.Extensions;
+using WPFDesign.Core.Extensions;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
+namespace WPFDesign.Designer.Controls
 {
 	/// <summary>
 	/// Description of PageClone.
