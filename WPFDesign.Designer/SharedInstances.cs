@@ -22,37 +22,37 @@ using WPFDesign.Core;
 
 namespace WPFDesign.Designer
 {
-	static class SharedInstances
-	{
-		internal static readonly object BoxedTrue = true;
-		internal static readonly object BoxedFalse = false;
-		internal static readonly object BoxedDouble1 = 1.0;
-		internal static readonly object BoxedDouble0 = 0.0;
-		internal static readonly object[] EmptyObjectArray = new object[0];
-		internal static readonly DesignItem[] EmptyDesignItemArray = new DesignItem[0];
-		
-		internal static object Box(bool value)
-		{
-			return value ? BoxedTrue : BoxedFalse;
-		}
-	}
+    static class SharedInstances
+    {
+        internal static readonly object BoxedTrue = true;
+        internal static readonly object BoxedFalse = false;
+        internal static readonly object BoxedDouble1 = 1.0;
+        internal static readonly object BoxedDouble0 = 0.0;
+        internal static readonly object[] EmptyObjectArray = new object[0];
+        internal static readonly DesignItem[] EmptyDesignItemArray = new DesignItem[0];
 
-	static class SharedInstances<T> where T: struct, IConvertible
-	{
-		private static Dictionary<T, object> _boxedEnumValues;
+        internal static object Box(bool value)
+        {
+            return value ? BoxedTrue : BoxedFalse;
+        }
+    }
 
-		static SharedInstances()
-		{
-			_boxedEnumValues = new Dictionary<T, object>();
-			foreach (var value in Enum.GetValues(typeof(T)))
-			{
-				_boxedEnumValues.Add((T)value, value);
-			}
-		}
+    static class SharedInstances<T> where T : struct, IConvertible
+    {
+        private static Dictionary<T, object> _boxedEnumValues;
 
-		internal static object Box(T value)
-		{
-			return _boxedEnumValues[value];
-		}
-	}
+        static SharedInstances()
+        {
+            _boxedEnumValues = new Dictionary<T, object>();
+            foreach (var value in Enum.GetValues(typeof(T)))
+            {
+                _boxedEnumValues.Add((T) value, value);
+            }
+        }
+
+        internal static object Box(T value)
+        {
+            return _boxedEnumValues[value];
+        }
+    }
 }

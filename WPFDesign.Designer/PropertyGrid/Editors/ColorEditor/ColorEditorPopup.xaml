@@ -6,5 +6,5 @@
        AllowsTransparency="True"
        SnapsToDevicePixels="True"
        StaysOpen="False">
-	<brushEditor:SolidBrushEditor x:Name="solidBrushEditor" x:FieldModifier="public" />
+    <brushEditor:SolidBrushEditor x:Name="solidBrushEditor" x:FieldModifier="public" />
 </Popup>

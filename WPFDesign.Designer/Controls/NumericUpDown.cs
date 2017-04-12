@@ -24,223 +24,237 @@ using System.Windows.Input;
 
 namespace WPFDesign.Designer.Controls
 {
-	public class NumericUpDown : Control
-	{
-		static NumericUpDown()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericUpDown),
-				new FrameworkPropertyMetadata(typeof(NumericUpDown)));
-		}
-		
-		TextBox textBox;
-		DragRepeatButton upButton;
-		DragRepeatButton downButton;
+    public class NumericUpDown : Control
+    {
+        static NumericUpDown()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericUpDown),
+                new FrameworkPropertyMetadata(typeof(NumericUpDown)));
+        }
 
-		public static readonly DependencyProperty DecimalPlacesProperty =
-			DependencyProperty.Register("DecimalPlaces", typeof(int), typeof(NumericUpDown));
+        TextBox textBox;
+        DragRepeatButton upButton;
+        DragRepeatButton downButton;
 
-		public int DecimalPlaces {
-			get { return (int)GetValue(DecimalPlacesProperty); }
-			set { SetValue(DecimalPlacesProperty, value); }
-		}
+        public static readonly DependencyProperty DecimalPlacesProperty =
+            DependencyProperty.Register("DecimalPlaces", typeof(int), typeof(NumericUpDown));
 
-		public static readonly DependencyProperty MinimumProperty =
-			DependencyProperty.Register("Minimum", typeof(double), typeof(NumericUpDown));
+        public int DecimalPlaces
+        {
+            get { return (int) GetValue(DecimalPlacesProperty); }
+            set { SetValue(DecimalPlacesProperty, value); }
+        }
 
-		public double Minimum {
-			get { return (double)GetValue(MinimumProperty); }
-			set { SetValue(MinimumProperty, value); }
-		}
+        public static readonly DependencyProperty MinimumProperty =
+            DependencyProperty.Register("Minimum", typeof(double), typeof(NumericUpDown));
 
-		public static readonly DependencyProperty MaximumProperty =
-			DependencyProperty.Register("Maximum", typeof(double), typeof(NumericUpDown),
-			new FrameworkPropertyMetadata(100.0));
+        public double Minimum
+        {
+            get { return (double) GetValue(MinimumProperty); }
+            set { SetValue(MinimumProperty, value); }
+        }
 
-		public double Maximum {
-			get { return (double)GetValue(MaximumProperty); }
-			set { SetValue(MaximumProperty, value); }
-		}
+        public static readonly DependencyProperty MaximumProperty =
+            DependencyProperty.Register("Maximum", typeof(double), typeof(NumericUpDown),
+                new FrameworkPropertyMetadata(100.0));
 
-		public static readonly DependencyProperty ValueProperty =
-			DependencyProperty.Register("Value", typeof(double), typeof(NumericUpDown),
-			new FrameworkPropertyMetadata(SharedInstances.BoxedDouble0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public double Maximum
+        {
+            get { return (double) GetValue(MaximumProperty); }
+            set { SetValue(MaximumProperty, value); }
+        }
 
-		public double Value {
-			get { return (double)GetValue(ValueProperty); }
-			set { SetValue(ValueProperty, value); }
-		}
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value", typeof(double), typeof(NumericUpDown),
+                new FrameworkPropertyMetadata(SharedInstances.BoxedDouble0,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-		public static readonly DependencyProperty SmallChangeProperty =
-			DependencyProperty.Register("SmallChange", typeof(double), typeof(NumericUpDown),
-			new FrameworkPropertyMetadata(SharedInstances.BoxedDouble1));
+        public double Value
+        {
+            get { return (double) GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
 
-		public double SmallChange {
-			get { return (double)GetValue(SmallChangeProperty); }
-			set { SetValue(SmallChangeProperty, value); }
-		}
+        public static readonly DependencyProperty SmallChangeProperty =
+            DependencyProperty.Register("SmallChange", typeof(double), typeof(NumericUpDown),
+                new FrameworkPropertyMetadata(SharedInstances.BoxedDouble1));
 
-		public static readonly DependencyProperty LargeChangeProperty =
-			DependencyProperty.Register("LargeChange", typeof(double), typeof(NumericUpDown),
-			new FrameworkPropertyMetadata(10.0));
+        public double SmallChange
+        {
+            get { return (double) GetValue(SmallChangeProperty); }
+            set { SetValue(SmallChangeProperty, value); }
+        }
 
-		public double LargeChange {
-			get { return (double)GetValue(LargeChangeProperty); }
-			set { SetValue(LargeChangeProperty, value); }
-		}
+        public static readonly DependencyProperty LargeChangeProperty =
+            DependencyProperty.Register("LargeChange", typeof(double), typeof(NumericUpDown),
+                new FrameworkPropertyMetadata(10.0));
 
-		bool IsDragging {
-			get {
-				return upButton.IsDragging;
-			}
-			set {
-				upButton.IsDragging = value; downButton.IsDragging = value;
-			}
-		}
+        public double LargeChange
+        {
+            get { return (double) GetValue(LargeChangeProperty); }
+            set { SetValue(LargeChangeProperty, value); }
+        }
 
-		public override void OnApplyTemplate()
-		{
-			base.OnApplyTemplate();
+        bool IsDragging
+        {
+            get { return upButton.IsDragging; }
+            set
+            {
+                upButton.IsDragging = value;
+                downButton.IsDragging = value;
+            }
+        }
 
-			upButton = (DragRepeatButton)Template.FindName("PART_UpButton", this);
-			downButton = (DragRepeatButton)Template.FindName("PART_DownButton", this);
-			textBox = (TextBox)Template.FindName("PART_TextBox", this);
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
 
-			upButton.Click += upButton_Click;
-			downButton.Click += downButton_Click;
-			
-			textBox.LostFocus += (sender, e) => OnLostFocus(e);
+            upButton = (DragRepeatButton) Template.FindName("PART_UpButton", this);
+            downButton = (DragRepeatButton) Template.FindName("PART_DownButton", this);
+            textBox = (TextBox) Template.FindName("PART_TextBox", this);
 
-			var upDrag = new DragListener(upButton);
-			var downDrag = new DragListener(downButton);
+            upButton.Click += upButton_Click;
+            downButton.Click += downButton_Click;
 
-			upDrag.Started += drag_Started;
-			upDrag.Changed += drag_Changed;
-			upDrag.Completed += drag_Completed;
+            textBox.LostFocus += (sender, e) => OnLostFocus(e);
 
-			downDrag.Started += drag_Started;
-			downDrag.Changed += drag_Changed;
-			downDrag.Completed += drag_Completed;
+            var upDrag = new DragListener(upButton);
+            var downDrag = new DragListener(downButton);
 
-			Print();
-		}
+            upDrag.Started += drag_Started;
+            upDrag.Changed += drag_Changed;
+            upDrag.Completed += drag_Completed;
 
-		void drag_Started(DragListener drag)
-		{
-			OnDragStarted();
-		}
+            downDrag.Started += drag_Started;
+            downDrag.Changed += drag_Changed;
+            downDrag.Completed += drag_Completed;
 
-		void drag_Changed(DragListener drag)
-		{
-			IsDragging = true;
-			MoveValue(-drag.DeltaDelta.Y * SmallChange);
-		}
+            Print();
+        }
 
-		void drag_Completed(DragListener drag)
-		{
-			IsDragging = false;
-			OnDragCompleted();
-		}
+        void drag_Started(DragListener drag)
+        {
+            OnDragStarted();
+        }
 
-		void downButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (!IsDragging) SmallDown();
-		}
+        void drag_Changed(DragListener drag)
+        {
+            IsDragging = true;
+            MoveValue(-drag.DeltaDelta.Y * SmallChange);
+        }
 
-		void upButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (!IsDragging) SmallUp();
-		}
+        void drag_Completed(DragListener drag)
+        {
+            IsDragging = false;
+            OnDragCompleted();
+        }
 
-		protected virtual void OnDragStarted()
-		{
-		}
+        void downButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsDragging) SmallDown();
+        }
 
-		protected virtual void OnDragCompleted()
-		{
-		}
+        void upButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsDragging) SmallUp();
+        }
 
-		public void SmallUp()
-		{
-			MoveValue(SmallChange);
-		}
+        protected virtual void OnDragStarted()
+        {
+        }
 
-		public void SmallDown()
-		{
-			MoveValue(-SmallChange);
-		}
+        protected virtual void OnDragCompleted()
+        {
+        }
 
-		public void LargeUp()
-		{
-			MoveValue(LargeChange);
-		}
+        public void SmallUp()
+        {
+            MoveValue(SmallChange);
+        }
 
-		public void LargeDown()
-		{
-			MoveValue(-LargeChange);
-		}
+        public void SmallDown()
+        {
+            MoveValue(-SmallChange);
+        }
 
-		void MoveValue(double delta)
-		{
-			double result;
-			if (double.IsNaN(Value) || double.IsInfinity(Value)) {
-				SetValue(delta);
-			}
-			else if (double.TryParse(textBox.Text, out result)) {
-				SetValue(result + delta);
-			}
-			else {
-				SetValue(Value + delta);
-			}
-		}
+        public void LargeUp()
+        {
+            MoveValue(LargeChange);
+        }
 
-		void Print()
-		{
-			if (textBox != null) {
-				textBox.Text = Value.ToString("F" + DecimalPlaces);
-				textBox.CaretIndex = int.MaxValue;
-			}
-		}
+        public void LargeDown()
+        {
+            MoveValue(-LargeChange);
+        }
 
-		//wpf bug?: Value = -1 updates bindings without coercing, workaround
-		//update: not derived from RangeBase - no problem
-		void SetValue(double newValue)
-		{
-			newValue = CoerceValue(newValue);
-			if (Value != newValue && !(double.IsNaN(Value) && double.IsNaN(newValue))) {
-				Value = newValue;
-			}
-		}
+        void MoveValue(double delta)
+        {
+            double result;
+            if (double.IsNaN(Value) || double.IsInfinity(Value))
+            {
+                SetValue(delta);
+            }
+            else if (double.TryParse(textBox.Text, out result))
+            {
+                SetValue(result + delta);
+            }
+            else
+            {
+                SetValue(Value + delta);
+            }
+        }
 
-		double CoerceValue(double newValue)
-		{
-			return Math.Max(Minimum, Math.Min(newValue, Maximum));
-		}
+        void Print()
+        {
+            if (textBox != null)
+            {
+                textBox.Text = Value.ToString("F" + DecimalPlaces);
+                textBox.CaretIndex = int.MaxValue;
+            }
+        }
 
-		protected override void OnPreviewKeyDown(KeyEventArgs e)
-		{
-			base.OnPreviewKeyDown(e);
-			switch (e.Key) {
-				case Key.Enter:
-					SetInputValue();
-					textBox.SelectAll();
-					e.Handled = true;
-					break;
-				case Key.Up:
-					SmallUp();
-					e.Handled = true;
-					break;
-				case Key.Down:
-					SmallDown();
-					e.Handled = true;
-					break;
-				case Key.PageUp:
-					LargeUp();
-					e.Handled = true;
-					break;
-				case Key.PageDown:
-					LargeDown();
-					e.Handled = true;
-					break;
+        //wpf bug?: Value = -1 updates bindings without coercing, workaround
+        //update: not derived from RangeBase - no problem
+        void SetValue(double newValue)
+        {
+            newValue = CoerceValue(newValue);
+            if (Value != newValue && !(double.IsNaN(Value) && double.IsNaN(newValue)))
+            {
+                Value = newValue;
+            }
+        }
+
+        double CoerceValue(double newValue)
+        {
+            return Math.Max(Minimum, Math.Min(newValue, Maximum));
+        }
+
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            base.OnPreviewKeyDown(e);
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    SetInputValue();
+                    textBox.SelectAll();
+                    e.Handled = true;
+                    break;
+                case Key.Up:
+                    SmallUp();
+                    e.Handled = true;
+                    break;
+                case Key.Down:
+                    SmallDown();
+                    e.Handled = true;
+                    break;
+                case Key.PageUp:
+                    LargeUp();
+                    e.Handled = true;
+                    break;
+                case Key.PageDown:
+                    LargeDown();
+                    e.Handled = true;
+                    break;
 //				case Key.Home:
 //					Maximize();
 //					e.Handled = true;
@@ -249,75 +263,81 @@ namespace WPFDesign.Designer.Controls
 //					Minimize();
 //					e.Handled = true;
 //					break;
-			}
-		}
+            }
+        }
 
-		void SetInputValue()
-		{
-			double result;
-			if (double.TryParse(textBox.Text, out result)) {
-				SetValue(result);
-			} else {
-				Print();
-			}
-		}
-		
-		protected override void OnLostFocus(RoutedEventArgs e)
-		{
-			base.OnLostFocus(e);
-			SetInputValue();
-		}
+        void SetInputValue()
+        {
+            double result;
+            if (double.TryParse(textBox.Text, out result))
+            {
+                SetValue(result);
+            }
+            else
+            {
+                Print();
+            }
+        }
 
-		//protected override void OnMouseWheel(MouseWheelEventArgs e)
-		//{
-		//    if (e.Delta > 0)
-		//    {
-		//        if (Keyboard.IsKeyDown(Key.LeftShift))
-		//        {
-		//            LargeUp();
-		//        }
-		//        else
-		//        {
-		//            SmallUp();
-		//        }
-		//    }
-		//    else
-		//    {
-		//        if (Keyboard.IsKeyDown(Key.LeftShift))
-		//        {
-		//            LargeDown();
-		//        }
-		//        else
-		//        {
-		//            SmallDown();
-		//        }
-		//    }
-		//    e.Handled = true;
-		//}
+        protected override void OnLostFocus(RoutedEventArgs e)
+        {
+            base.OnLostFocus(e);
+            SetInputValue();
+        }
 
-		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-		{
-			base.OnPropertyChanged(e);
+        //protected override void OnMouseWheel(MouseWheelEventArgs e)
+        //{
+        //    if (e.Delta > 0)
+        //    {
+        //        if (Keyboard.IsKeyDown(Key.LeftShift))
+        //        {
+        //            LargeUp();
+        //        }
+        //        else
+        //        {
+        //            SmallUp();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (Keyboard.IsKeyDown(Key.LeftShift))
+        //        {
+        //            LargeDown();
+        //        }
+        //        else
+        //        {
+        //            SmallDown();
+        //        }
+        //    }
+        //    e.Handled = true;
+        //}
 
-			if (e.Property == ValueProperty) {
-				Value = CoerceValue((double)e.NewValue);
-				Print();
-			}
-			else if (e.Property == SmallChangeProperty &&
-			         ReadLocalValue(LargeChangeProperty) == DependencyProperty.UnsetValue) {
-				LargeChange = SmallChange * 10;
-			}
-		}
-	}
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
 
-	public class DragRepeatButton : RepeatButton
-	{
-		public static readonly DependencyProperty IsDraggingProperty =
-			DependencyProperty.Register("IsDragging", typeof(bool), typeof(DragRepeatButton));
+            if (e.Property == ValueProperty)
+            {
+                Value = CoerceValue((double) e.NewValue);
+                Print();
+            }
+            else if (e.Property == SmallChangeProperty &&
+                     ReadLocalValue(LargeChangeProperty) == DependencyProperty.UnsetValue)
+            {
+                LargeChange = SmallChange * 10;
+            }
+        }
+    }
 
-		public bool IsDragging {
-			get { return (bool)GetValue(IsDraggingProperty); }
-			set { SetValue(IsDraggingProperty, value); }
-		}
-	}
+    public class DragRepeatButton : RepeatButton
+    {
+        public static readonly DependencyProperty IsDraggingProperty =
+            DependencyProperty.Register("IsDragging", typeof(bool), typeof(DragRepeatButton));
+
+        public bool IsDragging
+        {
+            get { return (bool) GetValue(IsDraggingProperty); }
+            set { SetValue(IsDraggingProperty, value); }
+        }
+    }
 }

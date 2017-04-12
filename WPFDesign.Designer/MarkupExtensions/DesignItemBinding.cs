@@ -24,241 +24,260 @@ using System.Windows.Markup;
 using WPFDesign.Core;
 using WPFDesign.Core.UIExtensions;
 
-[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "ICSharpCode.WpfDesign.Designer.MarkupExtensions")]
+[assembly:
+    XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+        "ICSharpCode.WpfDesign.Designer.MarkupExtensions")]
 
 
 namespace WPFDesign.Designer.MarkupExtensions
 {
-	/// <summary>
-	/// A Binding to a DesignItem of Object
-	/// 
-	/// This can be used for Example your own Property Pages for Designer Objects
-	/// </summary>
-	public class DesignItemBinding : MarkupExtension
-	{
-		private string _propertyName;
-		private DependencyProperty _property;
-		private Binding _binding;
-		private DesignItemSetConverter _converter;
-		private DependencyProperty _targetProperty;
-		private FrameworkElement _targetObject;
+    /// <summary>
+    /// A Binding to a DesignItem of Object
+    /// 
+    /// This can be used for Example your own Property Pages for Designer Objects
+    /// </summary>
+    public class DesignItemBinding : MarkupExtension
+    {
+        private string _propertyName;
+        private DependencyProperty _property;
+        private Binding _binding;
+        private DesignItemSetConverter _converter;
+        private DependencyProperty _targetProperty;
+        private FrameworkElement _targetObject;
 
-		public bool SingleItemProperty { get; set; }
-		
-		public bool AskWhenMultipleItemsSelected { get; set; }
-		
-		public IValueConverter Converter { get; set; }
-		
-		public object ConverterParameter { get; set; }
-		
-		public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
+        public bool SingleItemProperty { get; set; }
 
-		public UpdateSourceTrigger? UpdateSourceTriggerMultipleSelected { get; set; }
+        public bool AskWhenMultipleItemsSelected { get; set; }
 
-		public DesignItemBinding(string path)
-		{
-			this._propertyName = path;
-			
-			UpdateSourceTrigger = UpdateSourceTrigger.Default;
-			AskWhenMultipleItemsSelected = true;
-		}
+        public IValueConverter Converter { get; set; }
 
-		public DesignItemBinding(DependencyProperty property)
-		{
-			this._property = property;
+        public object ConverterParameter { get; set; }
 
-			UpdateSourceTrigger = UpdateSourceTrigger.Default;
-			AskWhenMultipleItemsSelected = true;
-		}
+        public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
 
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			IProvideValueTarget service = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
-			_targetObject = service.TargetObject as FrameworkElement;
-			_targetProperty = service.TargetProperty as DependencyProperty;
+        public UpdateSourceTrigger? UpdateSourceTriggerMultipleSelected { get; set; }
 
-			if (_targetObject != null)
-			{
-				_targetObject.DataContextChanged += targetObject_DataContextChanged;
-			}
+        public DesignItemBinding(string path)
+        {
+            this._propertyName = path;
 
-			return null;
-		}
+            UpdateSourceTrigger = UpdateSourceTrigger.Default;
+            AskWhenMultipleItemsSelected = true;
+        }
 
-		public void CreateBindingOnProperty(DependencyProperty targetProperty, FrameworkElement targetObject)
-		{
-			_targetProperty = targetProperty;
-			_targetObject = targetObject;
-			_targetObject.DataContextChanged += targetObject_DataContextChanged;
-			targetObject_DataContextChanged(_targetObject, new DependencyPropertyChangedEventArgs());
-		}
-		
-		void targetObject_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
-			var dcontext = ((FrameworkElement) sender).DataContext;
-			
-			DesignContext context = null;
-			FrameworkElement fe = null;
-			DesignItem designItem = null;
-			
-			if (dcontext is DesignItem) {
-				designItem = (DesignItem)dcontext;
-				context = designItem.Context;
-				fe = designItem.View as FrameworkElement;
-			} else if (dcontext is FrameworkElement) {
-				fe = ((FrameworkElement)dcontext);
-				var srv = fe.TryFindParent<DesignSurface>();
-				if (srv != null) {
-					context = srv.DesignContext;
-					designItem = context.Services.Component.GetDesignItem(fe);
-				}
-			}
+        public DesignItemBinding(DependencyProperty property)
+        {
+            this._property = property;
 
-			if (context != null)
-			{
-				if (_property != null)
-				{
-					_binding = new Binding();
-					_binding.Path = new PropertyPath(_property);
-					_binding.Source = fe;
-					_binding.UpdateSourceTrigger = UpdateSourceTrigger;
+            UpdateSourceTrigger = UpdateSourceTrigger.Default;
+            AskWhenMultipleItemsSelected = true;
+        }
 
-					if (designItem.Services.Selection.SelectedItems.Count > 1 && UpdateSourceTriggerMultipleSelected != null)
-					{
-						_binding.UpdateSourceTrigger = UpdateSourceTriggerMultipleSelected.Value;
-					}
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            IProvideValueTarget service = (IProvideValueTarget) serviceProvider.GetService(typeof(IProvideValueTarget));
+            _targetObject = service.TargetObject as FrameworkElement;
+            _targetProperty = service.TargetProperty as DependencyProperty;
 
-					_binding.Mode = BindingMode.TwoWay;
-					_binding.ConverterParameter = ConverterParameter;
+            if (_targetObject != null)
+            {
+                _targetObject.DataContextChanged += targetObject_DataContextChanged;
+            }
 
-					_converter = new DesignItemSetConverter(designItem, _property, SingleItemProperty, AskWhenMultipleItemsSelected,
-						Converter);
-					_binding.Converter = _converter;
+            return null;
+        }
 
-					_targetObject.SetBinding(_targetProperty, _binding);
-				}
-				else
-				{
-					_binding = new Binding(_propertyName);
-					_binding.Source = fe;
-					_binding.UpdateSourceTrigger = UpdateSourceTrigger;
+        public void CreateBindingOnProperty(DependencyProperty targetProperty, FrameworkElement targetObject)
+        {
+            _targetProperty = targetProperty;
+            _targetObject = targetObject;
+            _targetObject.DataContextChanged += targetObject_DataContextChanged;
+            targetObject_DataContextChanged(_targetObject, new DependencyPropertyChangedEventArgs());
+        }
 
-					if (designItem.Services.Selection.SelectedItems.Count > 1 && UpdateSourceTriggerMultipleSelected != null)
-					{
-						_binding.UpdateSourceTrigger = UpdateSourceTriggerMultipleSelected.Value;
-					}
+        void targetObject_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var dcontext = ((FrameworkElement) sender).DataContext;
 
-					_binding.Mode = BindingMode.TwoWay;
-					_binding.ConverterParameter = ConverterParameter;
+            DesignContext context = null;
+            FrameworkElement fe = null;
+            DesignItem designItem = null;
 
-					_converter = new DesignItemSetConverter(designItem, _propertyName, SingleItemProperty, AskWhenMultipleItemsSelected,
-						Converter);
-					_binding.Converter = _converter;
+            if (dcontext is DesignItem)
+            {
+                designItem = (DesignItem) dcontext;
+                context = designItem.Context;
+                fe = designItem.View as FrameworkElement;
+            }
+            else if (dcontext is FrameworkElement)
+            {
+                fe = ((FrameworkElement) dcontext);
+                var srv = fe.TryFindParent<DesignSurface>();
+                if (srv != null)
+                {
+                    context = srv.DesignContext;
+                    designItem = context.Services.Component.GetDesignItem(fe);
+                }
+            }
 
-					_targetObject.SetBinding(_targetProperty, _binding);
-				}
-			}
-			else
-			{
-				_targetObject.ClearValue(_targetProperty);
-			}
-		}
+            if (context != null)
+            {
+                if (_property != null)
+                {
+                    _binding = new Binding();
+                    _binding.Path = new PropertyPath(_property);
+                    _binding.Source = fe;
+                    _binding.UpdateSourceTrigger = UpdateSourceTrigger;
 
-		private class DesignItemSetConverter : IValueConverter
-		{
-			private DesignItem _designItem;
-			private string _propertyName;
-			private DependencyProperty _property;
-			private bool _singleItemProperty;
-			private bool _askWhenMultipleItemsSelected;
-			private IValueConverter _converter;
+                    if (designItem.Services.Selection.SelectedItems.Count > 1 &&
+                        UpdateSourceTriggerMultipleSelected != null)
+                    {
+                        _binding.UpdateSourceTrigger = UpdateSourceTriggerMultipleSelected.Value;
+                    }
 
-			public DesignItemSetConverter(DesignItem desigItem, string propertyName, bool singleItemProperty, bool askWhenMultipleItemsSelected, IValueConverter converter)
-			{
-				this._designItem = desigItem;
-				this._propertyName = propertyName;
-				this._singleItemProperty = singleItemProperty;
-				this._converter = converter;
-				this._askWhenMultipleItemsSelected = askWhenMultipleItemsSelected;
-			}
+                    _binding.Mode = BindingMode.TwoWay;
+                    _binding.ConverterParameter = ConverterParameter;
 
-			public DesignItemSetConverter(DesignItem desigItem, DependencyProperty property, bool singleItemProperty, bool askWhenMultipleItemsSelected, IValueConverter converter)
-			{
-				this._designItem = desigItem;
-				this._property = property;
-				this._propertyName = property.Name;
-				this._singleItemProperty = singleItemProperty;
-				this._converter = converter;
-				this._askWhenMultipleItemsSelected = askWhenMultipleItemsSelected;
-			}
+                    _converter = new DesignItemSetConverter(designItem, _property, SingleItemProperty,
+                        AskWhenMultipleItemsSelected,
+                        Converter);
+                    _binding.Converter = _converter;
 
-			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-			{
-				if (_converter != null)
-					return _converter.Convert(value, targetType, parameter, culture);
-				
-				return value;
-			}
+                    _targetObject.SetBinding(_targetProperty, _binding);
+                }
+                else
+                {
+                    _binding = new Binding(_propertyName);
+                    _binding.Source = fe;
+                    _binding.UpdateSourceTrigger = UpdateSourceTrigger;
 
-			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-			{
-				var val = value;
-				if (_converter != null)
-					val = _converter.ConvertBack(value, targetType, parameter, culture);
-				
-				var changeGroup = _designItem.OpenGroup("Property: " + _propertyName);
+                    if (designItem.Services.Selection.SelectedItems.Count > 1 &&
+                        UpdateSourceTriggerMultipleSelected != null)
+                    {
+                        _binding.UpdateSourceTrigger = UpdateSourceTriggerMultipleSelected.Value;
+                    }
 
-				try {
-					DesignItemProperty property = null;
+                    _binding.Mode = BindingMode.TwoWay;
+                    _binding.ConverterParameter = ConverterParameter;
 
-					if (_property != null) {
-						try {
-							property = _designItem.Properties.GetProperty(_property);
-						}
-						catch (Exception) {
-							property = _designItem.Properties.GetAttachedProperty(_property);
-						}
-					}
-					else {
-						property = _designItem.Properties.GetProperty(_propertyName);
-					}
-					
-					property.SetValue(val);
+                    _converter = new DesignItemSetConverter(designItem, _propertyName, SingleItemProperty,
+                        AskWhenMultipleItemsSelected,
+                        Converter);
+                    _binding.Converter = _converter;
 
-					if (!_singleItemProperty && _designItem.Services.Selection.SelectedItems.Count > 1)
-					{
-						var msg = MessageBoxResult.Yes;
-						if (_askWhenMultipleItemsSelected) {
-							msg = MessageBox.Show("Apply changes to all selected Items","", MessageBoxButton.YesNo);
-						}
-						if (msg == MessageBoxResult.Yes)
-						{
-							foreach (var item in _designItem.Services.Selection.SelectedItems)
-							{
-								try
-								{
-									if (_property != null)
-										property = item.Properties.GetProperty(_property);
-									else
-										property = item.Properties.GetProperty(_propertyName);
-								}
-								catch(Exception)
-								{ }
-								if (property != null)
-									property.SetValue(val);
-							}
-						}
-					}
+                    _targetObject.SetBinding(_targetProperty, _binding);
+                }
+            }
+            else
+            {
+                _targetObject.ClearValue(_targetProperty);
+            }
+        }
 
-					changeGroup.Commit();
-				}
-				catch (Exception)
-				{
-					changeGroup.Abort();
-				}
+        private class DesignItemSetConverter : IValueConverter
+        {
+            private DesignItem _designItem;
+            private string _propertyName;
+            private DependencyProperty _property;
+            private bool _singleItemProperty;
+            private bool _askWhenMultipleItemsSelected;
+            private IValueConverter _converter;
 
-				return val;
-			}
-		}
-	}
+            public DesignItemSetConverter(DesignItem desigItem, string propertyName, bool singleItemProperty,
+                bool askWhenMultipleItemsSelected, IValueConverter converter)
+            {
+                this._designItem = desigItem;
+                this._propertyName = propertyName;
+                this._singleItemProperty = singleItemProperty;
+                this._converter = converter;
+                this._askWhenMultipleItemsSelected = askWhenMultipleItemsSelected;
+            }
+
+            public DesignItemSetConverter(DesignItem desigItem, DependencyProperty property, bool singleItemProperty,
+                bool askWhenMultipleItemsSelected, IValueConverter converter)
+            {
+                this._designItem = desigItem;
+                this._property = property;
+                this._propertyName = property.Name;
+                this._singleItemProperty = singleItemProperty;
+                this._converter = converter;
+                this._askWhenMultipleItemsSelected = askWhenMultipleItemsSelected;
+            }
+
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                if (_converter != null)
+                    return _converter.Convert(value, targetType, parameter, culture);
+
+                return value;
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                var val = value;
+                if (_converter != null)
+                    val = _converter.ConvertBack(value, targetType, parameter, culture);
+
+                var changeGroup = _designItem.OpenGroup("Property: " + _propertyName);
+
+                try
+                {
+                    DesignItemProperty property = null;
+
+                    if (_property != null)
+                    {
+                        try
+                        {
+                            property = _designItem.Properties.GetProperty(_property);
+                        }
+                        catch (Exception)
+                        {
+                            property = _designItem.Properties.GetAttachedProperty(_property);
+                        }
+                    }
+                    else
+                    {
+                        property = _designItem.Properties.GetProperty(_propertyName);
+                    }
+
+                    property.SetValue(val);
+
+                    if (!_singleItemProperty && _designItem.Services.Selection.SelectedItems.Count > 1)
+                    {
+                        var msg = MessageBoxResult.Yes;
+                        if (_askWhenMultipleItemsSelected)
+                        {
+                            msg = MessageBox.Show("Apply changes to all selected Items", "", MessageBoxButton.YesNo);
+                        }
+                        if (msg == MessageBoxResult.Yes)
+                        {
+                            foreach (var item in _designItem.Services.Selection.SelectedItems)
+                            {
+                                try
+                                {
+                                    if (_property != null)
+                                        property = item.Properties.GetProperty(_property);
+                                    else
+                                        property = item.Properties.GetProperty(_propertyName);
+                                }
+                                catch (Exception)
+                                {
+                                }
+                                if (property != null)
+                                    property.SetValue(val);
+                            }
+                        }
+                    }
+
+                    changeGroup.Commit();
+                }
+                catch (Exception)
+                {
+                    changeGroup.Abort();
+                }
+
+                return val;
+            }
+        }
+    }
 }

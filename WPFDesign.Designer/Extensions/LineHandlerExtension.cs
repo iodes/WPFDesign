@@ -30,211 +30,225 @@ using WPFDesign.Designer.Controls.Thumbs;
 namespace WPFDesign.Designer.Extensions
 {
 #pragma warning disable CS3016 // Arrays as attribute arguments is not CLS-compliant
-							  /// <summary>
-							  /// Description of LineHandlerExtension.
-							  /// </summary>
-	[ExtensionFor(typeof(Line), OverrideExtensions = new Type[] { typeof(ResizeThumbExtension), typeof(SelectedElementRectangleExtension), typeof(CanvasPositionExtension), typeof(QuickOperationMenuExtension), typeof(RotateThumbExtension), typeof(RenderTransformOriginExtension), typeof(SkewThumbExtension) })]
+
+    /// <summary>
+    /// Description of LineHandlerExtension.
+    /// </summary>
+    [ExtensionFor(typeof(Line), OverrideExtensions = new Type[]
+    {
+        typeof(ResizeThumbExtension), typeof(SelectedElementRectangleExtension), typeof(CanvasPositionExtension),
+        typeof(QuickOperationMenuExtension), typeof(RotateThumbExtension), typeof(RenderTransformOriginExtension),
+        typeof(SkewThumbExtension)
+    })]
 #pragma warning restore CS3016 // Arrays as attribute arguments is not CLS-compliant
-	public class LineHandlerExtension : LineExtensionBase
-	{
-		private double CurrentX2;
-		private double CurrentY2;
-		private double CurrentLeft;
-		private double CurrentTop;
+    public class LineHandlerExtension : LineExtensionBase
+    {
+        private double CurrentX2;
+        private double CurrentY2;
+        private double CurrentLeft;
+        private double CurrentTop;
 
-		//Size oldSize;
-		ZoomControl zoom;
+        //Size oldSize;
+        ZoomControl zoom;
 
-		public DragListener DragListener {get; private set;}
-		
-		protected DesignerThumb CreateThumb(PlacementAlignment alignment, Cursor cursor)
-		{
-			DesignerThumb designerThumb = new DesignerThumb { Alignment = alignment, Cursor = cursor, IsPrimarySelection = true};
-			AdornerPanel.SetPlacement(designerThumb, Place(designerThumb, alignment));
+        public DragListener DragListener { get; private set; }
 
-			adornerPanel.Children.Add(designerThumb);
+        protected DesignerThumb CreateThumb(PlacementAlignment alignment, Cursor cursor)
+        {
+            DesignerThumb designerThumb =
+                new DesignerThumb {Alignment = alignment, Cursor = cursor, IsPrimarySelection = true};
+            AdornerPanel.SetPlacement(designerThumb, Place(designerThumb, alignment));
 
-			DragListener = new DragListener(designerThumb);
-			DragListener.Started += drag_Started;
-			DragListener.Changed += drag_Changed;
-			DragListener.Completed += drag_Completed;
-			
-			return designerThumb;
-		}
+            adornerPanel.Children.Add(designerThumb);
 
-		Bounds CalculateDrawing(double x, double y, double left, double top, double xleft, double xtop)
-		{
+            DragListener = new DragListener(designerThumb);
+            DragListener.Started += drag_Started;
+            DragListener.Changed += drag_Changed;
+            DragListener.Completed += drag_Completed;
 
-			Double theta = (180 / Math.PI) * Math.Atan2(y, x);
-			double verticaloffset = Math.Abs(90 - Math.Abs(theta));
-			if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
-			{
-				if (Math.Abs(theta) < 45 || Math.Abs(theta) > 135)
-				{
-					y = 0;
-					top = xtop;
-				}
-				else if (verticaloffset < 45)
-				{
-					x = 0;
-					left = xleft;
-				}
-			}
-			else if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
-			{
-				if (verticaloffset < 10)
-				{
-					x = 0;
-					left = xleft;
-				}
-				else if (Math.Abs(theta) < 10 || Math.Abs(theta) > 170)
-				{
-					y = 0;
-					top = xtop;
-				}
-			}
+            return designerThumb;
+        }
 
-			SetSurfaceInfo(0, 3, Math.Round((180 / Math.PI) * Math.Atan2(y, x), 0).ToString());
-			return new Bounds { X = Math.Round(x, 1), Y = Math.Round(y, 1), Left = Math.Round(left, 1), Top = Math.Round(top, 1) };
-		}
+        Bounds CalculateDrawing(double x, double y, double left, double top, double xleft, double xtop)
+        {
+            Double theta = (180 / Math.PI) * Math.Atan2(y, x);
+            double verticaloffset = Math.Abs(90 - Math.Abs(theta));
+            if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
+            {
+                if (Math.Abs(theta) < 45 || Math.Abs(theta) > 135)
+                {
+                    y = 0;
+                    top = xtop;
+                }
+                else if (verticaloffset < 45)
+                {
+                    x = 0;
+                    left = xleft;
+                }
+            }
+            else if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+            {
+                if (verticaloffset < 10)
+                {
+                    x = 0;
+                    left = xleft;
+                }
+                else if (Math.Abs(theta) < 10 || Math.Abs(theta) > 170)
+                {
+                    y = 0;
+                    top = xtop;
+                }
+            }
 
-		#region eventhandlers
+            SetSurfaceInfo(0, 3, Math.Round((180 / Math.PI) * Math.Atan2(y, x), 0).ToString());
+            return new Bounds
+            {
+                X = Math.Round(x, 1),
+                Y = Math.Round(y, 1),
+                Left = Math.Round(left, 1),
+                Top = Math.Round(top, 1)
+            };
+        }
 
+        #region eventhandlers
 
-		// TODO : Remove all hide/show extensions from here.
-		protected virtual void drag_Started(DragListener drag)
-		{
-			Line al = ExtendedItem.View as Line;
-			CurrentX2 = al.X2;
-			CurrentY2 = al.Y2;
-			CurrentLeft = (double)al.GetValue(Canvas.LeftProperty);
-			CurrentTop = (double)al.GetValue(Canvas.TopProperty);
+        // TODO : Remove all hide/show extensions from here.
+        protected virtual void drag_Started(DragListener drag)
+        {
+            Line al = ExtendedItem.View as Line;
+            CurrentX2 = al.X2;
+            CurrentY2 = al.Y2;
+            CurrentLeft = (double) al.GetValue(Canvas.LeftProperty);
+            CurrentTop = (double) al.GetValue(Canvas.TopProperty);
 
-			var designPanel = ExtendedItem.Services.DesignPanel as DesignPanel;
-			zoom = designPanel.TryFindParent<ZoomControl>();
-			
-			if (resizeBehavior != null)
-				operation = PlacementOperation.Start(extendedItemArray, PlacementType.Resize);
-			else
-			{
-				changeGroup = this.ExtendedItem.Context.OpenGroup("Resize", extendedItemArray);
-			}
-			_isResizing = true;
+            var designPanel = ExtendedItem.Services.DesignPanel as DesignPanel;
+            zoom = designPanel.TryFindParent<ZoomControl>();
 
-			(drag.Target as DesignerThumb).IsPrimarySelection = false;
-		}
+            if (resizeBehavior != null)
+                operation = PlacementOperation.Start(extendedItemArray, PlacementType.Resize);
+            else
+            {
+                changeGroup = this.ExtendedItem.Context.OpenGroup("Resize", extendedItemArray);
+            }
+            _isResizing = true;
 
-		protected virtual void drag_Changed(DragListener drag)
-		{
-			Line al = ExtendedItem.View as Line;
+            (drag.Target as DesignerThumb).IsPrimarySelection = false;
+        }
 
-			var alignment = (drag.Target as DesignerThumb).Alignment;
-			var info = operation.PlacedItems[0];
-			double dx = 0;
-			double dy = 0;
+        protected virtual void drag_Changed(DragListener drag)
+        {
+            Line al = ExtendedItem.View as Line;
 
-			if (zoom != null) {
-				dx = drag.Delta.X * (1 / zoom.CurrentZoom);
-				dy = drag.Delta.Y * (1 / zoom.CurrentZoom);
-			}
-			
-			double top, left, x, y, xtop, xleft;
+            var alignment = (drag.Target as DesignerThumb).Alignment;
+            var info = operation.PlacedItems[0];
+            double dx = 0;
+            double dy = 0;
 
-			if (alignment == PlacementAlignment.TopLeft) {
-				
-				//normal values
-				x = CurrentX2 - dx;
-				y = CurrentY2 - dy;
-				top = CurrentTop + dy;
-				left = CurrentLeft + dx;
+            if (zoom != null)
+            {
+                dx = drag.Delta.X * (1 / zoom.CurrentZoom);
+                dy = drag.Delta.Y * (1 / zoom.CurrentZoom);
+            }
 
-				//values to use when keys are pressed
-				xtop = CurrentTop + CurrentY2;
-				xleft = CurrentLeft + CurrentX2;
+            double top, left, x, y, xtop, xleft;
 
-			} else {
-				x = CurrentX2 + dx;
-				y = CurrentY2 + dy;
-				top = xtop = CurrentTop;
-				left = xleft = CurrentLeft;
-			}
-			
-			Bounds position = CalculateDrawing(x, y, left, top, xleft, xtop);
+            if (alignment == PlacementAlignment.TopLeft)
+            {
+                //normal values
+                x = CurrentX2 - dx;
+                y = CurrentY2 - dy;
+                top = CurrentTop + dy;
+                left = CurrentLeft + dx;
 
-			ExtendedItem.Properties.GetProperty(Line.X1Property).SetValue(0);
-			ExtendedItem.Properties.GetProperty(Line.Y1Property).SetValue(0);
-			ExtendedItem.Properties.GetProperty(Line.X2Property).SetValue(position.X);
-			ExtendedItem.Properties.GetProperty(Line.Y2Property).SetValue(position.Y);
+                //values to use when keys are pressed
+                xtop = CurrentTop + CurrentY2;
+                xleft = CurrentLeft + CurrentX2;
+            }
+            else
+            {
+                x = CurrentX2 + dx;
+                y = CurrentY2 + dy;
+                top = xtop = CurrentTop;
+                left = xleft = CurrentLeft;
+            }
 
-			if (operation != null) {
-				var result = info.OriginalBounds;
-				result.X = position.Left;
-				result.Y = position.Top;
-				result.Width = Math.Abs(position.X);
-				result.Height = Math.Abs(position.Y);
+            Bounds position = CalculateDrawing(x, y, left, top, xleft, xtop);
 
-				info.Bounds = result.Round();
-				operation.CurrentContainerBehavior.BeforeSetPosition(operation);
-				operation.CurrentContainerBehavior.SetPosition(info);
-				
+            ExtendedItem.Properties.GetProperty(Line.X1Property).SetValue(0);
+            ExtendedItem.Properties.GetProperty(Line.Y1Property).SetValue(0);
+            ExtendedItem.Properties.GetProperty(Line.X2Property).SetValue(position.X);
+            ExtendedItem.Properties.GetProperty(Line.Y2Property).SetValue(position.Y);
+
+            if (operation != null)
+            {
+                var result = info.OriginalBounds;
+                result.X = position.Left;
+                result.Y = position.Top;
+                result.Width = Math.Abs(position.X);
+                result.Height = Math.Abs(position.Y);
+
+                info.Bounds = result.Round();
+                operation.CurrentContainerBehavior.BeforeSetPosition(operation);
+                operation.CurrentContainerBehavior.SetPosition(info);
+
 //				var p = operation.CurrentContainerBehavior.PlacePoint(new Point(position.X, position.Y));
 //				ExtendedItem.Properties.GetProperty(Line.X2Property).SetValue(p.X);
 //				ExtendedItem.Properties.GetProperty(Line.Y2Property).SetValue(p.Y);
-			}
-			
-			(drag.Target as DesignerThumb).InvalidateArrange();
-			ResetWidthHeightProperties();
-		}
+            }
 
-		protected virtual void drag_Completed(DragListener drag)
-		{
-			if (operation != null)
-			{
-				if (drag.IsCanceled) operation.Abort();
-				else
-				{
-					ResetWidthHeightProperties();
+            (drag.Target as DesignerThumb).InvalidateArrange();
+            ResetWidthHeightProperties();
+        }
 
-					operation.Commit();
-				}
-				operation = null;
-			}
-			else
-			{
-				if (drag.IsCanceled)
-					changeGroup.Abort();
-				else
-					changeGroup.Commit();
-				changeGroup = null;
-			}
+        protected virtual void drag_Completed(DragListener drag)
+        {
+            if (operation != null)
+            {
+                if (drag.IsCanceled) operation.Abort();
+                else
+                {
+                    ResetWidthHeightProperties();
 
-			_isResizing = false;
-			(drag.Target as DesignerThumb).IsPrimarySelection = true;
-			HideSizeAndShowHandles();
-		}
+                    operation.Commit();
+                }
+                operation = null;
+            }
+            else
+            {
+                if (drag.IsCanceled)
+                    changeGroup.Abort();
+                else
+                    changeGroup.Commit();
+                changeGroup = null;
+            }
 
-		/// <summary>
-		/// is invoked whenever a line is selected on the canvas, remember that the adorners are created for each line object and never destroyed
-		/// </summary>
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
-			
-			resizeThumbs = new DesignerThumb[]
-			{
-				CreateThumb(PlacementAlignment.TopLeft, Cursors.Cross),
-				CreateThumb(PlacementAlignment.BottomRight, Cursors.Cross)
-			};
+            _isResizing = false;
+            (drag.Target as DesignerThumb).IsPrimarySelection = true;
+            HideSizeAndShowHandles();
+        }
 
-			extendedItemArray[0] = this.ExtendedItem;
+        /// <summary>
+        /// is invoked whenever a line is selected on the canvas, remember that the adorners are created for each line object and never destroyed
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
-			Invalidate();
-			
-			this.ExtendedItem.PropertyChanged += OnPropertyChanged;
-			resizeBehavior = PlacementOperation.GetPlacementBehavior(extendedItemArray);
-			UpdateAdornerVisibility();
-		}
+            resizeThumbs = new DesignerThumb[]
+            {
+                CreateThumb(PlacementAlignment.TopLeft, Cursors.Cross),
+                CreateThumb(PlacementAlignment.BottomRight, Cursors.Cross)
+            };
 
-		#endregion
-	}
+            extendedItemArray[0] = this.ExtendedItem;
+
+            Invalidate();
+
+            this.ExtendedItem.PropertyChanged += OnPropertyChanged;
+            resizeBehavior = PlacementOperation.GetPlacementBehavior(extendedItemArray);
+            UpdateAdornerVisibility();
+        }
+
+        #endregion
+    }
 }

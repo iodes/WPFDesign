@@ -30,212 +30,224 @@ using WPFDesign.Designer.Controls.Thumbs;
 
 namespace WPFDesign.Designer.Extensions
 {
-	/// <summary>
-	/// Description of UserControlPointsObjectExtension.
-	/// </summary>
-	//[ExtensionFor(typeof(Line), OverrideExtensions = new Type[] { typeof(ResizeThumbExtension), typeof(SelectedElementRectangleExtension), typeof(CanvasPositionExtension), typeof(QuickOperationMenuExtension), typeof(RotateThumbExtension), typeof(RenderTransformOriginExtension), typeof(InPlaceEditorExtension), typeof(SkewThumbExtension) })]
-	public abstract class UserControlPointsObjectExtension : LineExtensionBase
-	{
-		//
-		private double CurrentX2;
-		private double CurrentY2;
-		private double CurrentLeft;
-		private double CurrentTop;
+    /// <summary>
+    /// Description of UserControlPointsObjectExtension.
+    /// </summary>
+    //[ExtensionFor(typeof(Line), OverrideExtensions = new Type[] { typeof(ResizeThumbExtension), typeof(SelectedElementRectangleExtension), typeof(CanvasPositionExtension), typeof(QuickOperationMenuExtension), typeof(RotateThumbExtension), typeof(RenderTransformOriginExtension), typeof(InPlaceEditorExtension), typeof(SkewThumbExtension) })]
+    public abstract class UserControlPointsObjectExtension : LineExtensionBase
+    {
+        //
+        private double CurrentX2;
 
-		private IEnumerable<DependencyProperty> _thumbProperties;
+        private double CurrentY2;
+        private double CurrentLeft;
+        private double CurrentTop;
 
-		//Size oldSize;
-		ZoomControl zoom;
+        private IEnumerable<DependencyProperty> _thumbProperties;
 
-		public DragListener DragListener { get; private set; }
+        //Size oldSize;
+        ZoomControl zoom;
 
-		protected UserControlPointsObjectThumb CreateThumb(PlacementAlignment alignment, Cursor cursor, DependencyProperty property)
-		{
-			var designerThumb = new UserControlPointsObjectThumb { Alignment = alignment, Cursor = cursor, IsPrimarySelection = true, DependencyProperty = property };
-			AdornerPanel.SetPlacement(designerThumb, Place(designerThumb, alignment));
+        public DragListener DragListener { get; private set; }
 
-			adornerPanel.Children.Add(designerThumb);
+        protected UserControlPointsObjectThumb CreateThumb(PlacementAlignment alignment, Cursor cursor,
+            DependencyProperty property)
+        {
+            var designerThumb = new UserControlPointsObjectThumb
+            {
+                Alignment = alignment,
+                Cursor = cursor,
+                IsPrimarySelection = true,
+                DependencyProperty = property
+            };
+            AdornerPanel.SetPlacement(designerThumb, Place(designerThumb, alignment));
 
-			DragListener = new DragListener(designerThumb);
-			DragListener.Started += drag_Started;
-			DragListener.Changed += drag_Changed;
-			DragListener.Completed += drag_Completed;
+            adornerPanel.Children.Add(designerThumb);
 
-			return designerThumb;
-		}
+            DragListener = new DragListener(designerThumb);
+            DragListener.Started += drag_Started;
+            DragListener.Changed += drag_Changed;
+            DragListener.Completed += drag_Completed;
 
-		#region eventhandlers
+            return designerThumb;
+        }
 
-		protected virtual void drag_Started(DragListener drag)
-		{
-			Line al = ExtendedItem.View as Line;
-			CurrentX2 = al.X2;
-			CurrentY2 = al.Y2;
-			CurrentLeft = (double)al.GetValue(Canvas.LeftProperty);
-			CurrentTop = (double)al.GetValue(Canvas.TopProperty);
+        #region eventhandlers
 
-			var designPanel = ExtendedItem.Services.DesignPanel as DesignPanel;
-			zoom = designPanel.TryFindParent<ZoomControl>();
+        protected virtual void drag_Started(DragListener drag)
+        {
+            Line al = ExtendedItem.View as Line;
+            CurrentX2 = al.X2;
+            CurrentY2 = al.Y2;
+            CurrentLeft = (double) al.GetValue(Canvas.LeftProperty);
+            CurrentTop = (double) al.GetValue(Canvas.TopProperty);
 
-			if (resizeBehavior != null)
-				operation = PlacementOperation.Start(extendedItemArray, PlacementType.Resize);
-			else
-			{
-				changeGroup = this.ExtendedItem.Context.OpenGroup("Resize", extendedItemArray);
-			}
-			_isResizing = true;
+            var designPanel = ExtendedItem.Services.DesignPanel as DesignPanel;
+            zoom = designPanel.TryFindParent<ZoomControl>();
 
-			(drag.Target as UserControlPointsObjectThumb).IsPrimarySelection = false;
-		}
+            if (resizeBehavior != null)
+                operation = PlacementOperation.Start(extendedItemArray, PlacementType.Resize);
+            else
+            {
+                changeGroup = this.ExtendedItem.Context.OpenGroup("Resize", extendedItemArray);
+            }
+            _isResizing = true;
 
-		protected virtual void drag_Changed(DragListener drag)
-		{
-			Line al = ExtendedItem.View as Line;
+            (drag.Target as UserControlPointsObjectThumb).IsPrimarySelection = false;
+        }
 
-			var thumb = drag.Target as UserControlPointsObjectThumb;
-			var alignment = thumb.Alignment;
-			var info = operation.PlacedItems[0];
-			double dx = 0;
-			double dy = 0;
+        protected virtual void drag_Changed(DragListener drag)
+        {
+            Line al = ExtendedItem.View as Line;
 
-			if (zoom != null)
-			{
-				dx = drag.Delta.X * (1 / zoom.CurrentZoom);
-				dy = drag.Delta.Y * (1 / zoom.CurrentZoom);
-			}
+            var thumb = drag.Target as UserControlPointsObjectThumb;
+            var alignment = thumb.Alignment;
+            var info = operation.PlacedItems[0];
+            double dx = 0;
+            double dy = 0;
 
-			double top, left, x, y, xtop, xleft;
+            if (zoom != null)
+            {
+                dx = drag.Delta.X * (1 / zoom.CurrentZoom);
+                dy = drag.Delta.Y * (1 / zoom.CurrentZoom);
+            }
 
-			if (alignment == PlacementAlignment.TopLeft)
-			{
+            double top, left, x, y, xtop, xleft;
 
-				//normal values
-				x = CurrentX2 - dx;
-				y = CurrentY2 - dy;
-				top = CurrentTop + dy;
-				left = CurrentLeft + dx;
+            if (alignment == PlacementAlignment.TopLeft)
+            {
+                //normal values
+                x = CurrentX2 - dx;
+                y = CurrentY2 - dy;
+                top = CurrentTop + dy;
+                left = CurrentLeft + dx;
 
-				//values to use when keys are pressed
-				xtop = CurrentTop + CurrentY2;
-				xleft = CurrentLeft + CurrentX2;
+                //values to use when keys are pressed
+                xtop = CurrentTop + CurrentY2;
+                xleft = CurrentLeft + CurrentX2;
+            }
+            else
+            {
+                x = CurrentX2 + dx;
+                y = CurrentY2 + dy;
+                top = xtop = CurrentTop;
+                left = xleft = CurrentLeft;
+            }
 
-			}
-			else
-			{
-				x = CurrentX2 + dx;
-				y = CurrentY2 + dy;
-				top = xtop = CurrentTop;
-				left = xleft = CurrentLeft;
-			}
+            //			Bounds position = CalculateDrawing(x, y, left, top, xleft, xtop);
+            ExtendedItem.Properties.GetProperty(thumb.DependencyProperty).SetValue(new Point(x, y));
+            //			if (operation != null) {
+            //				var result = info.OriginalBounds;
+            //				result.X = position.Left;
+            //				result.Y = position.Top;
+            //				result.Width = Math.Abs(position.X);
+            //				result.Height = Math.Abs(position.Y);
+            //
+            //				info.Bounds = result.Round();
+            //				operation.CurrentContainerBehavior.BeforeSetPosition(operation);
+            //				operation.CurrentContainerBehavior.SetPosition(info);
+            //			}
 
-			//			Bounds position = CalculateDrawing(x, y, left, top, xleft, xtop);
-			ExtendedItem.Properties.GetProperty(thumb.DependencyProperty).SetValue(new Point(x, y));
-			//			if (operation != null) {
-			//				var result = info.OriginalBounds;
-			//				result.X = position.Left;
-			//				result.Y = position.Top;
-			//				result.Width = Math.Abs(position.X);
-			//				result.Height = Math.Abs(position.Y);
-			//
-			//				info.Bounds = result.Round();
-			//				operation.CurrentContainerBehavior.BeforeSetPosition(operation);
-			//				operation.CurrentContainerBehavior.SetPosition(info);
-			//			}
+            (drag.Target as UserControlPointsObjectThumb).InvalidateArrange();
+            ResetWidthHeightProperties();
+        }
 
-			(drag.Target as UserControlPointsObjectThumb).InvalidateArrange();
-			ResetWidthHeightProperties();
-		}
+        protected virtual void drag_Completed(DragListener drag)
+        {
+            if (operation != null)
+            {
+                if (drag.IsCanceled) operation.Abort();
+                else
+                {
+                    ResetWidthHeightProperties();
 
-		protected virtual void drag_Completed(DragListener drag)
-		{
-			if (operation != null)
-			{
-				if (drag.IsCanceled) operation.Abort();
-				else
-				{
-					ResetWidthHeightProperties();
+                    operation.Commit();
+                }
+                operation = null;
+            }
+            else
+            {
+                if (drag.IsCanceled)
+                    changeGroup.Abort();
+                else
+                    changeGroup.Commit();
+                changeGroup = null;
+            }
 
-					operation.Commit();
-				}
-				operation = null;
-			}
-			else
-			{
-				if (drag.IsCanceled)
-					changeGroup.Abort();
-				else
-					changeGroup.Commit();
-				changeGroup = null;
-			}
+            _isResizing = false;
+            (drag.Target as UserControlPointsObjectThumb).IsPrimarySelection = true;
+            HideSizeAndShowHandles();
+        }
 
-			_isResizing = false;
-			(drag.Target as UserControlPointsObjectThumb).IsPrimarySelection = true;
-			HideSizeAndShowHandles();
-		}
+        #endregion
 
-		#endregion
+        /// <summary>
+        /// is invoked whenever a line is selected on the canvas, remember that the adorners are created for each line object and never destroyed
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
-		/// <summary>
-		/// is invoked whenever a line is selected on the canvas, remember that the adorners are created for each line object and never destroyed
-		/// </summary>
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
+            _thumbProperties = FillThumbProperties();
+            var thumbs = new List<UserControlPointsObjectThumb>();
+            foreach (var prp in _thumbProperties)
+            {
+                thumbs.Add(CreateThumb(PlacementAlignment.Center, Cursors.Cross, prp));
+            }
 
-			_thumbProperties = FillThumbProperties();
-			var thumbs = new List<UserControlPointsObjectThumb>();
-			foreach (var prp in _thumbProperties)
-			{
-				thumbs.Add(CreateThumb(PlacementAlignment.Center, Cursors.Cross, prp));
-			}
+            resizeThumbs = thumbs;
 
-			resizeThumbs = thumbs;
+            extendedItemArray[0] = this.ExtendedItem;
 
-			extendedItemArray[0] = this.ExtendedItem;
+            Invalidate();
 
-			Invalidate();
+            this.ExtendedItem.PropertyChanged += OnPropertyChanged;
+            resizeBehavior = PlacementOperation.GetPlacementBehavior(extendedItemArray);
+            UpdateAdornerVisibility();
+        }
 
-			this.ExtendedItem.PropertyChanged += OnPropertyChanged;
-			resizeBehavior = PlacementOperation.GetPlacementBehavior(extendedItemArray);
-			UpdateAdornerVisibility();
-		}
+        protected abstract IEnumerable<DependencyProperty> FillThumbProperties();
 
-		protected abstract IEnumerable<DependencyProperty> FillThumbProperties();
+        protected virtual Bounds CalculateDrawing(double x, double y, double left, double top, double xleft,
+            double xtop)
+        {
+            Double theta = (180 / Math.PI) * Math.Atan2(y, x);
+            double verticaloffset = Math.Abs(90 - Math.Abs(theta));
+            if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
+            {
+                if (Math.Abs(theta) < 45 || Math.Abs(theta) > 135)
+                {
+                    y = 0;
+                    top = xtop;
+                }
+                else if (verticaloffset < 45)
+                {
+                    x = 0;
+                    left = xleft;
+                }
+            }
+            else if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+            {
+                if (verticaloffset < 10)
+                {
+                    x = 0;
+                    left = xleft;
+                }
+                else if (Math.Abs(theta) < 10 || Math.Abs(theta) > 170)
+                {
+                    y = 0;
+                    top = xtop;
+                }
+            }
 
-		protected virtual Bounds CalculateDrawing(double x, double y, double left, double top, double xleft, double xtop)
-		{
-
-			Double theta = (180 / Math.PI) * Math.Atan2(y, x);
-			double verticaloffset = Math.Abs(90 - Math.Abs(theta));
-			if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
-			{
-				if (Math.Abs(theta) < 45 || Math.Abs(theta) > 135)
-				{
-					y = 0;
-					top = xtop;
-				}
-				else if (verticaloffset < 45)
-				{
-					x = 0;
-					left = xleft;
-				}
-			}
-			else if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
-			{
-				if (verticaloffset < 10)
-				{
-					x = 0;
-					left = xleft;
-				}
-				else if (Math.Abs(theta) < 10 || Math.Abs(theta) > 170)
-				{
-					y = 0;
-					top = xtop;
-				}
-			}
-
-			SetSurfaceInfo(0, 3, Math.Round((180 / Math.PI) * Math.Atan2(y, x), 0).ToString());
-			return new Bounds { X = Math.Round(x, 1), Y = Math.Round(y, 1), Left = Math.Round(left, 1), Top = Math.Round(top, 1) };
-		}
-	}
+            SetSurfaceInfo(0, 3, Math.Round((180 / Math.PI) * Math.Atan2(y, x), 0).ToString());
+            return new Bounds
+            {
+                X = Math.Round(x, 1),
+                Y = Math.Round(y, 1),
+                Left = Math.Round(left, 1),
+                Top = Math.Round(top, 1)
+            };
+        }
+    }
 }

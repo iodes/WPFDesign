@@ -20,76 +20,75 @@ using System.ComponentModel;
 
 namespace WPFDesign.Core.PropertyGrid
 {
-	/// <summary>
-	/// View-Model class for a property grid category.
-	/// </summary>
-	public class Category : INotifyPropertyChanged
-	{
-		// don't warn on missing XML comments in View-Model
-		#pragma warning disable 1591
-		
-		public Category(string name)
-		{
-			Name = name;
-			Properties = new PropertyNodeCollection();
-			//MoreProperties = new ObservableCollection<PropertyNode>();
-		}
+    /// <summary>
+    /// View-Model class for a property grid category.
+    /// </summary>
+    public class Category : INotifyPropertyChanged
+    {
+        // don't warn on missing XML comments in View-Model
+#pragma warning disable 1591
 
-		public string Name { get; private set; }
-		public PropertyNodeCollection Properties { get; private set; }
-		//public ObservableCollection<PropertyNode> MoreProperties { get; private set; }
+        public Category(string name)
+        {
+            Name = name;
+            Properties = new PropertyNodeCollection();
+            //MoreProperties = new ObservableCollection<PropertyNode>();
+        }
 
-		bool isExpanded = true;
+        public string Name { get; private set; }
 
-		public bool IsExpanded {
-			get {
-				return isExpanded;
-			}
-			set {
-				isExpanded = value;
-				RaisePropertyChanged("IsExpanded");
-			}
-		}
+        public PropertyNodeCollection Properties { get; private set; }
+        //public ObservableCollection<PropertyNode> MoreProperties { get; private set; }
 
-		//bool showMore;
-		//internal bool ShowMoreByFilter;
+        bool isExpanded = true;
 
-		//public bool ShowMore {
-		//    get {
-		//        return showMore;
-		//    }
-		//    set {
-		//        showMore = value;
-		//        RaisePropertyChanged("ShowMore");
-		//    }
-		//}
+        public bool IsExpanded
+        {
+            get { return isExpanded; }
+            set
+            {
+                isExpanded = value;
+                RaisePropertyChanged("IsExpanded");
+            }
+        }
 
-		bool isVisible;
+        //bool showMore;
+        //internal bool ShowMoreByFilter;
 
-		public bool IsVisible
-		{
-			get
-			{
-				return isVisible;
-			}
-			set
-			{
-				isVisible = value;
-				RaisePropertyChanged("IsVisible");
-			}
-		}
+        //public bool ShowMore {
+        //    get {
+        //        return showMore;
+        //    }
+        //    set {
+        //        showMore = value;
+        //        RaisePropertyChanged("ShowMore");
+        //    }
+        //}
 
-		#region INotifyPropertyChanged Members
+        bool isVisible;
 
-		public event PropertyChangedEventHandler PropertyChanged;
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                isVisible = value;
+                RaisePropertyChanged("IsVisible");
+            }
+        }
 
-		void RaisePropertyChanged(string name)
-		{
-			if (PropertyChanged != null) {
-				PropertyChanged(this, new PropertyChangedEventArgs(name));
-			}
-		}
+        #region INotifyPropertyChanged Members
 
-		#endregion
-	}
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        void RaisePropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        #endregion
+    }
 }

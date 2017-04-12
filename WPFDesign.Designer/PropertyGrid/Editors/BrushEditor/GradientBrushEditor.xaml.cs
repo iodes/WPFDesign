@@ -22,25 +22,27 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors.BrushEditor
 {
-	public partial class GradientBrushEditor
-	{
-		public GradientBrushEditor()
-		{
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
-	}
+    public partial class GradientBrushEditor
+    {
+        public GradientBrushEditor()
+        {
+            SpecialInitializeComponent();
+        }
+
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
+
+            this.InitializeComponent();
+        }
+    }
 }

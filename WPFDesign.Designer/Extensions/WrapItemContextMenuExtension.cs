@@ -23,33 +23,33 @@ using WPFDesign.Core.Extensions;
 
 namespace WPFDesign.Designer.Extensions
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	[ExtensionServer(typeof(OnlyOneItemSelectedExtensionServer))]
-	[ExtensionFor(typeof(UIElement))]
-	[Extension(Order = 50)]
+    /// <summary>
+    /// 
+    /// </summary>
+    [ExtensionServer(typeof(OnlyOneItemSelectedExtensionServer))]
+    [ExtensionFor(typeof(UIElement))]
+    [Extension(Order = 50)]
     public class WrapItemContextMenuExtension : SelectionAdornerProvider
-	{
-		DesignPanel panel;
-		ContextMenu contextMenu;
+    {
+        DesignPanel panel;
+        ContextMenu contextMenu;
 
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
             contextMenu = new WrapItemContextMenu(ExtendedItem);
-			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
-			if (panel != null)
-				panel.AddContextMenu(contextMenu);
-		}
-		
-		protected override void OnRemove()
-		{
-			if (panel != null)
-				panel.RemoveContextMenu(contextMenu);
+            panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
+            if (panel != null)
+                panel.AddContextMenu(contextMenu);
+        }
 
-			base.OnRemove();
-		}
-	}
+        protected override void OnRemove()
+        {
+            if (panel != null)
+                panel.RemoveContextMenu(contextMenu);
+
+            base.OnRemove();
+        }
+    }
 }

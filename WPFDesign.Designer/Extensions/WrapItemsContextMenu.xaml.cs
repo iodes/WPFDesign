@@ -24,39 +24,41 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.Extensions
 {
-	public partial class WrapItemsContextMenu
-	{
-		private DesignItem designItem;
-		
-		public WrapItemsContextMenu(DesignItem designItem)
-		{
-			this.designItem = designItem;
-			
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
-		
-		void Click_WrapInCanvas(object sender, System.Windows.RoutedEventArgs e)
-		{
-			ModelTools.WrapItemsNewContainer(this.designItem.Services.Selection.SelectedItems, typeof(Canvas));
-		}
-		
-		void Click_WrapInGrid(object sender, System.Windows.RoutedEventArgs e)
-		{
-			ModelTools.WrapItemsNewContainer(this.designItem.Services.Selection.SelectedItems, typeof(Grid));
-		}
-	}
+    public partial class WrapItemsContextMenu
+    {
+        private DesignItem designItem;
+
+        public WrapItemsContextMenu(DesignItem designItem)
+        {
+            this.designItem = designItem;
+
+            SpecialInitializeComponent();
+        }
+
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
+
+            this.InitializeComponent();
+        }
+
+        void Click_WrapInCanvas(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ModelTools.WrapItemsNewContainer(this.designItem.Services.Selection.SelectedItems, typeof(Canvas));
+        }
+
+        void Click_WrapInGrid(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ModelTools.WrapItemsNewContainer(this.designItem.Services.Selection.SelectedItems, typeof(Grid));
+        }
+    }
 }

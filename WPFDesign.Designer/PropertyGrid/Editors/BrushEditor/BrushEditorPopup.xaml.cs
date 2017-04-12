@@ -23,36 +23,38 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors.BrushEditor
 {
-	public partial class BrushEditorPopup
-	{
-		public BrushEditorPopup()
-		{
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
+    public partial class BrushEditorPopup
+    {
+        public BrushEditorPopup()
+        {
+            SpecialInitializeComponent();
+        }
 
-		protected override void OnClosed(EventArgs e)
-		{
-			base.OnClosed(e);
-			BrushEditorView.BrushEditor.Commit();
-		}
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
 
-		protected override void OnKeyDown(KeyEventArgs e)
-		{
-			if (e.Key == Key.Escape) IsOpen = false;
-		}
-	}
+            this.InitializeComponent();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            BrushEditorView.BrushEditor.Commit();
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) IsOpen = false;
+        }
+    }
 }

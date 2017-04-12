@@ -23,72 +23,74 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.Extensions
 {
-	public partial class RightClickContextMenu
-	{
-		private DesignItem designItem;
-		
-		public RightClickContextMenu(DesignItem designItem)
-		{
-			this.designItem = designItem;
-			
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
+    public partial class RightClickContextMenu
+    {
+        private DesignItem designItem;
 
-		void Click_BringToFront(object sender, RoutedEventArgs e)
-		{
-			if ((designItem.ParentProperty == null) || !designItem.ParentProperty.IsCollection)
-				return;
-			
-			var collection = this.designItem.ParentProperty.CollectionElements;
-			collection.Remove(this.designItem);
-			collection.Add(this.designItem);
-		}
+        public RightClickContextMenu(DesignItem designItem)
+        {
+            this.designItem = designItem;
 
-		void Click_SendToBack(object sender, RoutedEventArgs e)
-		{
-			if ((designItem.ParentProperty == null) || !designItem.ParentProperty.IsCollection)
-				return;
-			
-			var collection = this.designItem.ParentProperty.CollectionElements;
-			collection.Remove(this.designItem);
-			collection.Insert(0, this.designItem);
-		}
-		
-		void Click_Backward(object sender, RoutedEventArgs e)
-		{
-			if ((designItem.ParentProperty == null) || !designItem.ParentProperty.IsCollection)
-				return;
-			
-			var collection = this.designItem.ParentProperty.CollectionElements;
-			var idx = collection.IndexOf(this.designItem);
-			collection.RemoveAt(idx);
-			collection.Insert((--idx < 0 ? 0 : idx), this.designItem);
-		}
+            SpecialInitializeComponent();
+        }
 
-		void Click_Forward(object sender, RoutedEventArgs e)
-		{
-			if ((designItem.ParentProperty == null) || !designItem.ParentProperty.IsCollection)
-				return;
-			
-			var collection = this.designItem.ParentProperty.CollectionElements;
-			var idx = collection.IndexOf(this.designItem);
-			collection.RemoveAt(idx);
-			var cnt = collection.Count;
-			collection.Insert((++idx > cnt ? cnt : idx), this.designItem);
-		}
-	}
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
+
+            this.InitializeComponent();
+        }
+
+        void Click_BringToFront(object sender, RoutedEventArgs e)
+        {
+            if ((designItem.ParentProperty == null) || !designItem.ParentProperty.IsCollection)
+                return;
+
+            var collection = this.designItem.ParentProperty.CollectionElements;
+            collection.Remove(this.designItem);
+            collection.Add(this.designItem);
+        }
+
+        void Click_SendToBack(object sender, RoutedEventArgs e)
+        {
+            if ((designItem.ParentProperty == null) || !designItem.ParentProperty.IsCollection)
+                return;
+
+            var collection = this.designItem.ParentProperty.CollectionElements;
+            collection.Remove(this.designItem);
+            collection.Insert(0, this.designItem);
+        }
+
+        void Click_Backward(object sender, RoutedEventArgs e)
+        {
+            if ((designItem.ParentProperty == null) || !designItem.ParentProperty.IsCollection)
+                return;
+
+            var collection = this.designItem.ParentProperty.CollectionElements;
+            var idx = collection.IndexOf(this.designItem);
+            collection.RemoveAt(idx);
+            collection.Insert((--idx < 0 ? 0 : idx), this.designItem);
+        }
+
+        void Click_Forward(object sender, RoutedEventArgs e)
+        {
+            if ((designItem.ParentProperty == null) || !designItem.ParentProperty.IsCollection)
+                return;
+
+            var collection = this.designItem.ParentProperty.CollectionElements;
+            var idx = collection.IndexOf(this.designItem);
+            collection.RemoveAt(idx);
+            var cnt = collection.Count;
+            collection.Insert((++idx > cnt ? cnt : idx), this.designItem);
+        }
+    }
 }

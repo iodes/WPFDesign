@@ -25,100 +25,107 @@ using System.Windows.Markup;
 
 namespace WPFDesign.Designer
 {
-	public class CallExtension : MarkupExtension
-	{
-		public CallExtension(string methodName)
-		{
-			this.methodName = methodName;
-		}
+    public class CallExtension : MarkupExtension
+    {
+        public CallExtension(string methodName)
+        {
+            this.methodName = methodName;
+        }
 
-		string methodName;
+        string methodName;
 
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			var t = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
-			return new CallCommand(t.TargetObject as FrameworkElement, methodName);
-		}
-	}
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            var t = (IProvideValueTarget) serviceProvider.GetService(typeof(IProvideValueTarget));
+            return new CallCommand(t.TargetObject as FrameworkElement, methodName);
+        }
+    }
 
-	public class CallCommand : DependencyObject, ICommand
-	{
-		public CallCommand(FrameworkElement element, string methodName)
-		{
-			this.element = element;
-			this.methodName = methodName;
-			element.DataContextChanged += target_DataContextChanged;
+    public class CallCommand : DependencyObject, ICommand
+    {
+        public CallCommand(FrameworkElement element, string methodName)
+        {
+            this.element = element;
+            this.methodName = methodName;
+            element.DataContextChanged += target_DataContextChanged;
 
-			BindingOperations.SetBinding(this, CanCallProperty, new Binding("DataContext.Can" + methodName) {
-				Source = element
-			});
+            BindingOperations.SetBinding(this, CanCallProperty, new Binding("DataContext.Can" + methodName)
+            {
+                Source = element
+            });
 
-			GetMethod();
-		}
+            GetMethod();
+        }
 
-		FrameworkElement element;
-		string methodName;
-		MethodInfo method;
+        FrameworkElement element;
+        string methodName;
+        MethodInfo method;
 
-		public static readonly DependencyProperty CanCallProperty =
-			DependencyProperty.Register("CanCall", typeof(bool), typeof(CallCommand),
-			                            new PropertyMetadata(true));
+        public static readonly DependencyProperty CanCallProperty =
+            DependencyProperty.Register("CanCall", typeof(bool), typeof(CallCommand),
+                new PropertyMetadata(true));
 
-		public bool CanCall {
-			get { return (bool)GetValue(CanCallProperty); }
-			set { SetValue(CanCallProperty, value); }
-		}
+        public bool CanCall
+        {
+            get { return (bool) GetValue(CanCallProperty); }
+            set { SetValue(CanCallProperty, value); }
+        }
 
-		public object DataContext {
-			get { return element.DataContext; }
-		}
+        public object DataContext
+        {
+            get { return element.DataContext; }
+        }
 
-		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-		{
-			base.OnPropertyChanged(e);
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
 
-			if (e.Property == CanCallProperty) {
-				RaiseCanExecuteChanged();
-			}
-		}
+            if (e.Property == CanCallProperty)
+            {
+                RaiseCanExecuteChanged();
+            }
+        }
 
-		void GetMethod()
-		{
-			if (DataContext == null) {
-				method = null;
-			}
-			else {
-				method = DataContext.GetType().GetMethod(methodName, Type.EmptyTypes);
-			}
-		}
+        void GetMethod()
+        {
+            if (DataContext == null)
+            {
+                method = null;
+            }
+            else
+            {
+                method = DataContext.GetType().GetMethod(methodName, Type.EmptyTypes);
+            }
+        }
 
-		void target_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
-			GetMethod();
-			RaiseCanExecuteChanged();
-		}
+        void target_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            GetMethod();
+            RaiseCanExecuteChanged();
+        }
 
-		void RaiseCanExecuteChanged()
-		{
-			if (CanExecuteChanged != null) {
-				CanExecuteChanged(this, EventArgs.Empty);
-			}
-		}
+        void RaiseCanExecuteChanged()
+        {
+            if (CanExecuteChanged != null)
+            {
+                CanExecuteChanged(this, EventArgs.Empty);
+            }
+        }
 
-		#region ICommand Members
+        #region ICommand Members
 
-		public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged;
 
-		public bool CanExecute(object parameter)
-		{
-			return method != null && CanCall;
-		}
+        public bool CanExecute(object parameter)
+        {
+            return method != null && CanCall;
+        }
 
-		public void Execute(object parameter)
-		{
-			method.Invoke(DataContext, null);
-		}
+        public void Execute(object parameter)
+        {
+            method.Invoke(DataContext, null);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -24,34 +24,36 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.Extensions
 {
-	public partial class WrapItemContextMenu
-	{
-		private DesignItem designItem;
+    public partial class WrapItemContextMenu
+    {
+        private DesignItem designItem;
 
-		public WrapItemContextMenu(DesignItem designItem)
-		{
-			this.designItem = designItem;
-			
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
+        public WrapItemContextMenu(DesignItem designItem)
+        {
+            this.designItem = designItem;
 
-		void Click_WrapInViewbox(object sender, System.Windows.RoutedEventArgs e)
-		{
-			ModelTools.WrapItemsNewContainer(this.designItem.Services.Selection.SelectedItems, typeof(Viewbox));
-		}
-	}
+            SpecialInitializeComponent();
+        }
+
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
+
+            this.InitializeComponent();
+        }
+
+        void Click_WrapInViewbox(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ModelTools.WrapItemsNewContainer(this.designItem.Services.Selection.SelectedItems, typeof(Viewbox));
+        }
+    }
 }

@@ -25,333 +25,370 @@ using System.Windows.Input;
 
 namespace WPFDesign.Designer.OutlineView
 {
-	// limitations:
-	// - Do not use ItemsSource (use Root)
-	// - Do not use Items (use Root)
-	public class DragTreeView : TreeView
-	{
-		static DragTreeView()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(DragTreeView), 
-				new FrameworkPropertyMetadata(typeof(DragTreeView)));
-		}
+    // limitations:
+    // - Do not use ItemsSource (use Root)
+    // - Do not use Items (use Root)
+    public class DragTreeView : TreeView
+    {
+        static DragTreeView()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DragTreeView),
+                new FrameworkPropertyMetadata(typeof(DragTreeView)));
+        }
 
-		public DragTreeView()
-		{
-			AllowDrop = true;
-			new DragListener(this).DragStarted += new MouseButtonEventHandler(DragTreeView_DragStarted);
-		}
+        public DragTreeView()
+        {
+            AllowDrop = true;
+            new DragListener(this).DragStarted += new MouseButtonEventHandler(DragTreeView_DragStarted);
+        }
 
-		DragTreeViewItem dropTarget;
-		DragTreeViewItem treeItem;
-		DragTreeViewItem dropAfter;
-		int part;		
-		bool dropInside;
-		bool dropCopy;
-		bool canDrop;
+        DragTreeViewItem dropTarget;
+        DragTreeViewItem treeItem;
+        DragTreeViewItem dropAfter;
+        int part;
+        bool dropInside;
+        bool dropCopy;
+        bool canDrop;
 
-		Border insertLine;
+        Border insertLine;
 
-		public static readonly DependencyProperty RootProperty =
-			DependencyProperty.Register("Root", typeof(object), typeof(DragTreeView));
+        public static readonly DependencyProperty RootProperty =
+            DependencyProperty.Register("Root", typeof(object), typeof(DragTreeView));
 
-		public object Root {
-			get { return (object)GetValue(RootProperty); }
-			set { SetValue(RootProperty, value); }
-		}
-		
-		#region Filtering
-		
-		public static readonly DependencyProperty FilterProperty =
-			DependencyProperty.Register("Filter", typeof(string), typeof(DragTreeView), new PropertyMetadata(OnFilterPropertyChanged));
+        public object Root
+        {
+            get { return (object) GetValue(RootProperty); }
+            set { SetValue(RootProperty, value); }
+        }
 
-		public string Filter {
-			get { return (string)GetValue(FilterProperty); }
-			set { SetValue(FilterProperty, value); }
-		}
-		
-		private static void OnFilterPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		{
-			var ctl = d as DragTreeView;
-			var ev = ctl.FilterChanged;
-			if (ev != null)
-				ev(ctl.Filter);
-		}
-		
-		public event Action<string> FilterChanged;	
-		
-		public virtual bool ShouldItemBeVisible(DragTreeViewItem dragTreeViewitem)
-		{
-			return true;
-		}
+        #region Filtering
 
-		#endregion
-		
-		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-		{
-			base.OnPropertyChanged(e);
-			if (e.Property == RootProperty) {
-				ItemsSource = new[] { Root };
-			}
-		}
+        public static readonly DependencyProperty FilterProperty =
+            DependencyProperty.Register("Filter", typeof(string), typeof(DragTreeView),
+                new PropertyMetadata(OnFilterPropertyChanged));
 
-		void DragTreeView_DragStarted(object sender, MouseButtonEventArgs e)
-		{
-			DragDrop.DoDragDrop(this, this, DragDropEffects.All);
-		}
+        public string Filter
+        {
+            get { return (string) GetValue(FilterProperty); }
+            set { SetValue(FilterProperty, value); }
+        }
 
-		public override void OnApplyTemplate()
-		{
-			base.OnApplyTemplate();
-			insertLine = (Border)Template.FindName("PART_InsertLine", this);
-		}
+        private static void OnFilterPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctl = d as DragTreeView;
+            var ev = ctl.FilterChanged;
+            if (ev != null)
+                ev(ctl.Filter);
+        }
 
-		protected override DependencyObject GetContainerForItemOverride()
-		{
-			return new DragTreeViewItem();
-		}
+        public event Action<string> FilterChanged;
 
-		protected override bool IsItemItsOwnContainerOverride(object item)
-		{
-			return item is DragTreeViewItem;
-		}
+        public virtual bool ShouldItemBeVisible(DragTreeViewItem dragTreeViewitem)
+        {
+            return true;
+        }
 
-		protected override void OnDragEnter(DragEventArgs e)
-		{
-			ProcessDrag(e);
-		}
+        #endregion
 
-		protected override void OnDragOver(DragEventArgs e)
-		{
-			ProcessDrag(e);
-		}
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            if (e.Property == RootProperty)
+            {
+                ItemsSource = new[] {Root};
+            }
+        }
 
-		protected override void OnDrop(DragEventArgs e)
-		{
-			ProcessDrop(e);
-		}
+        void DragTreeView_DragStarted(object sender, MouseButtonEventArgs e)
+        {
+            DragDrop.DoDragDrop(this, this, DragDropEffects.All);
+        }
 
-		protected override void OnDragLeave(DragEventArgs e)
-		{
-			HideDropMarker();
-		}
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            insertLine = (Border) Template.FindName("PART_InsertLine", this);
+        }
 
-		void PrepareDropInfo(DragEventArgs e)
-		{
-			dropTarget = null;
-			dropAfter = null;
-			treeItem = (e.OriginalSource as DependencyObject).GetVisualAncestors().OfType<DragTreeViewItem>().FirstOrDefault();
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new DragTreeViewItem();
+        }
 
-			if (treeItem != null) {
-				var parent = ItemsControl.ItemsControlFromItemContainer(treeItem) as DragTreeViewItem;
-				ContentPresenter header = treeItem.HeaderPresenter;
-				Point p = e.GetPosition(header);
-				part = (int)(p.Y / (header.ActualHeight / 3));
-				dropCopy = Keyboard.IsKeyDown(Key.LeftCtrl);
-				dropInside = false;
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            return item is DragTreeViewItem;
+        }
 
-				if (part == 1 || parent == null) {
-					dropTarget = treeItem;
-					dropInside = true;
-					if (treeItem.Items.Count > 0) {
-						dropAfter = treeItem.ItemContainerGenerator.ContainerFromIndex(treeItem.Items.Count - 1) as DragTreeViewItem;
-					}					
-				}
-				else if (part == 0) {
-					dropTarget = parent;
-					var index = dropTarget.ItemContainerGenerator.IndexFromContainer(treeItem);
-					if (index > 0) {
-						dropAfter = dropTarget.ItemContainerGenerator.ContainerFromIndex(index - 1) as DragTreeViewItem;
-					}
-				}
-				else {
-					dropTarget = parent;
-					dropAfter = treeItem;
-				}
-			}
-		}
+        protected override void OnDragEnter(DragEventArgs e)
+        {
+            ProcessDrag(e);
+        }
 
-		void ProcessDrag(DragEventArgs e)
-		{
-			e.Effects = DragDropEffects.None;
-			e.Handled = true;
-			canDrop = false;
+        protected override void OnDragOver(DragEventArgs e)
+        {
+            ProcessDrag(e);
+        }
 
-			if (e.Data.GetData(GetType()) != this) return;
+        protected override void OnDrop(DragEventArgs e)
+        {
+            ProcessDrop(e);
+        }
 
-			HideDropMarker();
-			PrepareDropInfo(e);
+        protected override void OnDragLeave(DragEventArgs e)
+        {
+            HideDropMarker();
+        }
 
-			if (dropTarget != null && CanInsertInternal()) {
-				canDrop = true;
-				e.Effects = dropCopy ? DragDropEffects.Copy : DragDropEffects.Move;
-				DrawDropMarker();
-			}
-		}
+        void PrepareDropInfo(DragEventArgs e)
+        {
+            dropTarget = null;
+            dropAfter = null;
+            treeItem = (e.OriginalSource as DependencyObject).GetVisualAncestors()
+                .OfType<DragTreeViewItem>()
+                .FirstOrDefault();
 
-		void ProcessDrop(DragEventArgs e)
-		{
-			HideDropMarker();
+            if (treeItem != null)
+            {
+                var parent = ItemsControl.ItemsControlFromItemContainer(treeItem) as DragTreeViewItem;
+                ContentPresenter header = treeItem.HeaderPresenter;
+                Point p = e.GetPosition(header);
+                part = (int) (p.Y / (header.ActualHeight / 3));
+                dropCopy = Keyboard.IsKeyDown(Key.LeftCtrl);
+                dropInside = false;
 
-			if (canDrop) {
-				InsertInternal();
-			}
-		}
+                if (part == 1 || parent == null)
+                {
+                    dropTarget = treeItem;
+                    dropInside = true;
+                    if (treeItem.Items.Count > 0)
+                    {
+                        dropAfter =
+                            treeItem.ItemContainerGenerator
+                                .ContainerFromIndex(treeItem.Items.Count - 1) as DragTreeViewItem;
+                    }
+                }
+                else if (part == 0)
+                {
+                    dropTarget = parent;
+                    var index = dropTarget.ItemContainerGenerator.IndexFromContainer(treeItem);
+                    if (index > 0)
+                    {
+                        dropAfter = dropTarget.ItemContainerGenerator.ContainerFromIndex(index - 1) as DragTreeViewItem;
+                    }
+                }
+                else
+                {
+                    dropTarget = parent;
+                    dropAfter = treeItem;
+                }
+            }
+        }
 
-		void DrawDropMarker()
-		{
-			if (dropInside) {
-				dropTarget.IsDragHover = true;
-			}
-			else {
-				var header = treeItem.HeaderPresenter;
-				var p = header.TransformToVisual(this).Transform(
-					new Point(0, part == 0 ? 0 : header.ActualHeight));
+        void ProcessDrag(DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.None;
+            e.Handled = true;
+            canDrop = false;
 
-				insertLine.Visibility = Visibility.Visible;
-				insertLine.Margin = new Thickness(p.X, p.Y, 0, 0);
-			}
-		}
+            if (e.Data.GetData(GetType()) != this) return;
 
-		void HideDropMarker()
-		{
-			insertLine.Visibility = Visibility.Collapsed;
-			if (dropTarget != null) {
-				dropTarget.IsDragHover = false;
-			}
-		}
+            HideDropMarker();
+            PrepareDropInfo(e);
 
-		internal HashSet<DragTreeViewItem> Selection = new HashSet<DragTreeViewItem>();
-		DragTreeViewItem upSelection;
+            if (dropTarget != null && CanInsertInternal())
+            {
+                canDrop = true;
+                e.Effects = dropCopy ? DragDropEffects.Copy : DragDropEffects.Move;
+                DrawDropMarker();
+            }
+        }
 
-		internal void ItemMouseDown(DragTreeViewItem item)
-		{
-			upSelection = null;
-			bool control = Keyboard.IsKeyDown(Key.LeftCtrl);
+        void ProcessDrop(DragEventArgs e)
+        {
+            HideDropMarker();
 
-			if (Selection.Contains(item)) {
-				if (control) {
-					Unselect(item);
-				}
-				else {
-					upSelection = item;
-				}
-			}
-			else {
-				if (control) {
-					Select(item);
-				}
-				else {
-					SelectOnly(item);
-				}
-			}
-		}
+            if (canDrop)
+            {
+                InsertInternal();
+            }
+        }
 
-		internal void ItemMouseUp(DragTreeViewItem item)
-		{
-			if (upSelection == item) {
-				SelectOnly(item);
-			}
-			upSelection = null;
-		}
+        void DrawDropMarker()
+        {
+            if (dropInside)
+            {
+                dropTarget.IsDragHover = true;
+            }
+            else
+            {
+                var header = treeItem.HeaderPresenter;
+                var p = header.TransformToVisual(this)
+                    .Transform(
+                        new Point(0, part == 0 ? 0 : header.ActualHeight));
 
-		internal void ItemAttached(DragTreeViewItem item)
-		{
-			if (item.IsSelected) Selection.Add(item);
-		}
+                insertLine.Visibility = Visibility.Visible;
+                insertLine.Margin = new Thickness(p.X, p.Y, 0, 0);
+            }
+        }
 
-		internal void ItemDetached(DragTreeViewItem item)
-		{
-			if (item.IsSelected) Selection.Remove(item);
-		}
+        void HideDropMarker()
+        {
+            insertLine.Visibility = Visibility.Collapsed;
+            if (dropTarget != null)
+            {
+                dropTarget.IsDragHover = false;
+            }
+        }
 
-		internal void ItemIsSelectedChanged(DragTreeViewItem item)
-		{
-			if (item.IsSelected) {
-				Selection.Add(item);
-			}
-			else {
-				Selection.Remove(item);
-			}
-		}
+        internal HashSet<DragTreeViewItem> Selection = new HashSet<DragTreeViewItem>();
+        DragTreeViewItem upSelection;
 
-		void Select(DragTreeViewItem item)
-		{
-			Selection.Add(item);
-			item.IsSelected = true;
-			OnSelectionChanged();
-		}
+        internal void ItemMouseDown(DragTreeViewItem item)
+        {
+            upSelection = null;
+            bool control = Keyboard.IsKeyDown(Key.LeftCtrl);
 
-		void Unselect(DragTreeViewItem item)
-		{
-			Selection.Remove(item);
-			item.IsSelected = false;
-			OnSelectionChanged();
-		}
+            if (Selection.Contains(item))
+            {
+                if (control)
+                {
+                    Unselect(item);
+                }
+                else
+                {
+                    upSelection = item;
+                }
+            }
+            else
+            {
+                if (control)
+                {
+                    Select(item);
+                }
+                else
+                {
+                    SelectOnly(item);
+                }
+            }
+        }
 
-		protected virtual void SelectOnly(DragTreeViewItem item)
-		{
-			ClearSelection();
-			Select(item);
-			OnSelectionChanged();
-		}
+        internal void ItemMouseUp(DragTreeViewItem item)
+        {
+            if (upSelection == item)
+            {
+                SelectOnly(item);
+            }
+            upSelection = null;
+        }
 
-		void ClearSelection()
-		{
-			foreach (var treeItem in Selection.ToArray()) {
-				treeItem.IsSelected = false;
-			}
-			Selection.Clear();
-			OnSelectionChanged();
-		}
+        internal void ItemAttached(DragTreeViewItem item)
+        {
+            if (item.IsSelected) Selection.Add(item);
+        }
 
-		void OnSelectionChanged()
-		{
-		}
+        internal void ItemDetached(DragTreeViewItem item)
+        {
+            if (item.IsSelected) Selection.Remove(item);
+        }
 
-		bool CanInsertInternal()
-		{
-			if (!dropCopy) {
-				var item = dropTarget;
-				while (true) {
-					if (Selection.Contains(item)) return false;
-					item = ItemsControl.ItemsControlFromItemContainer(item) as DragTreeViewItem;
-					if (item == null) break;
-				}
+        internal void ItemIsSelectedChanged(DragTreeViewItem item)
+        {
+            if (item.IsSelected)
+            {
+                Selection.Add(item);
+            }
+            else
+            {
+                Selection.Remove(item);
+            }
+        }
 
-				if (Selection.Contains(dropAfter)) return false;
-			}
+        void Select(DragTreeViewItem item)
+        {
+            Selection.Add(item);
+            item.IsSelected = true;
+            OnSelectionChanged();
+        }
 
-			return CanInsert(dropTarget, Selection.ToArray(), dropAfter, dropCopy);
-		}
+        void Unselect(DragTreeViewItem item)
+        {
+            Selection.Remove(item);
+            item.IsSelected = false;
+            OnSelectionChanged();
+        }
 
-		void InsertInternal()
-		{
-			var selection = Selection.ToArray();
+        protected virtual void SelectOnly(DragTreeViewItem item)
+        {
+            ClearSelection();
+            Select(item);
+            OnSelectionChanged();
+        }
 
-			if (!dropCopy) {
-				foreach (var item in Selection.ToArray()) {
-					var parent = ItemsControl.ItemsControlFromItemContainer(item) as DragTreeViewItem;
-					//TODO
-					if (parent != null) {
-						Remove(parent, item);
-					}
-				}
-			}
-			Insert(dropTarget, selection, dropAfter, dropCopy);
-		}
+        void ClearSelection()
+        {
+            foreach (var treeItem in Selection.ToArray())
+            {
+                treeItem.IsSelected = false;
+            }
+            Selection.Clear();
+            OnSelectionChanged();
+        }
 
-		protected virtual bool CanInsert(DragTreeViewItem target, DragTreeViewItem[] items, DragTreeViewItem after, bool copy)
-		{
-			return true;
-		}
+        void OnSelectionChanged()
+        {
+        }
 
-		protected virtual void Insert(DragTreeViewItem target, DragTreeViewItem[] items, DragTreeViewItem after, bool copy)
-		{
-		}
+        bool CanInsertInternal()
+        {
+            if (!dropCopy)
+            {
+                var item = dropTarget;
+                while (true)
+                {
+                    if (Selection.Contains(item)) return false;
+                    item = ItemsControl.ItemsControlFromItemContainer(item) as DragTreeViewItem;
+                    if (item == null) break;
+                }
 
-		protected virtual void Remove(DragTreeViewItem target, DragTreeViewItem item)
-		{
-		}
-	}
+                if (Selection.Contains(dropAfter)) return false;
+            }
+
+            return CanInsert(dropTarget, Selection.ToArray(), dropAfter, dropCopy);
+        }
+
+        void InsertInternal()
+        {
+            var selection = Selection.ToArray();
+
+            if (!dropCopy)
+            {
+                foreach (var item in Selection.ToArray())
+                {
+                    var parent = ItemsControl.ItemsControlFromItemContainer(item) as DragTreeViewItem;
+                    //TODO
+                    if (parent != null)
+                    {
+                        Remove(parent, item);
+                    }
+                }
+            }
+            Insert(dropTarget, selection, dropAfter, dropCopy);
+        }
+
+        protected virtual bool CanInsert(DragTreeViewItem target, DragTreeViewItem[] items, DragTreeViewItem after,
+            bool copy)
+        {
+            return true;
+        }
+
+        protected virtual void Insert(DragTreeViewItem target, DragTreeViewItem[] items, DragTreeViewItem after,
+            bool copy)
+        {
+        }
+
+        protected virtual void Remove(DragTreeViewItem target, DragTreeViewItem item)
+        {
+        }
+    }
 }

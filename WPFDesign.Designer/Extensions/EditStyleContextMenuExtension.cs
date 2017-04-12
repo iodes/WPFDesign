@@ -22,30 +22,30 @@ using WPFDesign.Core.Extensions;
 
 namespace WPFDesign.Designer.Extensions
 {
-	[ExtensionServer(typeof (OnlyOneItemSelectedExtensionServer))]
-	[ExtensionFor(typeof (Control))]
-	[Extension(Order = 30)]
-	public class EditStyleContextMenuExtension : PrimarySelectionAdornerProvider
-	{
-		DesignPanel panel;
-		ContextMenu contextMenu;
+    [ExtensionServer(typeof(OnlyOneItemSelectedExtensionServer))]
+    [ExtensionFor(typeof(Control))]
+    [Extension(Order = 30)]
+    public class EditStyleContextMenuExtension : PrimarySelectionAdornerProvider
+    {
+        DesignPanel panel;
+        ContextMenu contextMenu;
 
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
-			contextMenu = new EditStyleContextMenu(ExtendedItem);
-			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
-			if (panel != null)
-				panel.AddContextMenu(contextMenu);
-		}
+            contextMenu = new EditStyleContextMenu(ExtendedItem);
+            panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
+            if (panel != null)
+                panel.AddContextMenu(contextMenu);
+        }
 
-		protected override void OnRemove()
-		{
-			if (panel != null)
-				panel.RemoveContextMenu(contextMenu);
+        protected override void OnRemove()
+        {
+            if (panel != null)
+                panel.RemoveContextMenu(contextMenu);
 
-			base.OnRemove();
-		}
-	}
+            base.OnRemove();
+        }
+    }
 }

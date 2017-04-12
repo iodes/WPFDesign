@@ -23,8 +23,8 @@ using System.Windows.Input;
 using WPFDesign.Core;
 
 namespace WPFDesign.Designer.Services
-{	
-	class DesignerKeyBindings : IKeyBindingService
+{
+    class DesignerKeyBindings : IKeyBindingService
     {
         private readonly DesignSurface _surface;
         private Collection<KeyBinding> _bindings;
@@ -38,7 +38,8 @@ namespace WPFDesign.Designer.Services
 
         public void RegisterBinding(KeyBinding binding)
         {
-            if(binding!=null) {
+            if (binding != null)
+            {
                 _surface.InputBindings.Add(binding);
                 _bindings.Add(binding);
             }
@@ -46,7 +47,8 @@ namespace WPFDesign.Designer.Services
 
         public void DeregisterBinding(KeyBinding binding)
         {
-            if(_bindings.Contains(binding)) {
+            if (_bindings.Contains(binding))
+            {
                 _surface.InputBindings.Remove(binding);
                 _bindings.Remove(binding);
             }
@@ -54,12 +56,13 @@ namespace WPFDesign.Designer.Services
 
         public KeyBinding GetBinding(KeyGesture gesture)
         {
-            return _bindings.FirstOrDefault(binding => binding.Key == gesture.Key && binding.Modifiers == gesture.Modifiers);
+            return _bindings.FirstOrDefault(binding => binding.Key == gesture.Key &&
+                                                       binding.Modifiers == gesture.Modifiers);
         }
 
-        public object Owner{
+        public object Owner
+        {
             get { return _surface; }
         }
-
     }
 }

@@ -25,123 +25,127 @@ using System.Xml;
 
 namespace WPFDesign.XamlDom
 {
-	/// <summary>
-	/// Contains template related helper methods.
-	/// </summary>
-	public static class TemplateHelper
-	{
-		/// <summary>
-		/// Gets a <see cref="FrameworkTemplate"/> based on the specified parameters.
-		/// </summary>
-		/// <param name="xmlElement">The xml element to get template xaml from.</param>
-		/// <param name="parentObject">The <see cref="XamlObject"/> to use as source for resources and contextual information.</param>
-		/// <returns>A <see cref="FrameworkTemplate"/> based on the specified parameters.</returns>
-		public static FrameworkTemplate GetFrameworkTemplate(XmlElement xmlElement, XamlObject parentObject)
-		{
+    /// <summary>
+    /// Contains template related helper methods.
+    /// </summary>
+    public static class TemplateHelper
+    {
+        /// <summary>
+        /// Gets a <see cref="FrameworkTemplate"/> based on the specified parameters.
+        /// </summary>
+        /// <param name="xmlElement">The xml element to get template xaml from.</param>
+        /// <param name="parentObject">The <see cref="XamlObject"/> to use as source for resources and contextual information.</param>
+        /// <returns>A <see cref="FrameworkTemplate"/> based on the specified parameters.</returns>
+        public static FrameworkTemplate GetFrameworkTemplate(XmlElement xmlElement, XamlObject parentObject)
+        {
+            var nav = xmlElement.CreateNavigator();
 
-			var nav = xmlElement.CreateNavigator();
+            var ns = new Dictionary<string, string>();
+            while (true)
+            {
+                var nsInScope = nav.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
+                foreach (var ak in nsInScope)
+                {
+                    if (!ns.ContainsKey(ak.Key) && ak.Key != "")
+                        ns.Add(ak.Key, ak.Value);
+                }
+                if (!nav.MoveToParent())
+                    break;
+            }
 
-			var ns = new Dictionary<string, string>();
-			while (true)
-			{
-				var nsInScope = nav.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
-				foreach (var ak in nsInScope)
-				{
-					if (!ns.ContainsKey(ak.Key) && ak.Key != "")
-						ns.Add(ak.Key, ak.Value);
-				}
-				if (!nav.MoveToParent())
-					break;
-			}
-			
-			xmlElement = (XmlElement)xmlElement.CloneNode(true);
-				
-			foreach (var dictentry in ns.ToList())
-			{
-				var value = dictentry.Value;
-				if (value.StartsWith("clr-namespace") && !value.Contains(";assembly=")) {
-					if (!string.IsNullOrEmpty(parentObject.OwnerDocument.CurrentProjectAssemblyName)) {
-						value += ";assembly=" + parentObject.OwnerDocument.CurrentProjectAssemblyName;
-					}
-				}
-				xmlElement.SetAttribute("xmlns:" + dictentry.Key, value);
-			}
+            xmlElement = (XmlElement) xmlElement.CloneNode(true);
 
-			var keyAttrib = xmlElement.GetAttribute("Key", XamlConstants.XamlNamespace);
+            foreach (var dictentry in ns.ToList())
+            {
+                var value = dictentry.Value;
+                if (value.StartsWith("clr-namespace") && !value.Contains(";assembly="))
+                {
+                    if (!string.IsNullOrEmpty(parentObject.OwnerDocument.CurrentProjectAssemblyName))
+                    {
+                        value += ";assembly=" + parentObject.OwnerDocument.CurrentProjectAssemblyName;
+                    }
+                }
+                xmlElement.SetAttribute("xmlns:" + dictentry.Key, value);
+            }
 
-			if (string.IsNullOrEmpty(keyAttrib)) {
-				xmlElement.SetAttribute("Key", XamlConstants.XamlNamespace, "$$temp&&§§%%__");
-			}
+            var keyAttrib = xmlElement.GetAttribute("Key", XamlConstants.XamlNamespace);
 
-			var xaml = xmlElement.OuterXml;
-			xaml = "<ResourceDictionary xmlns=\"http://schemas.microsoft.com/netfx/2007/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">" + xaml + "</ResourceDictionary>";
-			StringReader stringReader = new StringReader(xaml);
-			XmlReader xmlReader = XmlReader.Create(stringReader);
-			var xamlReader = new XamlXmlReader(xmlReader, parentObject.ServiceProvider.SchemaContext);
+            if (string.IsNullOrEmpty(keyAttrib))
+            {
+                xmlElement.SetAttribute("Key", XamlConstants.XamlNamespace, "$$temp&&§§%%__");
+            }
 
-			var seti = new XamlObjectWriterSettings();
+            var xaml = xmlElement.OuterXml;
+            xaml =
+                "<ResourceDictionary xmlns=\"http://schemas.microsoft.com/netfx/2007/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">" +
+                xaml + "</ResourceDictionary>";
+            StringReader stringReader = new StringReader(xaml);
+            XmlReader xmlReader = XmlReader.Create(stringReader);
+            var xamlReader = new XamlXmlReader(xmlReader, parentObject.ServiceProvider.SchemaContext);
 
-			var resourceDictionary = new ResourceDictionary();
-			var obj = parentObject;
-			while (obj != null)
-			{
-				if (obj.Instance is ResourceDictionary)
-				{
-					var r = obj.Instance as ResourceDictionary;
-					foreach (var k in r.Keys)
-					{
-						if (!resourceDictionary.Contains(k))
-							resourceDictionary.Add(k, r[k]);
-					}
-				}
-				else if (obj.Instance is FrameworkElement)
-				{
-					var r = ((FrameworkElement)obj.Instance).Resources;
-					foreach (var k in r.Keys)
-					{
-						if (!resourceDictionary.Contains(k))
-							resourceDictionary.Add(k, r[k]);
-					}
-				}
+            var seti = new XamlObjectWriterSettings();
 
-				obj = obj.ParentObject;
-			}
+            var resourceDictionary = new ResourceDictionary();
+            var obj = parentObject;
+            while (obj != null)
+            {
+                if (obj.Instance is ResourceDictionary)
+                {
+                    var r = obj.Instance as ResourceDictionary;
+                    foreach (var k in r.Keys)
+                    {
+                        if (!resourceDictionary.Contains(k))
+                            resourceDictionary.Add(k, r[k]);
+                    }
+                }
+                else if (obj.Instance is FrameworkElement)
+                {
+                    var r = ((FrameworkElement) obj.Instance).Resources;
+                    foreach (var k in r.Keys)
+                    {
+                        if (!resourceDictionary.Contains(k))
+                            resourceDictionary.Add(k, r[k]);
+                    }
+                }
 
-			seti.BeforePropertiesHandler = (s, e) =>
-			{
-				if (seti.BeforePropertiesHandler != null)
-				{
-					var rr = e.Instance as ResourceDictionary;
-					rr.MergedDictionaries.Add(resourceDictionary);
-					seti.BeforePropertiesHandler = null;
-				}
-			};
+                obj = obj.ParentObject;
+            }
 
-			var writer = new XamlObjectWriter(parentObject.ServiceProvider.SchemaContext, seti);
+            seti.BeforePropertiesHandler = (s, e) =>
+            {
+                if (seti.BeforePropertiesHandler != null)
+                {
+                    var rr = e.Instance as ResourceDictionary;
+                    rr.MergedDictionaries.Add(resourceDictionary);
+                    seti.BeforePropertiesHandler = null;
+                }
+            };
 
-			XamlServices.Transform(xamlReader, writer);
+            var writer = new XamlObjectWriter(parentObject.ServiceProvider.SchemaContext, seti);
 
-			var result = (ResourceDictionary)writer.Result;
+            XamlServices.Transform(xamlReader, writer);
 
-			var enr = result.Keys.GetEnumerator();
-			enr.MoveNext();
-			var rdKey = enr.Current;
+            var result = (ResourceDictionary) writer.Result;
 
-			var template = result[rdKey] as FrameworkTemplate;
-			
-			result.Remove(rdKey);
-			return template;
-		}
+            var enr = result.Keys.GetEnumerator();
+            enr.MoveNext();
+            var rdKey = enr.Current;
 
-		
-		private static Stream GenerateStreamFromString(string s)
-		{
-			MemoryStream stream = new MemoryStream();
-			StreamWriter writer = new StreamWriter(stream);
-			writer.Write(s);
-			writer.Flush();
-			stream.Position = 0;
-			return stream;
-		}
-	}
+            var template = result[rdKey] as FrameworkTemplate;
+
+            result.Remove(rdKey);
+            return template;
+        }
+
+
+        private static Stream GenerateStreamFromString(string s)
+        {
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
+        }
+    }
 }

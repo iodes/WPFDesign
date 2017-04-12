@@ -2,10 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:brushEditor="clr-namespace:WPFDesign.Designer.PropertyGrid.Editors.BrushEditor">
-	<DockPanel>
-		<brushEditor:GradientSlider x:Name="slider"
-			DockPanel.Dock="Top"
-			Brush="{Binding Brush}" />
-		<brushEditor:SolidBrushEditor Color="{Binding SelectedStop.Color, ElementName=slider}" />
-	</DockPanel>
+    <DockPanel>
+        <brushEditor:GradientSlider x:Name="slider"
+                                    DockPanel.Dock="Top"
+                                    Brush="{Binding Brush}" />
+        <brushEditor:SolidBrushEditor Color="{Binding SelectedStop.Color, ElementName=slider}" />
+    </DockPanel>
 </UserControl>

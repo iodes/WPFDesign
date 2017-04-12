@@ -28,83 +28,88 @@ using WPFDesign.Core.PropertyGrid;
 
 namespace WPFDesign.Designer.PropertyGrid
 {
-	[TemplatePart(Name = "PART_Thumb", Type = typeof(Thumb))]
-	public class PropertyGridView : Control
-	{
-		static PropertyGridView()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(PropertyGridView), new FrameworkPropertyMetadata(typeof(PropertyGridView)));
-		}
-		
-		public PropertyGridView() : this(null)
-		{
-		}
-		
-		public PropertyGridView(IPropertyGrid pg)
-		{
-			PropertyGrid = pg??new PropertyGrid();
-			DataContext = PropertyGrid;
-		}
-		
-		private Thumb thumb;
-		public override void OnApplyTemplate()
-		{
-			thumb = GetTemplateChild("PART_Thumb") as Thumb;
+    [TemplatePart(Name = "PART_Thumb", Type = typeof(Thumb))]
+    public class PropertyGridView : Control
+    {
+        static PropertyGridView()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(PropertyGridView),
+                new FrameworkPropertyMetadata(typeof(PropertyGridView)));
+        }
 
-			thumb.DragDelta += new DragDeltaEventHandler(thumb_DragDelta);
+        public PropertyGridView() : this(null)
+        {
+        }
 
-			base.OnApplyTemplate();
-		}
+        public PropertyGridView(IPropertyGrid pg)
+        {
+            PropertyGrid = pg ?? new PropertyGrid();
+            DataContext = PropertyGrid;
+        }
 
-		static PropertyContextMenu propertyContextMenu = new PropertyContextMenu();
+        private Thumb thumb;
 
-		public IPropertyGrid PropertyGrid { get; private set; }
+        public override void OnApplyTemplate()
+        {
+            thumb = GetTemplateChild("PART_Thumb") as Thumb;
 
-		public static readonly DependencyProperty FirstColumnWidthProperty =
-			DependencyProperty.Register("FirstColumnWidth", typeof(double), typeof(PropertyGridView),
-			                            new PropertyMetadata(120.0));
+            thumb.DragDelta += new DragDeltaEventHandler(thumb_DragDelta);
 
-		public double FirstColumnWidth {
-			get { return (double)GetValue(FirstColumnWidthProperty); }
-			set { SetValue(FirstColumnWidthProperty, value); }
-		}
+            base.OnApplyTemplate();
+        }
 
-		public static readonly DependencyProperty SelectedItemsProperty =
-			DependencyProperty.Register("SelectedItems", typeof(IEnumerable<DesignItem>), typeof(PropertyGridView));
+        static PropertyContextMenu propertyContextMenu = new PropertyContextMenu();
 
-		public IEnumerable<DesignItem> SelectedItems {
-			get { return (IEnumerable<DesignItem>)GetValue(SelectedItemsProperty); }
-			set { SetValue(SelectedItemsProperty, value); }
-		}
+        public IPropertyGrid PropertyGrid { get; private set; }
 
-		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-		{
-			base.OnPropertyChanged(e);
-			if (e.Property == SelectedItemsProperty) {
-				PropertyGrid.SelectedItems = SelectedItems;
-			}
-		}
+        public static readonly DependencyProperty FirstColumnWidthProperty =
+            DependencyProperty.Register("FirstColumnWidth", typeof(double), typeof(PropertyGridView),
+                new PropertyMetadata(120.0));
 
-		protected override void OnMouseRightButtonUp(MouseButtonEventArgs e)
-		{
-			var ancestors = (e.OriginalSource as DependencyObject).GetVisualAncestors();
-			Border row = ancestors.OfType<Border>().FirstOrDefault(b => b.Name == "uxPropertyNodeRow");
-			if (row == null) return;
+        public double FirstColumnWidth
+        {
+            get { return (double) GetValue(FirstColumnWidthProperty); }
+            set { SetValue(FirstColumnWidthProperty, value); }
+        }
 
-			PropertyNode node = row.DataContext as PropertyNode;
-			if (node.IsEvent) return;
+        public static readonly DependencyProperty SelectedItemsProperty =
+            DependencyProperty.Register("SelectedItems", typeof(IEnumerable<DesignItem>), typeof(PropertyGridView));
 
-			PropertyContextMenu contextMenu = new PropertyContextMenu();
-			contextMenu.DataContext = node;
-			contextMenu.Placement = PlacementMode.Bottom;
-			contextMenu.HorizontalOffset = -30;
-			contextMenu.PlacementTarget = row;
-			contextMenu.IsOpen = true;
-		}
+        public IEnumerable<DesignItem> SelectedItems
+        {
+            get { return (IEnumerable<DesignItem>) GetValue(SelectedItemsProperty); }
+            set { SetValue(SelectedItemsProperty, value); }
+        }
 
-		void thumb_DragDelta(object sender, DragDeltaEventArgs e)
-		{
-			FirstColumnWidth = Math.Max(0, FirstColumnWidth + e.HorizontalChange);
-		}
-	}
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            if (e.Property == SelectedItemsProperty)
+            {
+                PropertyGrid.SelectedItems = SelectedItems;
+            }
+        }
+
+        protected override void OnMouseRightButtonUp(MouseButtonEventArgs e)
+        {
+            var ancestors = (e.OriginalSource as DependencyObject).GetVisualAncestors();
+            Border row = ancestors.OfType<Border>().FirstOrDefault(b => b.Name == "uxPropertyNodeRow");
+            if (row == null) return;
+
+            PropertyNode node = row.DataContext as PropertyNode;
+            if (node.IsEvent) return;
+
+            PropertyContextMenu contextMenu = new PropertyContextMenu();
+            contextMenu.DataContext = node;
+            contextMenu.Placement = PlacementMode.Bottom;
+            contextMenu.HorizontalOffset = -30;
+            contextMenu.PlacementTarget = row;
+            contextMenu.IsOpen = true;
+        }
+
+        void thumb_DragDelta(object sender, DragDeltaEventArgs e)
+        {
+            FirstColumnWidth = Math.Max(0, FirstColumnWidth + e.HorizontalChange);
+        }
+    }
 }

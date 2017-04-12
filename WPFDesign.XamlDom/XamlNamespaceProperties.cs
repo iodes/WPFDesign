@@ -20,88 +20,88 @@ using System.Windows;
 
 namespace WPFDesign.XamlDom
 {
-	/// <summary>
-	/// Helper Class for the Markup Compatibility Properties used by VS and Blend
-	/// </summary>
-	public class XamlNamespaceProperties : FrameworkElement
-	{
-		#region Class
+    /// <summary>
+    /// Helper Class for the Markup Compatibility Properties used by VS and Blend
+    /// </summary>
+    public class XamlNamespaceProperties : FrameworkElement
+    {
+        #region Class
 
-		/// <summary>
-		/// Getter for the <see cref="ClassProperty"/>
-		/// </summary>
-		public static string GetClass(DependencyObject obj)
-		{
-			return (string)obj.GetValue(ClassProperty);
-		}
+        /// <summary>
+        /// Getter for the <see cref="ClassProperty"/>
+        /// </summary>
+        public static string GetClass(DependencyObject obj)
+        {
+            return (string) obj.GetValue(ClassProperty);
+        }
 
-		/// <summary>
-		/// Setter for the <see cref="ClassProperty"/>
-		/// </summary>
-		public static void SetClass(DependencyObject obj, string value)
-		{
-			obj.SetValue(ClassProperty, value);
-		}
+        /// <summary>
+        /// Setter for the <see cref="ClassProperty"/>
+        /// </summary>
+        public static void SetClass(DependencyObject obj, string value)
+        {
+            obj.SetValue(ClassProperty, value);
+        }
 
-		/// <summary>
-		/// Class-Name Property
-		/// </summary>
-		public static readonly DependencyProperty ClassProperty =
-			DependencyProperty.RegisterAttached("Class", typeof(string), typeof(XamlNamespaceProperties));
+        /// <summary>
+        /// Class-Name Property
+        /// </summary>
+        public static readonly DependencyProperty ClassProperty =
+            DependencyProperty.RegisterAttached("Class", typeof(string), typeof(XamlNamespaceProperties));
 
-		#endregion
+        #endregion
 
 
-		#region ClassModifier
+        #region ClassModifier
 
-		/// <summary>
-		/// Getter for the <see cref="ClassModifierProperty"/>
-		/// </summary>
-		public static string GetClassModifier(DependencyObject obj)
-		{
-			return (string)obj.GetValue(ClassModifierProperty);
-		}
+        /// <summary>
+        /// Getter for the <see cref="ClassModifierProperty"/>
+        /// </summary>
+        public static string GetClassModifier(DependencyObject obj)
+        {
+            return (string) obj.GetValue(ClassModifierProperty);
+        }
 
-		/// <summary>
-		/// Setter for the <see cref="ClassModifierProperty"/>
-		/// </summary>
-		public static void SetClassModifier(DependencyObject obj, string value)
-		{
-			obj.SetValue(ClassModifierProperty, value);
-		}
+        /// <summary>
+        /// Setter for the <see cref="ClassModifierProperty"/>
+        /// </summary>
+        public static void SetClassModifier(DependencyObject obj, string value)
+        {
+            obj.SetValue(ClassModifierProperty, value);
+        }
 
-		/// <summary>
-		/// Class Modifier Property
-		/// </summary>
-		public static readonly DependencyProperty ClassModifierProperty =
-			DependencyProperty.RegisterAttached("ClassModifier", typeof(string), typeof(XamlNamespaceProperties));
+        /// <summary>
+        /// Class Modifier Property
+        /// </summary>
+        public static readonly DependencyProperty ClassModifierProperty =
+            DependencyProperty.RegisterAttached("ClassModifier", typeof(string), typeof(XamlNamespaceProperties));
 
-		#endregion
+        #endregion
 
-		#region TypeArguments
+        #region TypeArguments
 
-		/// <summary>
-		/// Getter for the <see cref="TypeArgumentsProperty"/>
-		/// </summary>
-		public static string GetTypeArguments(DependencyObject obj)
-		{
-			return (string)obj.GetValue(TypeArgumentsProperty);
-		}
+        /// <summary>
+        /// Getter for the <see cref="TypeArgumentsProperty"/>
+        /// </summary>
+        public static string GetTypeArguments(DependencyObject obj)
+        {
+            return (string) obj.GetValue(TypeArgumentsProperty);
+        }
 
-		/// <summary>
-		/// Getter for the <see cref="TypeArgumentsProperty"/>
-		/// </summary>
-		public static void SetTypeArguments(DependencyObject obj, string value)
-		{
-			obj.SetValue(TypeArgumentsProperty, value);
-		}
+        /// <summary>
+        /// Getter for the <see cref="TypeArgumentsProperty"/>
+        /// </summary>
+        public static void SetTypeArguments(DependencyObject obj, string value)
+        {
+            obj.SetValue(TypeArgumentsProperty, value);
+        }
 
-		/// <summary>
-		/// Type Arguments Property
-		/// </summary>
-		public static readonly DependencyProperty TypeArgumentsProperty =
-			DependencyProperty.RegisterAttached("TypeArguments", typeof(string), typeof(XamlNamespaceProperties));
+        /// <summary>
+        /// Type Arguments Property
+        /// </summary>
+        public static readonly DependencyProperty TypeArgumentsProperty =
+            DependencyProperty.RegisterAttached("TypeArguments", typeof(string), typeof(XamlNamespaceProperties));
 
-		#endregion
-	}
+        #endregion
+    }
 }

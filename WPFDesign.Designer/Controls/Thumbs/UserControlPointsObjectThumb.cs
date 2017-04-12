@@ -20,8 +20,8 @@ using System.Windows;
 
 namespace WPFDesign.Designer.Controls.Thumbs
 {
-	public class UserControlPointsObjectThumb : DesignerThumb
-	{
-		public DependencyProperty DependencyProperty { get; set; }
-	}
+    public class UserControlPointsObjectThumb : DesignerThumb
+    {
+        public DependencyProperty DependencyProperty { get; set; }
+    }
 }

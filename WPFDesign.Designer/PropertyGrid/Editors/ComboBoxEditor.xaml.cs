@@ -23,36 +23,38 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors
 {
-	public partial class ComboBoxEditor
-	{
-		/// <summary>
-		/// Create a new ComboBoxEditor instance.
-		/// </summary>
-		public ComboBoxEditor()
-		{
-			SpecialInitializeComponent();
-		}
+    public partial class ComboBoxEditor
+    {
+        /// <summary>
+        /// Create a new ComboBoxEditor instance.
+        /// </summary>
+        public ComboBoxEditor()
+        {
+            SpecialInitializeComponent();
+        }
 
-				/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
-		
-		/// <inheritdoc/>
-		public override void OnApplyTemplate()
-		{
-			base.OnApplyTemplate();
-			var popup = (Popup)Template.FindName("PART_Popup", this);
-			popup.SetValue(FontWeightProperty, FontWeights.Normal);
-		}
-	}
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
+
+            this.InitializeComponent();
+        }
+
+        /// <inheritdoc/>
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            var popup = (Popup) Template.FindName("PART_Popup", this);
+            popup.SetValue(FontWeightProperty, FontWeights.Normal);
+        }
+    }
 }

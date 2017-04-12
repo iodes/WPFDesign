@@ -25,35 +25,37 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors
 {
-	[TypeEditor(typeof(ICollection))]
-	public partial class OpenCollectionEditor : UserControl
-	{
-		public OpenCollectionEditor()
-		{
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
-		
-		void open_Click(object sender, RoutedEventArgs e)
-		{
-			var node = this.DataContext as PropertyNode;
-			
-			var editor = new FlatCollectionEditor();
-			editor.LoadItemsCollection(node.FirstProperty);
-			editor.ShowDialog();
-		}
-	}
+    [TypeEditor(typeof(ICollection))]
+    public partial class OpenCollectionEditor : UserControl
+    {
+        public OpenCollectionEditor()
+        {
+            SpecialInitializeComponent();
+        }
+
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
+
+            this.InitializeComponent();
+        }
+
+        void open_Click(object sender, RoutedEventArgs e)
+        {
+            var node = this.DataContext as PropertyNode;
+
+            var editor = new FlatCollectionEditor();
+            editor.LoadItemsCollection(node.FirstProperty);
+            editor.ShowDialog();
+        }
+    }
 }

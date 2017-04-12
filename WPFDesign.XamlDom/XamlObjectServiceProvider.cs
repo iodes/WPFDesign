@@ -24,252 +24,270 @@ using System.Xaml;
 
 namespace WPFDesign.XamlDom
 {
-	/// <summary>
-	/// A service provider that provides the IProvideValueTarget and IXamlTypeResolver services.
-	/// No other services (e.g. from the document's service provider) are offered.
-	/// </summary>
-	public class XamlObjectServiceProvider : IServiceProvider, IXamlNameResolver, IProvideValueTarget, IXamlSchemaContextProvider, IAmbientProvider, IUriContext
-	{
-		/// <summary>
-		/// Creates a new XamlObjectServiceProvider instance.
-		/// </summary>
-		public XamlObjectServiceProvider(XamlObject obj)
-		{
-			if (obj == null)
-				throw new ArgumentNullException("obj");
-			XamlObject = obj;
-			Resolver = new XamlTypeResolverProvider(obj);
-		}
+    /// <summary>
+    /// A service provider that provides the IProvideValueTarget and IXamlTypeResolver services.
+    /// No other services (e.g. from the document's service provider) are offered.
+    /// </summary>
+    public class XamlObjectServiceProvider : IServiceProvider, IXamlNameResolver, IProvideValueTarget,
+        IXamlSchemaContextProvider, IAmbientProvider, IUriContext
+    {
+        /// <summary>
+        /// Creates a new XamlObjectServiceProvider instance.
+        /// </summary>
+        public XamlObjectServiceProvider(XamlObject obj)
+        {
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+            XamlObject = obj;
+            Resolver = new XamlTypeResolverProvider(obj);
+        }
 
-		/// <summary>
-		/// Gets the XamlObject that owns this service provider (e.g. the XamlObject that represents a markup extension).
-		/// </summary>
-		public XamlObject XamlObject { get; private set; }
-		internal XamlTypeResolverProvider Resolver { get; private set; }
+        /// <summary>
+        /// Gets the XamlObject that owns this service provider (e.g. the XamlObject that represents a markup extension).
+        /// </summary>
+        public XamlObject XamlObject { get; private set; }
 
-		#region IServiceProvider Members
+        internal XamlTypeResolverProvider Resolver { get; private set; }
 
-		/// <summary>
-		/// Retrieves the service of the specified type.
-		/// </summary>
-		public object GetService(Type serviceType)
-		{
-			if (serviceType == typeof(IProvideValueTarget)) {
-				return this;
-			}
-			if (serviceType == typeof(IXamlTypeResolver)) {
-				return Resolver;
-			}
-			if (serviceType == typeof(XamlTypeResolverProvider))
-			{
-				return Resolver;
-			}
-			if (serviceType == typeof(IXamlSchemaContextProvider)) {
-				return this;
-			}
-			if (serviceType == typeof(IAmbientProvider)) {
-				return this;
-			}
-			if (serviceType == typeof(IXamlNameResolver))
-			{
-				return this;
-			}
-			if (serviceType == typeof(IUriContext))
-			{
-				return this;
-			}
-			
-			return null;
-		}
+        #region IServiceProvider Members
 
-		#endregion
+        /// <summary>
+        /// Retrieves the service of the specified type.
+        /// </summary>
+        public object GetService(Type serviceType)
+        {
+            if (serviceType == typeof(IProvideValueTarget))
+            {
+                return this;
+            }
+            if (serviceType == typeof(IXamlTypeResolver))
+            {
+                return Resolver;
+            }
+            if (serviceType == typeof(XamlTypeResolverProvider))
+            {
+                return Resolver;
+            }
+            if (serviceType == typeof(IXamlSchemaContextProvider))
+            {
+                return this;
+            }
+            if (serviceType == typeof(IAmbientProvider))
+            {
+                return this;
+            }
+            if (serviceType == typeof(IXamlNameResolver))
+            {
+                return this;
+            }
+            if (serviceType == typeof(IUriContext))
+            {
+                return this;
+            }
 
-		#region IProvideValueTarget Members
+            return null;
+        }
 
-		/// <summary>
-		/// Gets the target object (the DependencyObject instance on which a property should be set)
-		/// </summary>
-		public object TargetObject {
-			get {
-				var parentProperty = XamlObject.ParentProperty;
+        #endregion
 
-				if (parentProperty == null) {
-					return null;
-				}
+        #region IProvideValueTarget Members
 
-				if (parentProperty.IsCollection) {
-					return parentProperty.ValueOnInstance;
-				}
+        /// <summary>
+        /// Gets the target object (the DependencyObject instance on which a property should be set)
+        /// </summary>
+        public object TargetObject
+        {
+            get
+            {
+                var parentProperty = XamlObject.ParentProperty;
 
-				return parentProperty.ParentObject.Instance;
-			}
-		}
+                if (parentProperty == null)
+                {
+                    return null;
+                }
 
-		/// <summary>
-		/// Gets the target dependency property.
-		/// </summary>
-		public object TargetProperty {
-			get {
-				var parentProperty = XamlObject.ParentProperty;
+                if (parentProperty.IsCollection)
+                {
+                    return parentProperty.ValueOnInstance;
+                }
 
-				if (parentProperty == null) {
-					return null;
-				}
+                return parentProperty.ParentObject.Instance;
+            }
+        }
 
-				return parentProperty.DependencyProperty;
-			}
-		}
+        /// <summary>
+        /// Gets the target dependency property.
+        /// </summary>
+        public object TargetProperty
+        {
+            get
+            {
+                var parentProperty = XamlObject.ParentProperty;
 
-		#endregion
-		
-		#region IUriContext implementation
+                if (parentProperty == null)
+                {
+                    return null;
+                }
 
-		/// <inheritdoc/>		
-		public virtual Uri BaseUri {
-			get {
-				return new Uri("pack://application:,,,/");
-			}
-			set {
-				
-			}
-		}
-		
-		#endregion
+                return parentProperty.DependencyProperty;
+            }
+        }
 
-		#region IXamlSchemaContextProvider Members
+        #endregion
 
-		private XamlSchemaContext iCsharpXamlSchemaContext;
+        #region IUriContext implementation
 
-		//Maybe we new our own XamlSchemaContext?
-		//private class ICsharpXamlSchemaContext : XamlSchemaContext
-		//{
-		//    public override XamlType GetXamlType(Type type)
-		//    {
-		//        return base.GetXamlType(type);
-		//    }
-		//}
+        /// <inheritdoc/>		
+        public virtual Uri BaseUri
+        {
+            get { return new Uri("pack://application:,,,/"); }
+            set { }
+        }
 
-		/// <inheritdoc/>
-		public XamlSchemaContext SchemaContext
-		{
-			get
-			{
-				return iCsharpXamlSchemaContext = iCsharpXamlSchemaContext ?? System.Windows.Markup.XamlReader.GetWpfSchemaContext(); // new XamlSchemaContext();
-			}
-		}
+        #endregion
 
-		#endregion
+        #region IXamlSchemaContextProvider Members
 
-		#region IAmbientProvider Members
+        private XamlSchemaContext iCsharpXamlSchemaContext;
 
-		/// <inheritdoc/>
-		public AmbientPropertyValue GetFirstAmbientValue(IEnumerable<XamlType> ceilingTypes, params XamlMember[] properties)
-		{
-			return GetAllAmbientValues(ceilingTypes, properties).FirstOrDefault();
-		}
+        //Maybe we new our own XamlSchemaContext?
+        //private class ICsharpXamlSchemaContext : XamlSchemaContext
+        //{
+        //    public override XamlType GetXamlType(Type type)
+        //    {
+        //        return base.GetXamlType(type);
+        //    }
+        //}
 
-		/// <inheritdoc/>
-		public object GetFirstAmbientValue(params XamlType[] types)
-		{
-			return null;
-		}
+        /// <inheritdoc/>
+        public XamlSchemaContext SchemaContext
+        {
+            get
+            {
+                return iCsharpXamlSchemaContext = iCsharpXamlSchemaContext ??
+                                                  System.Windows.Markup.XamlReader
+                                                      .GetWpfSchemaContext(); // new XamlSchemaContext();
+            }
+        }
 
-		/// <inheritdoc/>
-		public IEnumerable<AmbientPropertyValue> GetAllAmbientValues(IEnumerable<XamlType> ceilingTypes, params XamlMember[] properties)
-		{
-			var obj = this.XamlObject.ParentObject;
+        #endregion
 
-			while (obj != null)
-			{
-				if (ceilingTypes.Any(x => obj.SystemXamlTypeForProperty.CanAssignTo(x)))
-				{
-					foreach (var pr in obj.Properties)
-					{
-						if (properties.Any(x => x.Name == pr.PropertyName))
-						{
-							yield return new AmbientPropertyValue(pr.SystemXamlMemberForProperty, pr.ValueOnInstance);
-						}
-					}
-				}
+        #region IAmbientProvider Members
 
-				obj = obj.ParentObject;
-			}
-		}
+        /// <inheritdoc/>
+        public AmbientPropertyValue GetFirstAmbientValue(IEnumerable<XamlType> ceilingTypes,
+            params XamlMember[] properties)
+        {
+            return GetAllAmbientValues(ceilingTypes, properties).FirstOrDefault();
+        }
 
-		/// <inheritdoc/>
-		public IEnumerable<object> GetAllAmbientValues(params XamlType[] types)
-		{
-			return new List<object>();
-		}
+        /// <inheritdoc/>
+        public object GetFirstAmbientValue(params XamlType[] types)
+        {
+            return null;
+        }
 
-		/// <inheritdoc/>
-		public IEnumerable<AmbientPropertyValue> GetAllAmbientValues(IEnumerable<XamlType> ceilingTypes, bool searchLiveStackOnly, IEnumerable<XamlType> types, params XamlMember[] properties)
-		{
-			return new List<AmbientPropertyValue>();
-		}
+        /// <inheritdoc/>
+        public IEnumerable<AmbientPropertyValue> GetAllAmbientValues(IEnumerable<XamlType> ceilingTypes,
+            params XamlMember[] properties)
+        {
+            var obj = this.XamlObject.ParentObject;
 
-		#endregion
+            while (obj != null)
+            {
+                if (ceilingTypes.Any(x => obj.SystemXamlTypeForProperty.CanAssignTo(x)))
+                {
+                    foreach (var pr in obj.Properties)
+                    {
+                        if (properties.Any(x => x.Name == pr.PropertyName))
+                        {
+                            yield return new AmbientPropertyValue(pr.SystemXamlMemberForProperty, pr.ValueOnInstance);
+                        }
+                    }
+                }
 
-		#region IXamlNameResolver
+                obj = obj.ParentObject;
+            }
+        }
 
-		/// <inheritdoc/>
-		public object Resolve(string name)
-		{
-			INameScope ns = null;
-			var xamlObj = this.XamlObject;
-			while (xamlObj != null)
-			{
-				ns = NameScopeHelper.GetNameScopeFromObject(xamlObj);
+        /// <inheritdoc/>
+        public IEnumerable<object> GetAllAmbientValues(params XamlType[] types)
+        {
+            return new List<object>();
+        }
 
-				if (ns != null) {
-					var obj = ns.FindName(name);
-					if (obj != null)
-						return obj;
-				}
+        /// <inheritdoc/>
+        public IEnumerable<AmbientPropertyValue> GetAllAmbientValues(IEnumerable<XamlType> ceilingTypes,
+            bool searchLiveStackOnly, IEnumerable<XamlType> types, params XamlMember[] properties)
+        {
+            return new List<AmbientPropertyValue>();
+        }
 
-				xamlObj = xamlObj.ParentObject;
-			}
-			
-			return null;
-		}
+        #endregion
 
-		/// <inheritdoc/>
-		public object Resolve(string name, out bool isFullyInitialized)
-		{
-			var ret = Resolve(name);
-			isFullyInitialized = ret != null;
-			return ret;
-		}
+        #region IXamlNameResolver
 
-		/// <inheritdoc/>
-		public object GetFixupToken(IEnumerable<string> names)
-		{
-			return null;
-		}
+        /// <inheritdoc/>
+        public object Resolve(string name)
+        {
+            INameScope ns = null;
+            var xamlObj = this.XamlObject;
+            while (xamlObj != null)
+            {
+                ns = NameScopeHelper.GetNameScopeFromObject(xamlObj);
 
-		/// <inheritdoc/>
-		public object GetFixupToken(IEnumerable<string> names, bool canAssignDirectly)
-		{
-			return null;
-		}
+                if (ns != null)
+                {
+                    var obj = ns.FindName(name);
+                    if (obj != null)
+                        return obj;
+                }
 
-		/// <inheritdoc/>
-		public IEnumerable<KeyValuePair<string, object>> GetAllNamesAndValuesInScope()
-		{
-			return null;
-		}
+                xamlObj = xamlObj.ParentObject;
+            }
 
-		/// <inheritdoc/>
-		public bool IsFixupTokenAvailable
-		{
-			get { return false; }
-		}
+            return null;
+        }
+
+        /// <inheritdoc/>
+        public object Resolve(string name, out bool isFullyInitialized)
+        {
+            var ret = Resolve(name);
+            isFullyInitialized = ret != null;
+            return ret;
+        }
+
+        /// <inheritdoc/>
+        public object GetFixupToken(IEnumerable<string> names)
+        {
+            return null;
+        }
+
+        /// <inheritdoc/>
+        public object GetFixupToken(IEnumerable<string> names, bool canAssignDirectly)
+        {
+            return null;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<KeyValuePair<string, object>> GetAllNamesAndValuesInScope()
+        {
+            return null;
+        }
+
+        /// <inheritdoc/>
+        public bool IsFixupTokenAvailable
+        {
+            get { return false; }
+        }
 
 #pragma warning disable 0067 // Required by interface implementation, disable Warning CS0067: The event is never used
-		/// <inheritdoc/>
-		public event EventHandler OnNameScopeInitializationComplete;
+
+        /// <inheritdoc/>
+        public event EventHandler OnNameScopeInitializationComplete;
+
 #pragma warning restore 0067
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -24,99 +24,118 @@ using System.Windows.Controls;
 
 namespace WPFDesign.Core.PropertyGrid
 {
-	/// <summary>
-	/// Manages registered type and property editors.
-	/// </summary>
-	public static class EditorManager
-	{
-		// property return type => editor type
-		static Dictionary<Type, Type> typeEditors = new Dictionary<Type, Type>();
-		// property full name => editor type
-		static Dictionary<string, Type> propertyEditors = new Dictionary<string, Type>();
+    /// <summary>
+    /// Manages registered type and property editors.
+    /// </summary>
+    public static class EditorManager
+    {
+        // property return type => editor type
+        static Dictionary<Type, Type> typeEditors = new Dictionary<Type, Type>();
 
-		static Type defaultComboboxEditor;
-		
-		static Type defaultTextboxEditor;
-		
-		/// <summary>
-		/// Creates a property editor for the specified <paramref name="property"/>
-		/// </summary>
-		public static FrameworkElement CreateEditor(DesignItemProperty property)
-		{
-			Type editorType;
-			if (!propertyEditors.TryGetValue(property.FullName, out editorType)) {
-				var type = property.ReturnType;
-				while (type != null) {
-					if (typeEditors.TryGetValue(type, out editorType)) {
-						break;
-					}
-					type = type.BaseType;
-				}
-				
-				foreach (var t in typeEditors) {
-					if (t.Key.IsAssignableFrom(property.ReturnType)) {
-						return (FrameworkElement)Activator.CreateInstance(t.Value);
-					}
-				}
-				
-				if (editorType == null) {
-					var standardValues = Metadata.GetStandardValues(property.ReturnType);
-					if (standardValues != null) {
-						var itemsControl = (ItemsControl)Activator.CreateInstance(defaultComboboxEditor);
-						itemsControl.ItemsSource = standardValues;
-						if (Nullable.GetUnderlyingType(property.ReturnType) != null) {
-							itemsControl.GetType().GetProperty("IsNullable").SetValue(itemsControl, true, null); //In this Class we don't know the Nullable Combo Box
-						}
-						return itemsControl;
-					}
-					return (FrameworkElement)Activator.CreateInstance(defaultTextboxEditor);
-				}
-			}
-			return (FrameworkElement)Activator.CreateInstance(editorType);
-		}
-		
-		/// <summary>
-		/// Registers the Textbox Editor.
-		/// </summary>
-		public static void SetDefaultTextBoxEditorType(Type type)
-		{
-			defaultTextboxEditor = type;
-		}
-		
-		/// <summary>
-		/// Registers the Combobox Editor.
-		/// </summary>
-		public static void SetDefaultComboBoxEditorType(Type type)
-		{
-			defaultComboboxEditor = type;
-		}
-		
-		/// <summary>
-		/// Registers property editors defined in the specified assembly.
-		/// </summary>
-		public static void RegisterAssembly(Assembly assembly)
-		{
-			if (assembly == null)
-				throw new ArgumentNullException("assembly");
-			
-			foreach (Type type in assembly.GetExportedTypes()) {
-				foreach (TypeEditorAttribute editorAttribute in type.GetCustomAttributes(typeof(TypeEditorAttribute), false)) {
-					CheckValidEditor(type);
-					typeEditors[editorAttribute.SupportedPropertyType] = type;
-				}
-				foreach (PropertyEditorAttribute editorAttribute in type.GetCustomAttributes(typeof(PropertyEditorAttribute), false)) {
-					CheckValidEditor(type);
-					string propertyName = editorAttribute.PropertyDeclaringType.FullName + "." + editorAttribute.PropertyName;
-					propertyEditors[propertyName] = type;
-				}
-			}
-		}
-		
-		static void CheckValidEditor(Type type)
-		{
-			if (!typeof(FrameworkElement).IsAssignableFrom(type)) {
-				throw new DesignerException("Editor types must derive from FrameworkElement!");
-			}
-		}
-	}
+        // property full name => editor type
+        static Dictionary<string, Type> propertyEditors = new Dictionary<string, Type>();
+
+        static Type defaultComboboxEditor;
+
+        static Type defaultTextboxEditor;
+
+        /// <summary>
+        /// Creates a property editor for the specified <paramref name="property"/>
+        /// </summary>
+        public static FrameworkElement CreateEditor(DesignItemProperty property)
+        {
+            Type editorType;
+            if (!propertyEditors.TryGetValue(property.FullName, out editorType))
+            {
+                var type = property.ReturnType;
+                while (type != null)
+                {
+                    if (typeEditors.TryGetValue(type, out editorType))
+                    {
+                        break;
+                    }
+                    type = type.BaseType;
+                }
+
+                foreach (var t in typeEditors)
+                {
+                    if (t.Key.IsAssignableFrom(property.ReturnType))
+                    {
+                        return (FrameworkElement) Activator.CreateInstance(t.Value);
+                    }
+                }
+
+                if (editorType == null)
+                {
+                    var standardValues = Metadata.GetStandardValues(property.ReturnType);
+                    if (standardValues != null)
+                    {
+                        var itemsControl = (ItemsControl) Activator.CreateInstance(defaultComboboxEditor);
+                        itemsControl.ItemsSource = standardValues;
+                        if (Nullable.GetUnderlyingType(property.ReturnType) != null)
+                        {
+                            itemsControl.GetType()
+                                .GetProperty("IsNullable")
+                                .SetValue(itemsControl, true,
+                                    null); //In this Class we don't know the Nullable Combo Box
+                        }
+                        return itemsControl;
+                    }
+                    return (FrameworkElement) Activator.CreateInstance(defaultTextboxEditor);
+                }
+            }
+            return (FrameworkElement) Activator.CreateInstance(editorType);
+        }
+
+        /// <summary>
+        /// Registers the Textbox Editor.
+        /// </summary>
+        public static void SetDefaultTextBoxEditorType(Type type)
+        {
+            defaultTextboxEditor = type;
+        }
+
+        /// <summary>
+        /// Registers the Combobox Editor.
+        /// </summary>
+        public static void SetDefaultComboBoxEditorType(Type type)
+        {
+            defaultComboboxEditor = type;
+        }
+
+        /// <summary>
+        /// Registers property editors defined in the specified assembly.
+        /// </summary>
+        public static void RegisterAssembly(Assembly assembly)
+        {
+            if (assembly == null)
+                throw new ArgumentNullException("assembly");
+
+            foreach (Type type in assembly.GetExportedTypes())
+            {
+                foreach (TypeEditorAttribute editorAttribute in type.GetCustomAttributes(typeof(TypeEditorAttribute),
+                    false))
+                {
+                    CheckValidEditor(type);
+                    typeEditors[editorAttribute.SupportedPropertyType] = type;
+                }
+                foreach (PropertyEditorAttribute editorAttribute in type.GetCustomAttributes(
+                    typeof(PropertyEditorAttribute), false))
+                {
+                    CheckValidEditor(type);
+                    string propertyName = editorAttribute.PropertyDeclaringType.FullName + "." +
+                                          editorAttribute.PropertyName;
+                    propertyEditors[propertyName] = type;
+                }
+            }
+        }
+
+        static void CheckValidEditor(Type type)
+        {
+            if (!typeof(FrameworkElement).IsAssignableFrom(type))
+            {
+                throw new DesignerException("Editor types must derive from FrameworkElement!");
+            }
+        }
+    }
 }

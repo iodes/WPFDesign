@@ -1,13 +1,13 @@
 ﻿<ContextMenu x:Class="WPFDesign.Designer.PropertyGrid.PropertyContextMenu"
              xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             >
-    
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <MenuItem Header="Reset"
-              IsEnabled="{Binding IsSet}" 
-              Click="Click_Reset" />    
-    <MenuItem Header="Binding" 
-              Click="Click_Binding" /><!-- 
+              IsEnabled="{Binding IsSet}"
+              Click="Click_Reset" />
+    <MenuItem Header="Binding"
+              Click="Click_Binding" />
+    <!-- 
     <MenuItem Header="TODO:"
               IsEnabled="False" />
     <MenuItem x:Name="uxStaticResource" 
@@ -22,5 +22,5 @@
               Click="Click_ConvertToLocalValue"/>
     <MenuItem Header="Save As Resource..."
               Click="Click_SaveAsResource"/>-->
-    
+
 </ContextMenu>

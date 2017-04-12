@@ -28,54 +28,57 @@ using WPFDesign.XamlDom;
 
 namespace WPFDesign.Designer.Extensions
 {
-	public partial class EditStyleContextMenu
-	{
-		private DesignItem designItem;
+    public partial class EditStyleContextMenu
+    {
+        private DesignItem designItem;
 
-		public EditStyleContextMenu(DesignItem designItem)
-		{
-			this.designItem = designItem;
-			
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
+        public EditStyleContextMenu(DesignItem designItem)
+        {
+            this.designItem = designItem;
 
-		void Click_EditStyle(object sender, RoutedEventArgs e)
-		{
-			var element = designItem.View;
-			object defaultStyleKey = element.GetValue(FrameworkElement.DefaultStyleKeyProperty);
-			Style style = Application.Current.TryFindResource(defaultStyleKey) as Style;
+            SpecialInitializeComponent();
+        }
 
-			var service = ((XamlComponentService) designItem.Services.Component);
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
 
-			var ms = new MemoryStream();
-			XmlTextWriter writer = new XmlTextWriter(ms, System.Text.Encoding.UTF8);
-			writer.Formatting = Formatting.Indented;
-			XamlWriter.Save(style, writer);
+            this.InitializeComponent();
+        }
 
-			var rootItem = this.designItem.Context.RootItem as XamlDesignItem;
+        void Click_EditStyle(object sender, RoutedEventArgs e)
+        {
+            var element = designItem.View;
+            object defaultStyleKey = element.GetValue(FrameworkElement.DefaultStyleKeyProperty);
+            Style style = Application.Current.TryFindResource(defaultStyleKey) as Style;
 
-			ms.Position = 0;
-			var sr = new StreamReader(ms);
-			var xaml = sr.ReadToEnd();
+            var service = ((XamlComponentService) designItem.Services.Component);
 
-			var xamlObject = XamlParser.ParseSnippet(rootItem.XamlObject, xaml, ((XamlDesignContext)this.designItem.Context).ParserSettings);
-			
-			var styleDesignItem=service.RegisterXamlComponentRecursive(xamlObject);
-			designItem.Properties.GetProperty("Resources").CollectionElements.Add(styleDesignItem);
-		}
-	}
+            var ms = new MemoryStream();
+            XmlTextWriter writer = new XmlTextWriter(ms, System.Text.Encoding.UTF8);
+            writer.Formatting = Formatting.Indented;
+            XamlWriter.Save(style, writer);
+
+            var rootItem = this.designItem.Context.RootItem as XamlDesignItem;
+
+            ms.Position = 0;
+            var sr = new StreamReader(ms);
+            var xaml = sr.ReadToEnd();
+
+            var xamlObject = XamlParser.ParseSnippet(rootItem.XamlObject, xaml,
+                ((XamlDesignContext) this.designItem.Context).ParserSettings);
+
+            var styleDesignItem = service.RegisterXamlComponentRecursive(xamlObject);
+            designItem.Properties.GetProperty("Resources").CollectionElements.Add(styleDesignItem);
+        }
+    }
 }

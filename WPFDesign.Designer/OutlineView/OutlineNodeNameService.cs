@@ -20,25 +20,26 @@ using WPFDesign.Core;
 
 namespace WPFDesign.Designer.OutlineView
 {
-	/// <summary>
-	/// Description of OulineNodeNameService.
-	/// </summary>
-	public class OutlineNodeNameService : IOutlineNodeNameService
-	{
-		public OutlineNodeNameService()
-		{
-		}
+    /// <summary>
+    /// Description of OulineNodeNameService.
+    /// </summary>
+    public class OutlineNodeNameService : IOutlineNodeNameService
+    {
+        public OutlineNodeNameService()
+        {
+        }
 
-		#region IOutlineNodeNameService implementation
+        #region IOutlineNodeNameService implementation
 
-		public string GetOutlineNodeName(DesignItem designItem)
-		{
-			if (string.IsNullOrEmpty(designItem.Name)) {
-					return designItem.ComponentType.Name;
-				}
-				return designItem.ComponentType.Name + " (" + designItem.Name + ")";
-		}
+        public string GetOutlineNodeName(DesignItem designItem)
+        {
+            if (string.IsNullOrEmpty(designItem.Name))
+            {
+                return designItem.ComponentType.Name;
+            }
+            return designItem.ComponentType.Name + " (" + designItem.Name + ")";
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

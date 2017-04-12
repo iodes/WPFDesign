@@ -25,113 +25,127 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.Controls
 {
-	public partial class EnumBar
-	{
-		public EnumBar()
-		{
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
+    public partial class EnumBar
+    {
+        public EnumBar()
+        {
+            SpecialInitializeComponent();
+        }
 
-		Type currentEnumType;
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
 
-		public static readonly DependencyProperty ValueProperty =
-			DependencyProperty.Register("Value", typeof(object), typeof(EnumBar),
-			new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            this.InitializeComponent();
+        }
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1721:PropertyNamesShouldNotMatchGetMethods")]
-		public object Value {
-			get { return (object)GetValue(ValueProperty); }
-			set { SetValue(ValueProperty, value); }
-		}
+        Type currentEnumType;
 
-		public static readonly DependencyProperty ContainerProperty =
-			DependencyProperty.Register("Container", typeof(Panel), typeof(EnumBar));
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value", typeof(object), typeof(EnumBar),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-		public Panel Container {
-			get { return (Panel)GetValue(ContainerProperty); }
-			set { SetValue(ContainerProperty, value); }
-		}
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
+            "CA1721:PropertyNamesShouldNotMatchGetMethods")]
+        public object Value
+        {
+            get { return (object) GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
 
-		public static readonly DependencyProperty ButtonStyleProperty =
-			DependencyProperty.Register("ButtonStyle", typeof(Style), typeof(EnumBar));
+        public static readonly DependencyProperty ContainerProperty =
+            DependencyProperty.Register("Container", typeof(Panel), typeof(EnumBar));
 
-		public Style ButtonStyle {
-			get { return (Style)GetValue(ButtonStyleProperty); }
-			set { SetValue(ButtonStyleProperty, value); }
-		}
+        public Panel Container
+        {
+            get { return (Panel) GetValue(ContainerProperty); }
+            set { SetValue(ContainerProperty, value); }
+        }
 
-		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-		{
-			base.OnPropertyChanged(e);
+        public static readonly DependencyProperty ButtonStyleProperty =
+            DependencyProperty.Register("ButtonStyle", typeof(Style), typeof(EnumBar));
 
-			if (e.Property == ValueProperty) {
-				
-				var type = e.NewValue.GetType();
+        public Style ButtonStyle
+        {
+            get { return (Style) GetValue(ButtonStyleProperty); }
+            set { SetValue(ButtonStyleProperty, value); }
+        }
 
-				if (currentEnumType != type) {
-					currentEnumType = type;
-					uxPanel.Children.Clear();
-					foreach (var v in Enum.GetValues(type)) {
-						var b = new EnumButton();
-						b.Value = v;
-						b.Content = Enum.GetName(type, v);
-						b.SetBinding(StyleProperty, new Binding("ButtonStyle") { Source = this });
-						b.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(button_PreviewMouseLeftButtonDown);
-						uxPanel.Children.Add(b);
-					}
-				}
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
 
-				UpdateButtons();
-				UpdateContainer();
+            if (e.Property == ValueProperty)
+            {
+                var type = e.NewValue.GetType();
 
-			} else if (e.Property == ContainerProperty) {
-				UpdateContainer();
-			}
-		}
+                if (currentEnumType != type)
+                {
+                    currentEnumType = type;
+                    uxPanel.Children.Clear();
+                    foreach (var v in Enum.GetValues(type))
+                    {
+                        var b = new EnumButton();
+                        b.Value = v;
+                        b.Content = Enum.GetName(type, v);
+                        b.SetBinding(StyleProperty, new Binding("ButtonStyle") {Source = this});
+                        b.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(button_PreviewMouseLeftButtonDown);
+                        uxPanel.Children.Add(b);
+                    }
+                }
 
-		void UpdateButtons()
-		{
-			foreach (EnumButton c in uxPanel.Children) {
-				if (c.Value.Equals(Value)) {
-					c.IsChecked = true;
-				}
-				else {
-					c.IsChecked = false;
-				}
-			}
-		}
+                UpdateButtons();
+                UpdateContainer();
+            }
+            else if (e.Property == ContainerProperty)
+            {
+                UpdateContainer();
+            }
+        }
 
-		void UpdateContainer()
-		{
-			if (Container != null) {
-				for (int i = 0; i < uxPanel.Children.Count; i++) {
-					var c = uxPanel.Children[i] as EnumButton;
-					if (c.IsChecked.Value) 
-						Container.Children[i].Visibility = Visibility.Visible;
-					else 
-						Container.Children[i].Visibility = Visibility.Collapsed;
-				}
-			}
-		}
+        void UpdateButtons()
+        {
+            foreach (EnumButton c in uxPanel.Children)
+            {
+                if (c.Value.Equals(Value))
+                {
+                    c.IsChecked = true;
+                }
+                else
+                {
+                    c.IsChecked = false;
+                }
+            }
+        }
 
-		void button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-		{
-			Value = (sender as EnumButton).Value;
-			e.Handled = true;
-		}
-	}
+        void UpdateContainer()
+        {
+            if (Container != null)
+            {
+                for (int i = 0; i < uxPanel.Children.Count; i++)
+                {
+                    var c = uxPanel.Children[i] as EnumButton;
+                    if (c.IsChecked.Value)
+                        Container.Children[i].Visibility = Visibility.Visible;
+                    else
+                        Container.Children[i].Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        void button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Value = (sender as EnumButton).Value;
+            e.Handled = true;
+        }
+    }
 }

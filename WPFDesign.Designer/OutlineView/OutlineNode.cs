@@ -23,93 +23,115 @@ using System.Linq;
 using WPFDesign.Core;
 
 namespace WPFDesign.Designer.OutlineView
-{ 
-	public class OutlineNode: OutlineNodeBase
-	{
-		//TODO: Reset with DesignContext
-		static Dictionary<DesignItem, IOutlineNode> outlineNodes = new Dictionary<DesignItem, IOutlineNode>();
+{
+    public class OutlineNode : OutlineNodeBase
+    {
+        //TODO: Reset with DesignContext
+        static Dictionary<DesignItem, IOutlineNode> outlineNodes = new Dictionary<DesignItem, IOutlineNode>();
 
-		protected OutlineNode(DesignItem designitem): base(designitem)
-		{
-			UpdateChildren();
-			SelectionService.SelectionChanged += new EventHandler<DesignItemCollectionEventArgs>(Selection_SelectionChanged);
-		}
+        protected OutlineNode(DesignItem designitem) : base(designitem)
+        {
+            UpdateChildren();
+            SelectionService.SelectionChanged +=
+                new EventHandler<DesignItemCollectionEventArgs>(Selection_SelectionChanged);
+        }
 
-		static OutlineNode()
-		{
-			DummyPlacementType = PlacementType.Register("DummyPlacement");
-		}
+        static OutlineNode()
+        {
+            DummyPlacementType = PlacementType.Register("DummyPlacement");
+        }
 
-		public static IOutlineNode Create(DesignItem designItem)
-		{
-			IOutlineNode node = null;
-			if (designItem != null && !outlineNodes.TryGetValue(designItem, out node)) {
-				node = new OutlineNode(designItem);
-				outlineNodes[designItem] = node;
-			}
-			return node;
-		}
+        public static IOutlineNode Create(DesignItem designItem)
+        {
+            IOutlineNode node = null;
+            if (designItem != null && !outlineNodes.TryGetValue(designItem, out node))
+            {
+                node = new OutlineNode(designItem);
+                outlineNodes[designItem] = node;
+            }
+            return node;
+        }
 
-		void Selection_SelectionChanged(object sender, DesignItemCollectionEventArgs e)
-		{
-			IsSelected = DesignItem.Services.Selection.IsComponentSelected(DesignItem);
-		}
+        void Selection_SelectionChanged(object sender, DesignItemCollectionEventArgs e)
+        {
+            IsSelected = DesignItem.Services.Selection.IsComponentSelected(DesignItem);
+        }
 
 
-		protected override void UpdateChildren()
-		{
-			Children.Clear();
-			
-			if (DesignItem.ContentPropertyName != null) {
-				var content = DesignItem.ContentProperty;
-				if (content.IsCollection) {
-					UpdateChildrenCore(content.CollectionElements);
-				} else {
-					if (content.Value != null) {
-						UpdateChildrenCore(new[] { content.Value });
-					}
-				}
-			}	
-		}
+        protected override void UpdateChildren()
+        {
+            Children.Clear();
 
-		protected override void UpdateChildrenCollectionChanged(NotifyCollectionChangedEventArgs e)
-		{
-			if (e.Action == NotifyCollectionChangedAction.Remove) {
-				foreach (var oldItem in e.OldItems) {
-					var item = Children.FirstOrDefault(x => x.DesignItem == oldItem);
-					if (item != null) {
-						Children.Remove(item);
-					}
-				}
-			} else if (e.Action == NotifyCollectionChangedAction.Add) {
-				UpdateChildrenCore(e.NewItems.Cast<DesignItem>(), e.NewStartingIndex);				
-			}
-		}
+            if (DesignItem.ContentPropertyName != null)
+            {
+                var content = DesignItem.ContentProperty;
+                if (content.IsCollection)
+                {
+                    UpdateChildrenCore(content.CollectionElements);
+                }
+                else
+                {
+                    if (content.Value != null)
+                    {
+                        UpdateChildrenCore(new[] {content.Value});
+                    }
+                }
+            }
+        }
 
-		void UpdateChildrenCore(IEnumerable<DesignItem> items, int index = -1)
-		{
-			foreach (var item in items) {
-				if (ModelTools.CanSelectComponent(item)) {
-					if (Children.All(x => x.DesignItem != item)) {
-						var node = OutlineNode.Create(item);
-						if (index>-1)
-							Children.Insert(index++, node);
-						else
-							Children.Add(node);
-					}
-				} else {
-					var content = item.ContentProperty;
-					if (content != null) {
-						if (content.IsCollection) {
-							UpdateChildrenCore(content.CollectionElements);
-						} else {
-							if (content.Value != null) {
-								UpdateChildrenCore(new[] { content.Value });
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+        protected override void UpdateChildrenCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (var oldItem in e.OldItems)
+                {
+                    var item = Children.FirstOrDefault(x => x.DesignItem == oldItem);
+                    if (item != null)
+                    {
+                        Children.Remove(item);
+                    }
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                UpdateChildrenCore(e.NewItems.Cast<DesignItem>(), e.NewStartingIndex);
+            }
+        }
+
+        void UpdateChildrenCore(IEnumerable<DesignItem> items, int index = -1)
+        {
+            foreach (var item in items)
+            {
+                if (ModelTools.CanSelectComponent(item))
+                {
+                    if (Children.All(x => x.DesignItem != item))
+                    {
+                        var node = OutlineNode.Create(item);
+                        if (index > -1)
+                            Children.Insert(index++, node);
+                        else
+                            Children.Add(node);
+                    }
+                }
+                else
+                {
+                    var content = item.ContentProperty;
+                    if (content != null)
+                    {
+                        if (content.IsCollection)
+                        {
+                            UpdateChildrenCore(content.CollectionElements);
+                        }
+                        else
+                        {
+                            if (content.Value != null)
+                            {
+                                UpdateChildrenCore(new[] {content.Value});
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

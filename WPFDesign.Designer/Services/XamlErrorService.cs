@@ -21,25 +21,25 @@ using WPFDesign.XamlDom;
 
 namespace WPFDesign.Designer.Services
 {
-	public class XamlErrorService : IXamlErrorSink
-	{
-		public XamlErrorService()
-		{
-			Errors = new ObservableCollection<XamlError>();
-		}
+    public class XamlErrorService : IXamlErrorSink
+    {
+        public XamlErrorService()
+        {
+            Errors = new ObservableCollection<XamlError>();
+        }
 
-		public ObservableCollection<XamlError> Errors { get; private set; }
+        public ObservableCollection<XamlError> Errors { get; private set; }
 
-		public void ReportError(string message, int line, int column)
-		{
-			Errors.Add(new XamlError() { Message = message, Line = line, Column = column });
-		}
-	}
+        public void ReportError(string message, int line, int column)
+        {
+            Errors.Add(new XamlError() {Message = message, Line = line, Column = column});
+        }
+    }
 
-	public class XamlError
-	{
-		public string Message { get; set; }
-		public int Line { get; set; }
-		public int Column { get; set; }
-	}
+    public class XamlError
+    {
+        public string Message { get; set; }
+        public int Line { get; set; }
+        public int Column { get; set; }
+    }
 }

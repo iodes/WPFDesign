@@ -23,51 +23,54 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.PropertyGrid
 {
-	public partial class PropertyContextMenu
-	{
-		public PropertyContextMenu()
-		{
-			SpecialInitializeComponent();
-		}
+    public partial class PropertyContextMenu
+    {
+        public PropertyContextMenu()
+        {
+            SpecialInitializeComponent();
+        }
 
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
-		
-		public PropertyNode PropertyNode {
-			get { return DataContext as PropertyNode; }
-		}
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
 
-		void Click_Reset(object sender, RoutedEventArgs e)
-		{
-			PropertyNode.Reset();
-		}
+            this.InitializeComponent();
+        }
 
-		void Click_Binding(object sender, RoutedEventArgs e)
-		{
-			PropertyNode.CreateBinding();
-		}
+        public PropertyNode PropertyNode
+        {
+            get { return DataContext as PropertyNode; }
+        }
 
-		void Click_CustomExpression(object sender, RoutedEventArgs e)
-		{
-		}
+        void Click_Reset(object sender, RoutedEventArgs e)
+        {
+            PropertyNode.Reset();
+        }
 
-		void Click_ConvertToLocalValue(object sender, RoutedEventArgs e)
-		{
-		}
+        void Click_Binding(object sender, RoutedEventArgs e)
+        {
+            PropertyNode.CreateBinding();
+        }
 
-		void Click_SaveAsResource(object sender, RoutedEventArgs e)
-		{
-		}
-	}
+        void Click_CustomExpression(object sender, RoutedEventArgs e)
+        {
+        }
+
+        void Click_ConvertToLocalValue(object sender, RoutedEventArgs e)
+        {
+        }
+
+        void Click_SaveAsResource(object sender, RoutedEventArgs e)
+        {
+        }
+    }
 }

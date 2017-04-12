@@ -21,16 +21,17 @@ using System.Windows.Controls;
 
 namespace WPFDesign.Designer.Controls
 {
-	/// <summary>
-	/// The rectangle shown during a rubber-band selecting operation.
-	/// </summary>
-	public class SelectionFrame : Control
-	{
-		static SelectionFrame()
-		{
-			//This OverrideMetadata call tells the system that this element wants to provide a style that is different than its base class.
-			//This style is defined in themes\generic.xaml
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(SelectionFrame), new FrameworkPropertyMetadata(typeof(SelectionFrame)));
-		}
-	}
+    /// <summary>
+    /// The rectangle shown during a rubber-band selecting operation.
+    /// </summary>
+    public class SelectionFrame : Control
+    {
+        static SelectionFrame()
+        {
+            //This OverrideMetadata call tells the system that this element wants to provide a style that is different than its base class.
+            //This style is defined in themes\generic.xaml
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SelectionFrame),
+                new FrameworkPropertyMetadata(typeof(SelectionFrame)));
+        }
+    }
 }

@@ -18,19 +18,19 @@
 
 namespace WPFDesign.Core
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public enum HitTestType
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		Default,
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		ElementSelection,
-	}
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum HitTestType
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        Default,
+
+        /// <summary>
+        /// 
+        /// </summary>
+        ElementSelection,
+    }
 }

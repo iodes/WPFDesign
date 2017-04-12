@@ -23,24 +23,24 @@ using WPFDesign.Designer.Controls;
 
 namespace WPFDesign.Designer
 {
-	/// <summary>
-	/// Manages the Focus/Primary Selection using TAB for down-the-tree navigation and Shift+TAB for up-the-tree navigation. 
-	/// </summary>
-	class FocusNavigator
+    /// <summary>
+    /// Manages the Focus/Primary Selection using TAB for down-the-tree navigation and Shift+TAB for up-the-tree navigation. 
+    /// </summary>
+    class FocusNavigator
     {
-		/* The Focus navigator do not involves the concept of Logical Focus or KeyBoard Focus
-		 * since nothing is getting focoused on the designer except for the DesignPanel. It just changes
-		 * the primary selection between the hierarchy of elements present on the designer. */
-		
+        /* The Focus navigator do not involves the concept of Logical Focus or KeyBoard Focus
+         * since nothing is getting focoused on the designer except for the DesignPanel. It just changes
+         * the primary selection between the hierarchy of elements present on the designer. */
+
         private readonly DesignSurface _surface;
         private KeyBinding _tabBinding;
         private KeyBinding _shiftTabBinding;
-        
+
         public FocusNavigator(DesignSurface surface)
         {
-            this._surface=surface;
+            this._surface = surface;
         }
-        
+
         /// <summary>
         /// Starts the navigator on the Design surface and add bindings.
         /// </summary>
@@ -50,36 +50,39 @@ namespace WPFDesign.Designer
             var shiftTabFocus = new RelayCommand(this.MoveFocusBack, this.CanMoveFocusBack);
             _tabBinding = new KeyBinding(tabFocus, new KeyGesture(Key.Tab));
             _shiftTabBinding = new KeyBinding(shiftTabFocus, new KeyGesture(Key.Tab, ModifierKeys.Shift));
-            IKeyBindingService kbs = _surface.DesignContext.Services.GetService(typeof(IKeyBindingService)) as IKeyBindingService;
+            IKeyBindingService kbs =
+                _surface.DesignContext.Services.GetService(typeof(IKeyBindingService)) as IKeyBindingService;
             if (kbs != null)
             {
                 kbs.RegisterBinding(_tabBinding);
                 kbs.RegisterBinding(_shiftTabBinding);
             }
         }
-        
+
         /// <summary>
         /// De-register the bindings from the Design Surface
         /// </summary>
         public void End()
         {
-            IKeyBindingService kbs = _surface.DesignContext.Services.GetService(typeof(IKeyBindingService)) as IKeyBindingService;
+            IKeyBindingService kbs =
+                _surface.DesignContext.Services.GetService(typeof(IKeyBindingService)) as IKeyBindingService;
             if (kbs != null)
             {
                 kbs.DeregisterBinding(_tabBinding);
                 kbs.DeregisterBinding(_shiftTabBinding);
             }
         }
-        
+
         /// <summary>
         /// Moves the Foucus down the tree.
         /// </summary>        
         void MoveFocusForward()
         {
             var designSurface = _surface;
-            if (designSurface != null) {
+            if (designSurface != null)
+            {
                 var context = designSurface.DesignContext;
-                ISelectionService selection=context.Services.Selection;
+                ISelectionService selection = context.Services.Selection;
                 DesignItem item = selection.PrimarySelection;
                 selection.SetSelectedComponents(selection.SelectedItems, SelectionTypes.Remove);
                 if (item != GetLastElement())
@@ -91,33 +94,41 @@ namespace WPFDesign.Designer
                             if (item.ContentProperty.CollectionElements.Count != 0)
                             {
                                 if (ModelTools.CanSelectComponent(item.ContentProperty.CollectionElements.First()))
-                                    selection.SetSelectedComponents(new DesignItem[] { item.ContentProperty.CollectionElements.First() }, SelectionTypes.Primary);
+                                    selection.SetSelectedComponents(
+                                        new DesignItem[] {item.ContentProperty.CollectionElements.First()},
+                                        SelectionTypes.Primary);
                                 else
                                     SelectNextInPeers(item);
                             }
                             else
                                 SelectNextInPeers(item);
                         }
-                        else if (item.ContentProperty.Value != null) {
+                        else if (item.ContentProperty.Value != null)
+                        {
                             if (ModelTools.CanSelectComponent(item.ContentProperty.Value))
-                                selection.SetSelectedComponents(new DesignItem[] { item.ContentProperty.Value }, SelectionTypes.Primary);
+                                selection.SetSelectedComponents(new DesignItem[] {item.ContentProperty.Value},
+                                    SelectionTypes.Primary);
                             else
                                 SelectNextInPeers(item);
                         }
-                        else {
+                        else
+                        {
                             SelectNextInPeers(item);
                         }
                     }
-                    else {
+                    else
+                    {
                         SelectNextInPeers(item);
                     }
                 }
-                else { //if the element was last element move focus to the root element to keep a focus cycle.
+                else
+                {
+                    //if the element was last element move focus to the root element to keep a focus cycle.
                     selection.SetSelectedComponents(new DesignItem[] {context.RootItem}, SelectionTypes.Primary);
                 }
             }
         }
-        
+
         /// <summary>
         /// Checks if focus navigation should be for down-the-tree be done.
         /// </summary>
@@ -129,14 +140,15 @@ namespace WPFDesign.Designer
                     return true;
             return false;
         }
-        
+
         /// <summary>
         /// Moves focus up-the-tree.
         /// </summary>        
         void MoveFocusBack()
         {
             var designSurface = _surface;
-            if (designSurface != null) {
+            if (designSurface != null)
+            {
                 var context = designSurface.DesignContext;
                 ISelectionService selection = context.Services.Selection;
                 DesignItem item = selection.PrimarySelection;
@@ -147,28 +159,33 @@ namespace WPFDesign.Designer
                         int index = item.Parent.ContentProperty.CollectionElements.IndexOf(item);
                         if (index != 0)
                         {
-                            if (ModelTools.CanSelectComponent(item.Parent.ContentProperty.CollectionElements.ElementAt(index - 1)))
-                                selection.SetSelectedComponents(new DesignItem[] { item.Parent.ContentProperty.CollectionElements.ElementAt(index - 1) }, SelectionTypes.Primary);
+                            if (ModelTools.CanSelectComponent(
+                                item.Parent.ContentProperty.CollectionElements.ElementAt(index - 1)))
+                                selection.SetSelectedComponents(
+                                    new DesignItem[]
+                                        {item.Parent.ContentProperty.CollectionElements.ElementAt(index - 1)},
+                                    SelectionTypes.Primary);
                         }
                         else
                         {
                             if (ModelTools.CanSelectComponent(item.Parent))
-                                selection.SetSelectedComponents(new DesignItem[] { item.Parent }, SelectionTypes.Primary);
+                                selection.SetSelectedComponents(new DesignItem[] {item.Parent}, SelectionTypes.Primary);
                         }
-
                     }
                     else
                     {
                         if (ModelTools.CanSelectComponent(item.Parent))
-                            selection.SetSelectedComponents(new DesignItem[] { item.Parent }, SelectionTypes.Primary);
+                            selection.SetSelectedComponents(new DesignItem[] {item.Parent}, SelectionTypes.Primary);
                     }
                 }
-                else {// if the element was root item move focus again to the last element.
-                    selection.SetSelectedComponents(new DesignItem[] { GetLastElement() }, SelectionTypes.Primary);
+                else
+                {
+// if the element was root item move focus again to the last element.
+                    selection.SetSelectedComponents(new DesignItem[] {GetLastElement()}, SelectionTypes.Primary);
                 }
             }
         }
-        
+
         /// <summary>
         /// Checks if focus navigation for the up-the-tree should be done.
         /// </summary>
@@ -180,7 +197,7 @@ namespace WPFDesign.Designer
                     return true;
             return false;
         }
-        
+
         /// <summary>
         /// Gets the last element in the element hierarchy.
         /// </summary>        
@@ -191,7 +208,8 @@ namespace WPFDesign.Designer
             {
                 if (item.ContentProperty.IsCollection)
                 {
-                    if (item.ContentProperty.CollectionElements.Count != 0) {
+                    if (item.ContentProperty.CollectionElements.Count != 0)
+                    {
                         if (ModelTools.CanSelectComponent(item.ContentProperty.CollectionElements.Last()))
                             item = item.ContentProperty.CollectionElements.Last();
                         else
@@ -200,7 +218,8 @@ namespace WPFDesign.Designer
                     else
                         break;
                 }
-                else {
+                else
+                {
                     if (item.ContentProperty.Value != null)
                         item = item.ContentProperty.Value;
                     else
@@ -209,7 +228,7 @@ namespace WPFDesign.Designer
             }
             return item;
         }
-        
+
         /// <summary>
         /// Select the next element in the element collection if <paramref name="item"/> parent's had it's content property as collection.
         /// </summary>        
@@ -222,7 +241,9 @@ namespace WPFDesign.Designer
                 {
                     int index = item.Parent.ContentProperty.CollectionElements.IndexOf(item);
                     if (index != item.Parent.ContentProperty.CollectionElements.Count)
-                        selection.SetSelectedComponents(new DesignItem[] { item.Parent.ContentProperty.CollectionElements.ElementAt(index + 1) }, SelectionTypes.Primary);
+                        selection.SetSelectedComponents(
+                            new DesignItem[] {item.Parent.ContentProperty.CollectionElements.ElementAt(index + 1)},
+                            SelectionTypes.Primary);
                 }
             }
         }

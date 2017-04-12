@@ -38,27 +38,31 @@ namespace WPFDesign.Designer.Controls
         /// Places the Handle with a certain offset so the Handle does not interfere with selection outline.
         /// </summary>
         public static double HandleLengthOffset;
-		
+
         static MarginHandle()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(MarginHandle), new FrameworkPropertyMetadata(typeof(MarginHandle)));
-            HandleLengthOffset=2;
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(MarginHandle),
+                new FrameworkPropertyMetadata(typeof(MarginHandle)));
+            HandleLengthOffset = 2;
         }
 
         /// <summary>
         /// Dependency property for <see cref="HandleLength"/>.
         /// </summary>
         public static readonly DependencyProperty HandleLengthProperty
-            = DependencyProperty.Register("HandleLength", typeof(double), typeof(MarginHandle), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnHandleLengthChanged)));
+            = DependencyProperty.Register("HandleLength", typeof(double), typeof(MarginHandle),
+                new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender,
+                    new PropertyChangedCallback(OnHandleLengthChanged)));
 
         /// <summary>
         /// Gets/Sets the length of Margin Handle.
         /// </summary>
-        public double HandleLength{
-            get { return (double)GetValue(HandleLengthProperty); }
+        public double HandleLength
+        {
+            get { return (double) GetValue(HandleLengthProperty); }
             set { SetValue(HandleLengthProperty, value); }
         }
-		
+
         readonly Grid grid;
         readonly DesignItem adornedControlItem;
         readonly AdornerPanel adornerPanel;
@@ -67,31 +71,33 @@ namespace WPFDesign.Designer.Controls
 
         /// <summary> This grid contains the handle line and the endarrow.</summary>
         Grid lineArrow;
-		
+
         /// <summary>
         /// Gets the Stub for this handle
         /// </summary>
-        public MarginStub Stub {get; protected set;}
-		
+        public MarginStub Stub { get; protected set; }
+
         /// <summary>
         /// Gets/Sets the angle by which handle rotates.
         /// </summary>
         public double Angle { get; set; }
-		
+
         /// <summary>
         /// Gets/Sets the angle by which the Margin display has to be rotated
         /// </summary>
-        public virtual double TextTransform{
-            get{
-                if((double)orientation==90 || (double)orientation == 180)
+        public virtual double TextTransform
+        {
+            get
+            {
+                if ((double) orientation == 90 || (double) orientation == 180)
                     return 180;
-                if ((double)orientation == 270)
+                if ((double) orientation == 270)
                     return 0;
-                return (double)orientation;
+                return (double) orientation;
             }
-            set{ }
+            set { }
         }
-		
+
         /// <summary>
         /// Decides the visiblity of handle/stub when <see cref="HandleLength"/> changes
         /// </summary>
@@ -99,43 +105,45 @@ namespace WPFDesign.Designer.Controls
         /// <param name="e"></param>
         public static void OnHandleLengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            MarginHandle mar=(MarginHandle)d;
-            mar.DecideVisiblity((double)e.NewValue);
+            MarginHandle mar = (MarginHandle) d;
+            mar.DecideVisiblity((double) e.NewValue);
         }
-		
+
         /// <summary>
         /// Decides whether to permanently display the handle or not.
         /// </summary>
         public bool ShouldBeVisible { get; set; }
-		
+
         /// <summary>
         /// Decides whether stub has to be only displayed.
         /// </summary>
         public bool DisplayOnlyStub { get; set; }
-		
+
         /// <summary>
         /// Gets the orientation of the handle.
         /// </summary>
-        public HandleOrientation Orientation {
+        public HandleOrientation Orientation
+        {
             get { return orientation; }
         }
 
         protected MarginHandle()
-        { }
-		 
+        {
+        }
+
         public MarginHandle(DesignItem adornedControlItem, AdornerPanel adornerPanel, HandleOrientation orientation)
         {
-            Debug.Assert(adornedControlItem!=null);
+            Debug.Assert(adornedControlItem != null);
             this.adornedControlItem = adornedControlItem;
             this.adornerPanel = adornerPanel;
             this.orientation = orientation;
-            Angle = (double)orientation;
-            grid=(Grid)adornedControlItem.Parent.Component;
-            adornedControl=(FrameworkElement)adornedControlItem.Component;
+            Angle = (double) orientation;
+            grid = (Grid) adornedControlItem.Parent.Component;
+            adornedControl = (FrameworkElement) adornedControlItem.Component;
             Stub = new MarginStub(this);
-            ShouldBeVisible=true;
+            ShouldBeVisible = true;
             BindAndPlaceHandle();
-			
+
             adornedControlItem.PropertyChanged += OnPropertyChanged;
             OnPropertyChanged(this.adornedControlItem, new PropertyChangedEventArgs("HorizontalAlignment"));
             OnPropertyChanged(this.adornedControlItem, new PropertyChangedEventArgs("VerticalAlignment"));
@@ -150,7 +158,7 @@ namespace WPFDesign.Designer.Controls
                 adornerPanel.Children.Add(this);
             if (!adornerPanel.Children.Contains(Stub))
                 adornerPanel.Children.Add(Stub);
-            RelativePlacement placement=new RelativePlacement();
+            RelativePlacement placement = new RelativePlacement();
             Binding binding = new Binding();
             binding.Source = adornedControl;
             switch (orientation)
@@ -158,22 +166,22 @@ namespace WPFDesign.Designer.Controls
                 case HandleOrientation.Left:
                     binding.Path = new PropertyPath("Margin.Left");
                     placement = new RelativePlacement(HorizontalAlignment.Left, VerticalAlignment.Center);
-                    placement.XOffset=-HandleLengthOffset;
+                    placement.XOffset = -HandleLengthOffset;
                     break;
                 case HandleOrientation.Top:
                     binding.Path = new PropertyPath("Margin.Top");
                     placement = new RelativePlacement(HorizontalAlignment.Center, VerticalAlignment.Top);
-                    placement.YOffset=-HandleLengthOffset;
+                    placement.YOffset = -HandleLengthOffset;
                     break;
                 case HandleOrientation.Right:
                     binding.Path = new PropertyPath("Margin.Right");
                     placement = new RelativePlacement(HorizontalAlignment.Right, VerticalAlignment.Center);
-                    placement.XOffset=HandleLengthOffset;
+                    placement.XOffset = HandleLengthOffset;
                     break;
                 case HandleOrientation.Bottom:
                     binding.Path = new PropertyPath("Margin.Bottom");
                     placement = new RelativePlacement(HorizontalAlignment.Center, VerticalAlignment.Bottom);
-                    placement.YOffset=HandleLengthOffset;
+                    placement.YOffset = HandleLengthOffset;
                     break;
             }
 
@@ -182,7 +190,7 @@ namespace WPFDesign.Designer.Controls
 
             AdornerPanel.SetPlacement(this, placement);
             AdornerPanel.SetPlacement(Stub, placement);
-			
+
             DecideVisiblity(this.HandleLength);
         }
 
@@ -208,37 +216,53 @@ namespace WPFDesign.Designer.Controls
                     Stub.Visibility = Visibility.Visible;
                 }
             }
-            else {
+            else
+            {
                 this.Visibility = Visibility.Hidden;
                 Stub.Visibility = Visibility.Hidden;
             }
         }
-		
-        void OnPropertyChanged(object sender,PropertyChangedEventArgs e)
+
+        void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName=="HorizontalAlignment" && (orientation==HandleOrientation.Left || orientation==HandleOrientation.Right)) {
-                var ha = (HorizontalAlignment) adornedControlItem.Properties[FrameworkElement.HorizontalAlignmentProperty].ValueOnInstance;
-                if(ha==HorizontalAlignment.Stretch) {
+            if (e.PropertyName == "HorizontalAlignment" && (orientation == HandleOrientation.Left ||
+                                                            orientation == HandleOrientation.Right))
+            {
+                var ha = (HorizontalAlignment) adornedControlItem
+                    .Properties[FrameworkElement.HorizontalAlignmentProperty]
+                    .ValueOnInstance;
+                if (ha == HorizontalAlignment.Stretch)
+                {
                     DisplayOnlyStub = false;
-                }else if(ha==HorizontalAlignment.Center) {
+                }
+                else if (ha == HorizontalAlignment.Center)
+                {
                     DisplayOnlyStub = true;
-                } else
+                }
+                else
                     DisplayOnlyStub = ha.ToString() != orientation.ToString();
             }
 
-            if(e.PropertyName=="VerticalAlignment" && (orientation==HandleOrientation.Top || orientation==HandleOrientation.Bottom)) {
-                var va = (VerticalAlignment)adornedControlItem.Properties[FrameworkElement.VerticalAlignmentProperty].ValueOnInstance;
+            if (e.PropertyName == "VerticalAlignment" && (orientation == HandleOrientation.Top ||
+                                                          orientation == HandleOrientation.Bottom))
+            {
+                var va = (VerticalAlignment) adornedControlItem.Properties[FrameworkElement.VerticalAlignmentProperty]
+                    .ValueOnInstance;
 
-                if(va==VerticalAlignment.Stretch) {
+                if (va == VerticalAlignment.Stretch)
+                {
                     DisplayOnlyStub = false;
-                } else if(va==VerticalAlignment.Center) {
+                }
+                else if (va == VerticalAlignment.Center)
+                {
                     DisplayOnlyStub = true;
-                } else
+                }
+                else
                     DisplayOnlyStub = va.ToString() != orientation.ToString();
             }
             DecideVisiblity(this.HandleLength);
         }
-		
+
         protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
         {
             base.OnMouseEnter(e);
@@ -250,15 +274,14 @@ namespace WPFDesign.Designer.Controls
             base.OnMouseLeave(e);
             this.Cursor = Cursors.Arrow;
         }
-		
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             lineArrow = new Grid();
-            lineArrow = (Grid)Template.FindName("lineArrow", this) as Grid;
+            lineArrow = (Grid) Template.FindName("lineArrow", this) as Grid;
             Debug.Assert(lineArrow != null);
         }
-
     }
 
     /// <summary>
@@ -267,17 +290,19 @@ namespace WPFDesign.Designer.Controls
     public class MarginStub : Control
     {
         MarginHandle marginHandle;
-		
+
         /// <summary>
         /// Gets the margin handle using this stub.
         /// </summary>
-        public MarginHandle Handle{
+        public MarginHandle Handle
+        {
             get { return marginHandle; }
         }
-		
+
         static MarginStub()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(MarginStub), new FrameworkPropertyMetadata(typeof(MarginStub)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(MarginStub),
+                new FrameworkPropertyMetadata(typeof(MarginStub)));
         }
 
         public MarginStub(MarginHandle marginHandle)
@@ -290,13 +315,13 @@ namespace WPFDesign.Designer.Controls
             base.OnMouseLeftButtonDown(e);
             marginHandle.DecideVisiblity(marginHandle.HandleLength);
         }
-		
+
         protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
         {
             base.OnMouseEnter(e);
             this.Cursor = Cursors.Hand;
         }
-		
+
         protected override void OnMouseLeave(MouseEventArgs e)
         {
             base.OnMouseLeave(e);
@@ -315,14 +340,17 @@ namespace WPFDesign.Designer.Controls
         /// Indicates that the margin handle is left-oriented and rotated 180 degrees with respect to <see cref="Right"/>.
         /// </summary>
         Left = 180,
+
         /// <summary>
         /// Indicates that the margin handle is top-oriented and rotated 270 degrees with respect to <see cref="Right"/>.
         /// </summary>
         Top = 270,
+
         /// <summary>
         /// Indicates that the margin handle is right.
         /// </summary>
         Right = 0,
+
         /// <summary>
         /// Indicates that the margin handle is left-oriented and rotated 180 degrees with respect to <see cref="Right"/>.
         /// </summary>
@@ -338,8 +366,9 @@ namespace WPFDesign.Designer.Controls
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is double) {
-                return Math.Max((double)value - MarginHandle.HandleLengthOffset,0);
+            if (value is double)
+            {
+                return Math.Max((double) value - MarginHandle.HandleLengthOffset, 0);
             }
             return null;
         }

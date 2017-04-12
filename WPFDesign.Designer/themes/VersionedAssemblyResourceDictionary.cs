@@ -22,31 +22,31 @@ using System.Windows;
 
 namespace WPFDesign.Designer.themes
 {
-	internal class VersionedAssemblyResourceDictionary : ResourceDictionary, ISupportInitialize
-	{
-		private static readonly string _uriStart;
+    internal class VersionedAssemblyResourceDictionary : ResourceDictionary, ISupportInitialize
+    {
+        private static readonly string _uriStart;
 
-		private static readonly int _subLength;
+        private static readonly int _subLength;
 
-		static VersionedAssemblyResourceDictionary()
-		{
-			var nm = typeof(VersionedAssemblyResourceDictionary).Assembly.GetName();
-			_uriStart = string.Format( @"/{0};v{1};component/", nm.Name, nm.Version);
-			
-			_subLength = "ICSharpCode.WpfDesign.Designer.".Length;
-		}
+        static VersionedAssemblyResourceDictionary()
+        {
+            var nm = typeof(VersionedAssemblyResourceDictionary).Assembly.GetName();
+            _uriStart = string.Format(@"/{0};v{1};component/", nm.Name, nm.Version);
 
-		public string RelativePath {get;set;}
+            _subLength = "ICSharpCode.WpfDesign.Designer.".Length;
+        }
 
-		void ISupportInitialize.EndInit()
-		{
-			this.Source = new Uri(_uriStart + this.RelativePath, UriKind.Relative);
-			base.EndInit();
-		}
-		
-		public static string GetXamlNameForType(Type t)
-		{
-			return _uriStart + t.FullName.Substring(_subLength).Replace(".","/").ToLower() + ".xaml";
-		}
-	}
+        public string RelativePath { get; set; }
+
+        void ISupportInitialize.EndInit()
+        {
+            this.Source = new Uri(_uriStart + this.RelativePath, UriKind.Relative);
+            base.EndInit();
+        }
+
+        public static string GetXamlNameForType(Type t)
+        {
+            return _uriStart + t.FullName.Substring(_subLength).Replace(".", "/").ToLower() + ".xaml";
+        }
+    }
 }

@@ -23,33 +23,33 @@ using WPFDesign.Core.Extensions;
 
 namespace WPFDesign.Designer.Extensions
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	[ExtensionServer(typeof(OnlyOneItemSelectedExtensionServer))]
-	[ExtensionFor(typeof(UIElement))]
-	[Extension(Order = 20)]
-	public sealed class RightClickContextMenuExtension : PrimarySelectionAdornerProvider
-	{
-		DesignPanel panel;
-		ContextMenu contextMenu;
-		
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
+    /// <summary>
+    /// 
+    /// </summary>
+    [ExtensionServer(typeof(OnlyOneItemSelectedExtensionServer))]
+    [ExtensionFor(typeof(UIElement))]
+    [Extension(Order = 20)]
+    public sealed class RightClickContextMenuExtension : PrimarySelectionAdornerProvider
+    {
+        DesignPanel panel;
+        ContextMenu contextMenu;
 
-			contextMenu = new RightClickContextMenu(ExtendedItem);
-			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
-			if (panel != null)
-				panel.AddContextMenu(contextMenu);
-		}
-		
-		protected override void OnRemove()
-		{
-			if (panel != null)
-				panel.RemoveContextMenu(contextMenu);
-			
-			base.OnRemove();
-		}
-	}
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            contextMenu = new RightClickContextMenu(ExtendedItem);
+            panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
+            if (panel != null)
+                panel.AddContextMenu(contextMenu);
+        }
+
+        protected override void OnRemove()
+        {
+            if (panel != null)
+                panel.RemoveContextMenu(contextMenu);
+
+            base.OnRemove();
+        }
+    }
 }

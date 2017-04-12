@@ -24,39 +24,44 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors
 {
-	public partial class TextBoxEditor
-	{
-		/// <summary>
-		/// Creates a new TextBoxEditor instance.
-		/// </summary>
-		public TextBoxEditor()
-		{
-			SpecialInitializeComponent();
-		}
-		
-				/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
-		
-		/// <inheritdoc/>
-		protected override void OnKeyDown(KeyEventArgs e)
-		{
-			if (e.Key == Key.Enter) {
-				BindingOperations.GetBindingExpressionBase(this, TextProperty).UpdateSource();
-				SelectAll();
-			} else if (e.Key == Key.Escape) {
-				BindingOperations.GetBindingExpression(this, TextProperty).UpdateTarget();
-			}
-		}
-	}
+    public partial class TextBoxEditor
+    {
+        /// <summary>
+        /// Creates a new TextBoxEditor instance.
+        /// </summary>
+        public TextBoxEditor()
+        {
+            SpecialInitializeComponent();
+        }
+
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
+
+            this.InitializeComponent();
+        }
+
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                BindingOperations.GetBindingExpressionBase(this, TextProperty).UpdateSource();
+                SelectAll();
+            }
+            else if (e.Key == Key.Escape)
+            {
+                BindingOperations.GetBindingExpression(this, TextProperty).UpdateTarget();
+            }
+        }
+    }
 }

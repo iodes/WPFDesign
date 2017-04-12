@@ -5,80 +5,80 @@
              xmlns:Converters="clr-namespace:WPFDesign.Designer"
              xmlns:controls="clr-namespace:WPFDesign.Designer.Controls"
              Width="395" MinHeight="320">
-	
-	<UserControl.Resources>
-			
-			<DataTemplate DataType="{x:Type BrushEditor:BrushItem}">
-				<StackPanel Orientation="Horizontal">
-					<Border Background="{Binding Brush}"
-					        Width="30"
-					        Height="15"
-					        Margin="2"
-					        BorderThickness="1"
-					        BorderBrush="Black" />
-					<TextBlock Text="{Binding Name}"
-					           VerticalAlignment="Center" />
-				</StackPanel>
-			</DataTemplate>
-	
-	</UserControl.Resources>
-	
-	<TabControl x:Name="tabControl"
-	            SelectedIndex="{Binding CurrentKind, Converter={x:Static Converters:IntFromEnumConverter.Instance}}">
-		<TabItem Header="None">
-			<Border Background="White"
-			        BorderThickness="1"
-			        BorderBrush="Black"
-			        HorizontalAlignment="Center"
-			        VerticalAlignment="Center">
-				<Line X1="0"
-				      Y1="40"
-				      X2="70"
-				      Y2="0"
-				      Stroke="Red"
-				      StrokeThickness="1" />
-			</Border>
-		</TabItem>
-		<TabItem Header="Solid">
-			<BrushEditor:SolidBrushEditor Color="{Binding Color}" />
-		</TabItem>
-		<TabItem Header="Linear">
-			<DockPanel>
-				<StackPanel DockPanel.Dock="Top"
-				            Orientation="Horizontal"
-				            Margin="5">
-					<TextBlock Text="Angle"
-					           VerticalAlignment="Center" />
-					<controls:NumericUpDown Value="{Binding GradientAngle}"
-					                 Minimum="-360"
-					                 Maximum="360"
-					                 Margin="5 0 0 0"
-					                 Width="50" />
-					<Button Content="H"
-					        Command="{Converters:Call MakeGradientHorizontal}"
-					        Margin="5 0 0 0"
-					        Width="30" />
-					<Button Content="V"
-					        Command="{Converters:Call MakeGradientVertical}"
-					        Margin="5 0 0 0"
-					        Width="30" />
-				</StackPanel>
-				<BrushEditor:GradientBrushEditor />
-			</DockPanel>
-		</TabItem>
-		<TabItem Header="Radial">
-			<BrushEditor:GradientBrushEditor />
-		</TabItem>
-		<TabItem Header="System Brushes">
-			<ListBox MaxHeight="320" ItemsSource="{Binding SystemBrushes}"
-			         SelectedValue="{Binding Color}"
-			         SelectedValuePath="Brush.Color" />
-		</TabItem>
-		<TabItem Header="Brushes">
-			<ListBox MaxHeight="320" ItemsSource="{Binding AvailableWpfBrushes}"
-			         SelectedValue="{Binding Color}"
-			         SelectedValuePath="Brush.Color" />
-		</TabItem>
-	</TabControl>
+
+    <UserControl.Resources>
+
+        <DataTemplate DataType="{x:Type BrushEditor:BrushItem}">
+            <StackPanel Orientation="Horizontal">
+                <Border Background="{Binding Brush}"
+                        Width="30"
+                        Height="15"
+                        Margin="2"
+                        BorderThickness="1"
+                        BorderBrush="Black" />
+                <TextBlock Text="{Binding Name}"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <TabControl x:Name="tabControl"
+                SelectedIndex="{Binding CurrentKind, Converter={x:Static Converters:IntFromEnumConverter.Instance}}">
+        <TabItem Header="None">
+            <Border Background="White"
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <Line X1="0"
+                      Y1="40"
+                      X2="70"
+                      Y2="0"
+                      Stroke="Red"
+                      StrokeThickness="1" />
+            </Border>
+        </TabItem>
+        <TabItem Header="Solid">
+            <BrushEditor:SolidBrushEditor Color="{Binding Color}" />
+        </TabItem>
+        <TabItem Header="Linear">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top"
+                            Orientation="Horizontal"
+                            Margin="5">
+                    <TextBlock Text="Angle"
+                               VerticalAlignment="Center" />
+                    <controls:NumericUpDown Value="{Binding GradientAngle}"
+                                            Minimum="-360"
+                                            Maximum="360"
+                                            Margin="5 0 0 0"
+                                            Width="50" />
+                    <Button Content="H"
+                            Command="{Converters:Call MakeGradientHorizontal}"
+                            Margin="5 0 0 0"
+                            Width="30" />
+                    <Button Content="V"
+                            Command="{Converters:Call MakeGradientVertical}"
+                            Margin="5 0 0 0"
+                            Width="30" />
+                </StackPanel>
+                <BrushEditor:GradientBrushEditor />
+            </DockPanel>
+        </TabItem>
+        <TabItem Header="Radial">
+            <BrushEditor:GradientBrushEditor />
+        </TabItem>
+        <TabItem Header="System Brushes">
+            <ListBox MaxHeight="320" ItemsSource="{Binding SystemBrushes}"
+                     SelectedValue="{Binding Color}"
+                     SelectedValuePath="Brush.Color" />
+        </TabItem>
+        <TabItem Header="Brushes">
+            <ListBox MaxHeight="320" ItemsSource="{Binding AvailableWpfBrushes}"
+                     SelectedValue="{Binding Color}"
+                     SelectedValuePath="Brush.Color" />
+        </TabItem>
+    </TabControl>
 
 </UserControl>

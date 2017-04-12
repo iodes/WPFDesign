@@ -24,21 +24,21 @@ using WPFDesign.Core.PropertyGrid;
 
 namespace WPFDesign.Designer.Services
 {
-	public class ComponentPropertyService : IComponentPropertyService
-	{
-		public virtual IEnumerable<MemberDescriptor> GetAvailableProperties(DesignItem designItem)
-		{
-			return TypeHelper.GetAvailableProperties(designItem.Component);
-		}
+    public class ComponentPropertyService : IComponentPropertyService
+    {
+        public virtual IEnumerable<MemberDescriptor> GetAvailableProperties(DesignItem designItem)
+        {
+            return TypeHelper.GetAvailableProperties(designItem.Component);
+        }
 
-		public virtual IEnumerable<MemberDescriptor> GetAvailableEvents(DesignItem designItem)
-		{
-			return TypeHelper.GetAvailableEvents(designItem.ComponentType);
-		}
+        public virtual IEnumerable<MemberDescriptor> GetAvailableEvents(DesignItem designItem)
+        {
+            return TypeHelper.GetAvailableEvents(designItem.ComponentType);
+        }
 
-		public virtual IEnumerable<MemberDescriptor> GetCommonAvailableProperties(IEnumerable<DesignItem> designItems)
-		{
-			return TypeHelper.GetCommonAvailableProperties(designItems.Select(t => t.Component));
-		}
-	}
+        public virtual IEnumerable<MemberDescriptor> GetCommonAvailableProperties(IEnumerable<DesignItem> designItems)
+        {
+            return TypeHelper.GetCommonAvailableProperties(designItems.Select(t => t.Component));
+        }
+    }
 }

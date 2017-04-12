@@ -20,16 +20,17 @@ using System.Windows;
 
 namespace WPFDesign.Designer.Controls.Thumbs
 {
-	public class RotateThumb : DesignerThumb
-	{
-		static RotateThumb()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(RotateThumb), new FrameworkPropertyMetadata(typeof(RotateThumb)));
-		}
+    public class RotateThumb : DesignerThumb
+    {
+        static RotateThumb()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RotateThumb),
+                new FrameworkPropertyMetadata(typeof(RotateThumb)));
+        }
 
-		public RotateThumb()
-		{
-			this.ThumbVisible = true;
-		}
-	}
+        public RotateThumb()
+        {
+            this.ThumbVisible = true;
+        }
+    }
 }

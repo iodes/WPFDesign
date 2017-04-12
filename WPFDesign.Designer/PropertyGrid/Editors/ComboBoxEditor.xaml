@@ -1,20 +1,19 @@
 ﻿<controls:NullableComboBox
-	x:Class="WPFDesign.Designer.PropertyGrid.Editors.ComboBoxEditor"
-	xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:controls="clr-namespace:WPFDesign.Designer.Controls"
-	BorderThickness="0"
-	SelectedItem="{Binding Value}"
-	Background="{x:Null}"
-	Focusable="False"
-	IsNullable="False"
-	VirtualizingStackPanel.ScrollUnit="Pixel" 
-	VirtualizingStackPanel.IsVirtualizing="True" 
-	ScrollViewer.CanContentScroll="True"
->
-	<controls:NullableComboBox.ItemsPanel>
-		<ItemsPanelTemplate>
-			<VirtualizingStackPanel />
-		</ItemsPanelTemplate>
-	</controls:NullableComboBox.ItemsPanel>
+    x:Class="WPFDesign.Designer.PropertyGrid.Editors.ComboBoxEditor"
+    xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:WPFDesign.Designer.Controls"
+    BorderThickness="0"
+    SelectedItem="{Binding Value}"
+    Background="{x:Null}"
+    Focusable="False"
+    IsNullable="False"
+    VirtualizingStackPanel.ScrollUnit="Pixel"
+    VirtualizingStackPanel.IsVirtualizing="True"
+    ScrollViewer.CanContentScroll="True">
+    <controls:NullableComboBox.ItemsPanel>
+        <ItemsPanelTemplate>
+            <VirtualizingStackPanel />
+        </ItemsPanelTemplate>
+    </controls:NullableComboBox.ItemsPanel>
 </controls:NullableComboBox>

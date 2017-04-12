@@ -25,44 +25,45 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.Extensions
 {
-	public partial class TextBlockRightClickContextMenu
-	{
-		private DesignItem designItem;
+    public partial class TextBlockRightClickContextMenu
+    {
+        private DesignItem designItem;
 
-		public TextBlockRightClickContextMenu(DesignItem designItem)
-		{
-			this.designItem = designItem;
+        public TextBlockRightClickContextMenu(DesignItem designItem)
+        {
+            this.designItem = designItem;
 
-			SpecialInitializeComponent();
-		}
+            SpecialInitializeComponent();
+        }
 
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded)
-			{
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
 
-			this.InitializeComponent();
-		}
+            this.InitializeComponent();
+        }
 
-		void Click_EditFormatedText(object sender, RoutedEventArgs e)
-		{
-			var dlg = new Window()
-			{
-				Content = new FormatedTextEditor(designItem),
-				Width = 440,
-				Height = 200,
-				WindowStyle = WindowStyle.ToolWindow,
-				Owner = ((DesignPanel)designItem.Context.Services.DesignPanel).TryFindParent<Window>(),
-			};
+        void Click_EditFormatedText(object sender, RoutedEventArgs e)
+        {
+            var dlg = new Window()
+            {
+                Content = new FormatedTextEditor(designItem),
+                Width = 440,
+                Height = 200,
+                WindowStyle = WindowStyle.ToolWindow,
+                Owner = ((DesignPanel) designItem.Context.Services.DesignPanel).TryFindParent<Window>(),
+            };
 
-			dlg.ShowDialog();
-		}
-	}
+            dlg.ShowDialog();
+        }
+    }
 }

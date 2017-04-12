@@ -33,8 +33,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="../Images/Class.png"
                                Width="16"
-                               Height="16"
-                               />
+                               Height="16" />
                         <TextBlock Margin="5 0 0 0"
                                    Text="{Binding Converter={x:Static services:ClassNameConverter.Instance}}"
                                    VerticalAlignment="Center" />

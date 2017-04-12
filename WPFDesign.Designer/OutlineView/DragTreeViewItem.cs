@@ -24,136 +24,146 @@ using System.Windows.Input;
 
 namespace WPFDesign.Designer.OutlineView
 {
-	public class DragTreeViewItem : TreeViewItem
-	{
-		ContentPresenter part_header;
-		
-		static DragTreeViewItem()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(DragTreeViewItem),
-			                                         new FrameworkPropertyMetadata(typeof(DragTreeViewItem)));
-		}
+    public class DragTreeViewItem : TreeViewItem
+    {
+        ContentPresenter part_header;
 
-		public DragTreeViewItem()
-		{
-			Loaded += new RoutedEventHandler(DragTreeViewItem_Loaded);
-			Unloaded += new RoutedEventHandler(DragTreeViewItem_Unloaded);
-		}
+        static DragTreeViewItem()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DragTreeViewItem),
+                new FrameworkPropertyMetadata(typeof(DragTreeViewItem)));
+        }
 
-		void DragTreeViewItem_Loaded(object sender, RoutedEventArgs e)
-		{
-			ParentTree = this.GetVisualAncestors().OfType<DragTreeView>().FirstOrDefault();
-			if (ParentTree != null) {
-				ParentTree.ItemAttached(this);
-				ParentTree.FilterChanged += ParentTree_FilterChanged;
-			}
-		}
+        public DragTreeViewItem()
+        {
+            Loaded += new RoutedEventHandler(DragTreeViewItem_Loaded);
+            Unloaded += new RoutedEventHandler(DragTreeViewItem_Unloaded);
+        }
 
-		void ParentTree_FilterChanged(string obj)
-		{
-			var v = ParentTree.ShouldItemBeVisible(this);
-			if (v)
-				part_header.Visibility = Visibility.Visible;
-			else
-				part_header.Visibility = Visibility.Collapsed;
-		}
+        void DragTreeViewItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            ParentTree = this.GetVisualAncestors().OfType<DragTreeView>().FirstOrDefault();
+            if (ParentTree != null)
+            {
+                ParentTree.ItemAttached(this);
+                ParentTree.FilterChanged += ParentTree_FilterChanged;
+            }
+        }
 
-		void DragTreeViewItem_Unloaded(object sender, RoutedEventArgs e)
-		{
-			if (ParentTree != null) {
-				ParentTree.ItemDetached(this);
-				ParentTree.FilterChanged -= ParentTree_FilterChanged;
-			}
-			ParentTree = null;
-		}
-		
-		
-		public override void OnApplyTemplate()
-		{
-			base.OnApplyTemplate();
-			
-			part_header = GetTemplateChild("PART_Header") as ContentPresenter;
-		}
+        void ParentTree_FilterChanged(string obj)
+        {
+            var v = ParentTree.ShouldItemBeVisible(this);
+            if (v)
+                part_header.Visibility = Visibility.Visible;
+            else
+                part_header.Visibility = Visibility.Collapsed;
+        }
 
-		public new static readonly DependencyProperty IsSelectedProperty =
-			Selector.IsSelectedProperty.AddOwner(typeof(DragTreeViewItem), new FrameworkPropertyMetadata(OnIsSelectedChanged));
+        void DragTreeViewItem_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (ParentTree != null)
+            {
+                ParentTree.ItemDetached(this);
+                ParentTree.FilterChanged -= ParentTree_FilterChanged;
+            }
+            ParentTree = null;
+        }
 
-		public new bool IsSelected {
-			get { return (bool)GetValue(IsSelectedProperty); }
-			set { SetValue(IsSelectedProperty, value); }
-		}
-		
-		public static void OnIsSelectedChanged(DependencyObject s, DependencyPropertyChangedEventArgs e)
-		{
-			var el = s as DragTreeViewItem;
-			if (el != null && el.IsSelected)
-				el.BringIntoView();
-		}
 
-		public static readonly DependencyProperty IsDragHoverProperty =
-			DependencyProperty.Register("IsDragHover", typeof(bool), typeof(DragTreeViewItem));
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
 
-		public bool IsDragHover {
-			get { return (bool)GetValue(IsDragHoverProperty); }
-			set { SetValue(IsDragHoverProperty, value); }
-		}
+            part_header = GetTemplateChild("PART_Header") as ContentPresenter;
+        }
 
-		internal ContentPresenter HeaderPresenter {
-			get { return (ContentPresenter)Template.FindName("PART_Header", this); }
-		}
+        public new static readonly DependencyProperty IsSelectedProperty =
+            Selector.IsSelectedProperty.AddOwner(typeof(DragTreeViewItem),
+                new FrameworkPropertyMetadata(OnIsSelectedChanged));
 
-		public static readonly DependencyProperty LevelProperty =
-			DependencyProperty.Register("Level", typeof(int), typeof(DragTreeViewItem));
+        public new bool IsSelected
+        {
+            get { return (bool) GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
+        }
 
-		public int Level {
-			get { return (int)GetValue(LevelProperty); }
-			set { SetValue(LevelProperty, value); }
-		}
+        public static void OnIsSelectedChanged(DependencyObject s, DependencyPropertyChangedEventArgs e)
+        {
+            var el = s as DragTreeViewItem;
+            if (el != null && el.IsSelected)
+                el.BringIntoView();
+        }
 
-		public DragTreeView ParentTree { get; private set; }
+        public static readonly DependencyProperty IsDragHoverProperty =
+            DependencyProperty.Register("IsDragHover", typeof(bool), typeof(DragTreeViewItem));
 
-		protected override void OnVisualParentChanged(DependencyObject oldParent)
-		{
-			base.OnVisualParentChanged(oldParent);
-			
-			var parentItem = ItemsControl.ItemsControlFromItemContainer(this) as DragTreeViewItem;
-			if (parentItem != null) Level = parentItem.Level + 1;
-		}
+        public bool IsDragHover
+        {
+            get { return (bool) GetValue(IsDragHoverProperty); }
+            set { SetValue(IsDragHoverProperty, value); }
+        }
 
-		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-		{
-			base.OnPropertyChanged(e);
-			if (e.Property == IsSelectedProperty) {
-				if (ParentTree != null) {
-					ParentTree.ItemIsSelectedChanged(this);
-				}
-			}
-		}
+        internal ContentPresenter HeaderPresenter
+        {
+            get { return (ContentPresenter) Template.FindName("PART_Header", this); }
+        }
 
-		protected override DependencyObject GetContainerForItemOverride()
-		{
-			return new DragTreeViewItem();
-		}
+        public static readonly DependencyProperty LevelProperty =
+            DependencyProperty.Register("Level", typeof(int), typeof(DragTreeViewItem));
 
-		protected override bool IsItemItsOwnContainerOverride(object item)
-		{
-			return item is DragTreeViewItem;
-		}
+        public int Level
+        {
+            get { return (int) GetValue(LevelProperty); }
+            set { SetValue(LevelProperty, value); }
+        }
 
-		protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-		{
-			base.OnMouseLeftButtonDown(e);
-			if (e.Source is ToggleButton || e.Source is ItemsPresenter) return;
-			ParentTree.ItemMouseDown(this);
-		}
+        public DragTreeView ParentTree { get; private set; }
 
-		protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
-		{
-			base.OnMouseLeftButtonUp(e);
-			
-			if (ParentTree != null) {
-				ParentTree.ItemMouseUp(this);
-			}
-		}
-	}
+        protected override void OnVisualParentChanged(DependencyObject oldParent)
+        {
+            base.OnVisualParentChanged(oldParent);
+
+            var parentItem = ItemsControl.ItemsControlFromItemContainer(this) as DragTreeViewItem;
+            if (parentItem != null) Level = parentItem.Level + 1;
+        }
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            if (e.Property == IsSelectedProperty)
+            {
+                if (ParentTree != null)
+                {
+                    ParentTree.ItemIsSelectedChanged(this);
+                }
+            }
+        }
+
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new DragTreeViewItem();
+        }
+
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            return item is DragTreeViewItem;
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            if (e.Source is ToggleButton || e.Source is ItemsPresenter) return;
+            ParentTree.ItemMouseDown(this);
+        }
+
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonUp(e);
+
+            if (ParentTree != null)
+            {
+                ParentTree.ItemMouseUp(this);
+            }
+        }
+    }
 }

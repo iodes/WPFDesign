@@ -23,33 +23,33 @@ using WPFDesign.Core.Extensions;
 
 namespace WPFDesign.Designer.Extensions
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	[ExtensionServer(typeof(PrimarySelectionButOnlyWhenMultipleSelectedExtensionServer))]
-	[ExtensionFor(typeof(UIElement))]
-	[Extension(Order = 30)]
-	public class ArrangeItemsContextMenuExtension : SelectionAdornerProvider
-	{
-		DesignPanel panel;
-		ContextMenu contextMenu;
+    /// <summary>
+    /// 
+    /// </summary>
+    [ExtensionServer(typeof(PrimarySelectionButOnlyWhenMultipleSelectedExtensionServer))]
+    [ExtensionFor(typeof(UIElement))]
+    [Extension(Order = 30)]
+    public class ArrangeItemsContextMenuExtension : SelectionAdornerProvider
+    {
+        DesignPanel panel;
+        ContextMenu contextMenu;
 
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
-			contextMenu = new ArrangeItemsContextMenu(ExtendedItem);
-			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
-			if (panel != null)
-				panel.AddContextMenu(contextMenu);
-		}
-		
-		protected override void OnRemove()
-		{
-			if (panel != null)
-				panel.RemoveContextMenu(contextMenu);
+            contextMenu = new ArrangeItemsContextMenu(ExtendedItem);
+            panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
+            if (panel != null)
+                panel.AddContextMenu(contextMenu);
+        }
 
-			base.OnRemove();
-		}
-	}
+        protected override void OnRemove()
+        {
+            if (panel != null)
+                panel.RemoveContextMenu(contextMenu);
+
+            base.OnRemove();
+        }
+    }
 }

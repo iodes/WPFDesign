@@ -23,131 +23,143 @@ using System.Windows.Media;
 
 namespace WPFDesign.Designer.Controls
 {
-	public delegate void DragHandler(DragListener drag);
+    public delegate void DragHandler(DragListener drag);
 
-	public class DragListener
-	{
-		static DragListener()
-		{
-			InputManager.Current.PostProcessInput += new ProcessInputEventHandler(PostProcessInput);
-		}
+    public class DragListener
+    {
+        static DragListener()
+        {
+            InputManager.Current.PostProcessInput += new ProcessInputEventHandler(PostProcessInput);
+        }
 
-		public Transform Transform { get; set; }
-		
-		public DragListener(IInputElement target)
-		{
-			Target = target;
-			
-			Target.PreviewMouseLeftButtonDown += Target_MouseDown;
-			Target.PreviewMouseMove += Target_MouseMove;
-			Target.PreviewMouseLeftButtonUp += Target_MouseUp;
-		}
-		
-		public void ExternalStart()
-		{
-			Target_MouseDown(null, null);
-		}
-		
-		public void ExternalMouseMove(MouseEventArgs e)
-		{
-			Target_MouseMove(null, e);
-		}
-		
-		public void ExternalStop()
-		{
-			Target_MouseUp(null, null);
-		}
+        public Transform Transform { get; set; }
 
-		static DragListener CurrentListener;
+        public DragListener(IInputElement target)
+        {
+            Target = target;
 
-		static void PostProcessInput(object sender, ProcessInputEventArgs e)
-		{
-			if (CurrentListener != null) {
-				var a = e.StagingItem.Input as KeyEventArgs;
-				if (a != null && a.Key == Key.Escape) {
-					Mouse.Capture(null);
-					CurrentListener.IsDown = false;
-					CurrentListener.IsCanceled = true;
-					CurrentListener.Complete();
-				}
-			}
-		}
+            Target.PreviewMouseLeftButtonDown += Target_MouseDown;
+            Target.PreviewMouseMove += Target_MouseMove;
+            Target.PreviewMouseLeftButtonUp += Target_MouseUp;
+        }
 
-		void Target_MouseDown(object sender, MouseButtonEventArgs e)
-		{
-			StartPoint = Mouse.GetPosition(null);
-			CurrentPoint = StartPoint;
-			DeltaDelta = new Vector();
-			IsDown = true;
-			IsCanceled = false;
-			if (MouseDown != null)
-				MouseDown(this);
-		}
+        public void ExternalStart()
+        {
+            Target_MouseDown(null, null);
+        }
 
-		void Target_MouseMove(object sender, MouseEventArgs e)
-		{
-			if (IsDown) {
-				DeltaDelta = e.GetPosition(null) - CurrentPoint;
-				CurrentPoint += DeltaDelta;
+        public void ExternalMouseMove(MouseEventArgs e)
+        {
+            Target_MouseMove(null, e);
+        }
 
-				if (!IsActive) {
-					if (Math.Abs(Delta.X) >= SystemParameters.MinimumHorizontalDragDistance ||
-					    Math.Abs(Delta.Y) >= SystemParameters.MinimumVerticalDragDistance) {
-						IsActive = true;
-						CurrentListener = this;
+        public void ExternalStop()
+        {
+            Target_MouseUp(null, null);
+        }
 
-						if (Started != null) {
-							Started(this);
-						}
-					}
-				}
+        static DragListener CurrentListener;
 
-				if (IsActive && Changed != null) {
-					Changed(this);
-				}
-			}
-		}
+        static void PostProcessInput(object sender, ProcessInputEventArgs e)
+        {
+            if (CurrentListener != null)
+            {
+                var a = e.StagingItem.Input as KeyEventArgs;
+                if (a != null && a.Key == Key.Escape)
+                {
+                    Mouse.Capture(null);
+                    CurrentListener.IsDown = false;
+                    CurrentListener.IsCanceled = true;
+                    CurrentListener.Complete();
+                }
+            }
+        }
 
-		void Target_MouseUp(object sender, MouseButtonEventArgs e)
-		{
-			IsDown = false;
-			if (IsActive) {
-				Complete();
-			}
-		}
+        void Target_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            StartPoint = Mouse.GetPosition(null);
+            CurrentPoint = StartPoint;
+            DeltaDelta = new Vector();
+            IsDown = true;
+            IsCanceled = false;
+            if (MouseDown != null)
+                MouseDown(this);
+        }
 
-		void Complete()
-		{
-			IsActive = false;
-			CurrentListener = null;
+        void Target_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (IsDown)
+            {
+                DeltaDelta = e.GetPosition(null) - CurrentPoint;
+                CurrentPoint += DeltaDelta;
 
-			if (Completed != null) {
-				Completed(this);
-			}
-		}
+                if (!IsActive)
+                {
+                    if (Math.Abs(Delta.X) >= SystemParameters.MinimumHorizontalDragDistance ||
+                        Math.Abs(Delta.Y) >= SystemParameters.MinimumVerticalDragDistance)
+                    {
+                        IsActive = true;
+                        CurrentListener = this;
 
-		public event DragHandler MouseDown;
-		public event DragHandler Started;
-		public event DragHandler Changed;
-		public event DragHandler Completed;
+                        if (Started != null)
+                        {
+                            Started(this);
+                        }
+                    }
+                }
 
-		public IInputElement Target { get; private set; }
-		public Point StartPoint { get; private set; }
-		public Point CurrentPoint { get; private set; }
-		public Vector DeltaDelta { get; private set; }
-		public bool IsActive { get; private set; }
-		public bool IsDown { get; private set; }
-		public bool IsCanceled { get; private set; }
-		
-		public Vector Delta {
-			get { 
-				if (Transform != null) {
-					var matrix = Transform.Value;
-					matrix.Invert();
-					return matrix.Transform(CurrentPoint - StartPoint);
-				}
-				return CurrentPoint - StartPoint;
-			}
-		}
-	}
+                if (IsActive && Changed != null)
+                {
+                    Changed(this);
+                }
+            }
+        }
+
+        void Target_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            IsDown = false;
+            if (IsActive)
+            {
+                Complete();
+            }
+        }
+
+        void Complete()
+        {
+            IsActive = false;
+            CurrentListener = null;
+
+            if (Completed != null)
+            {
+                Completed(this);
+            }
+        }
+
+        public event DragHandler MouseDown;
+        public event DragHandler Started;
+        public event DragHandler Changed;
+        public event DragHandler Completed;
+
+        public IInputElement Target { get; private set; }
+        public Point StartPoint { get; private set; }
+        public Point CurrentPoint { get; private set; }
+        public Vector DeltaDelta { get; private set; }
+        public bool IsActive { get; private set; }
+        public bool IsDown { get; private set; }
+        public bool IsCanceled { get; private set; }
+
+        public Vector Delta
+        {
+            get
+            {
+                if (Transform != null)
+                {
+                    var matrix = Transform.Value;
+                    matrix.Invert();
+                    return matrix.Transform(CurrentPoint - StartPoint);
+                }
+                return CurrentPoint - StartPoint;
+            }
+        }
+    }
 }

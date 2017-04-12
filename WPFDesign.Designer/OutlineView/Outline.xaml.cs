@@ -22,38 +22,41 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.OutlineView
 {
-	public partial class Outline
-	{
-		public Outline()
-		{
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
+    public partial class Outline
+    {
+        public Outline()
+        {
+            SpecialInitializeComponent();
+        }
 
-		public static readonly DependencyProperty RootProperty =
-			DependencyProperty.Register("Root", typeof(IOutlineNode), typeof(Outline));
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
 
-		public IOutlineNode Root
-		{
-			get { return (IOutlineNode)GetValue(RootProperty); }
-			set { SetValue(RootProperty, value); }
-		}
-		
-		public object OutlineContent {
-			get { return this; }
-		}
-	}
+            this.InitializeComponent();
+        }
+
+        public static readonly DependencyProperty RootProperty =
+            DependencyProperty.Register("Root", typeof(IOutlineNode), typeof(Outline));
+
+        public IOutlineNode Root
+        {
+            get { return (IOutlineNode) GetValue(RootProperty); }
+            set { SetValue(RootProperty, value); }
+        }
+
+        public object OutlineContent
+        {
+            get { return this; }
+        }
+    }
 }

@@ -25,35 +25,37 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors.BrushEditor
 {
-	[TypeEditor(typeof(Brush))]
-	public partial class BrushTypeEditor
-	{
-		public BrushTypeEditor()
-		{
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
+    [TypeEditor(typeof(Brush))]
+    public partial class BrushTypeEditor
+    {
+        public BrushTypeEditor()
+        {
+            SpecialInitializeComponent();
+        }
 
-		static BrushEditorPopup brushEditorPopup = new BrushEditorPopup();
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
 
-		protected override void OnMouseUp(MouseButtonEventArgs e)
-		{
-			brushEditorPopup.BrushEditorView.BrushEditor.Property = DataContext as PropertyNode;
-			brushEditorPopup.PlacementTarget = this;
-			brushEditorPopup.IsOpen = true;
-		}
-	}
+            this.InitializeComponent();
+        }
+
+        static BrushEditorPopup brushEditorPopup = new BrushEditorPopup();
+
+        protected override void OnMouseUp(MouseButtonEventArgs e)
+        {
+            brushEditorPopup.BrushEditorView.BrushEditor.Property = DataContext as PropertyNode;
+            brushEditorPopup.PlacementTarget = this;
+            brushEditorPopup.IsOpen = true;
+        }
+    }
 }

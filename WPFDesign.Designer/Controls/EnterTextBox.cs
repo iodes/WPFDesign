@@ -22,23 +22,27 @@ using System.Windows.Input;
 
 namespace WPFDesign.Designer.Controls
 {
-	public class EnterTextBox : TextBox
-	{
-		protected override void OnKeyDown(KeyEventArgs e)
-		{
-			if (e.Key == Key.Enter) {
-				var b = BindingOperations.GetBindingExpressionBase(this, TextProperty);
-				if (b != null) {
-					b.UpdateSource();
-				}
-				SelectAll();
-			}
-			else if (e.Key == Key.Escape) {
-				var b = BindingOperations.GetBindingExpressionBase(this, TextProperty);
-				if (b != null) {
-					b.UpdateTarget();
-				}
-			}
-		}
-	}
+    public class EnterTextBox : TextBox
+    {
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var b = BindingOperations.GetBindingExpressionBase(this, TextProperty);
+                if (b != null)
+                {
+                    b.UpdateSource();
+                }
+                SelectAll();
+            }
+            else if (e.Key == Key.Escape)
+            {
+                var b = BindingOperations.GetBindingExpressionBase(this, TextProperty);
+                if (b != null)
+                {
+                    b.UpdateTarget();
+                }
+            }
+        }
+    }
 }

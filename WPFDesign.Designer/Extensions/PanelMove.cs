@@ -23,21 +23,21 @@ using WPFDesign.Designer.Controls;
 
 namespace WPFDesign.Designer.Extensions
 {
-	[ExtensionFor(typeof(Panel))]
-	[ExtensionFor(typeof(Border))]
-	[ExtensionFor(typeof(ContentControl))]
-	[ExtensionFor(typeof(Viewbox))]
-	public class PanelMove : PermanentAdornerProvider
-	{
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
+    [ExtensionFor(typeof(Panel))]
+    [ExtensionFor(typeof(Border))]
+    [ExtensionFor(typeof(ContentControl))]
+    [ExtensionFor(typeof(Viewbox))]
+    public class PanelMove : PermanentAdornerProvider
+    {
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
-			var adornerPanel = new AdornerPanel();
-			var adorner = new PanelMoveAdorner(ExtendedItem);
-			AdornerPanel.SetPlacement(adorner, AdornerPlacement.FillContent);
-			adornerPanel.Children.Add(adorner);
-			Adorners.Add(adornerPanel);
-		}
-	}
+            var adornerPanel = new AdornerPanel();
+            var adorner = new PanelMoveAdorner(ExtendedItem);
+            AdornerPanel.SetPlacement(adorner, AdornerPlacement.FillContent);
+            adornerPanel.Children.Add(adorner);
+            Adorners.Add(adornerPanel);
+        }
+    }
 }

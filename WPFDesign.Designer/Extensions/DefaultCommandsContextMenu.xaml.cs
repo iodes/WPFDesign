@@ -23,29 +23,31 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.Extensions
 {
-	public partial class DefaultCommandsContextMenu
-	{
-		private DesignItem designItem;
+    public partial class DefaultCommandsContextMenu
+    {
+        private DesignItem designItem;
 
-		public DefaultCommandsContextMenu(DesignItem designItem)
-		{
-			this.designItem = designItem;
-			
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
-	}
+        public DefaultCommandsContextMenu(DesignItem designItem)
+        {
+            this.designItem = designItem;
+
+            SpecialInitializeComponent();
+        }
+
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
+
+            this.InitializeComponent();
+        }
+    }
 }

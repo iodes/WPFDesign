@@ -21,35 +21,35 @@ using WPFDesign.Core;
 
 namespace WPFDesign.Designer.Services
 {
-	sealed class WpfTopLevelWindowService : ITopLevelWindowService
-	{
-		public ITopLevelWindow GetTopLevelWindow(UIElement element)
-		{
-			Window window = Window.GetWindow(element);
-			if (window != null)
-				return new WpfTopLevelWindow(window);
-			else
-				return null;
-		}
-		
-		sealed class WpfTopLevelWindow : ITopLevelWindow
-		{
-			Window window;
-			
-			public WpfTopLevelWindow(Window window)
-			{
-				this.window = window;
-			}
-			
-			public void SetOwner(Window child)
-			{
-				child.Owner = window;
-			}
-			
-			public bool Activate()
-			{
-				return window.Activate();
-			}
-		}
-	}
+    sealed class WpfTopLevelWindowService : ITopLevelWindowService
+    {
+        public ITopLevelWindow GetTopLevelWindow(UIElement element)
+        {
+            Window window = Window.GetWindow(element);
+            if (window != null)
+                return new WpfTopLevelWindow(window);
+            else
+                return null;
+        }
+
+        sealed class WpfTopLevelWindow : ITopLevelWindow
+        {
+            Window window;
+
+            public WpfTopLevelWindow(Window window)
+            {
+                this.window = window;
+            }
+
+            public void SetOwner(Window child)
+            {
+                child.Owner = window;
+            }
+
+            public bool Activate()
+            {
+                return window.Activate();
+            }
+        }
+    }
 }

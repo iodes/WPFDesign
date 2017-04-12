@@ -26,71 +26,81 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors
 {
-	[TypeEditor(typeof(MulticastDelegate))]
-	public partial class EventEditor
-	{
-		public EventEditor()
-		{
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
+    [TypeEditor(typeof(MulticastDelegate))]
+    public partial class EventEditor
+    {
+        public EventEditor()
+        {
+            SpecialInitializeComponent();
+        }
 
-		public PropertyNode PropertyNode {
-			get { return DataContext as PropertyNode; }
-		}
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
 
-		public string ValueString {
-			get { return (string)PropertyNode.Value ?? ""; }
-		}
+            this.InitializeComponent();
+        }
 
-		protected override void OnKeyDown(KeyEventArgs e)
-		{
-			if (e.Key == Key.Enter) {
-				Commit();
-			}
-			else if (e.Key == Key.Escape) {
-				BindingOperations.GetBindingExpression(this, TextProperty).UpdateTarget();
-			}
-		}
+        public PropertyNode PropertyNode
+        {
+            get { return DataContext as PropertyNode; }
+        }
 
-		protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
-		{
-			Commit();
-		}
+        public string ValueString
+        {
+            get { return (string) PropertyNode.Value ?? ""; }
+        }
 
-		protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
-		{
-			if (PropertyNode != null && Text != ValueString) {
-				Commit();
-			}
-		}
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Commit();
+            }
+            else if (e.Key == Key.Escape)
+            {
+                BindingOperations.GetBindingExpression(this, TextProperty).UpdateTarget();
+            }
+        }
 
-		public void Commit()
-		{		
-			if (Text != ValueString) {
-				if (string.IsNullOrEmpty(Text)) {
-					PropertyNode.Reset();
-					return;
-				}
-				PropertyNode.Value = Text;
-			}
-			IEventHandlerService s = PropertyNode.Services.GetService<IEventHandlerService>();
-			if (s != null) {
-				s.CreateEventHandler(PropertyNode.FirstProperty);
-			}
-		}
-	}
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        {
+            Commit();
+        }
+
+        protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            if (PropertyNode != null && Text != ValueString)
+            {
+                Commit();
+            }
+        }
+
+        public void Commit()
+        {
+            if (Text != ValueString)
+            {
+                if (string.IsNullOrEmpty(Text))
+                {
+                    PropertyNode.Reset();
+                    return;
+                }
+                PropertyNode.Value = Text;
+            }
+            IEventHandlerService s = PropertyNode.Services.GetService<IEventHandlerService>();
+            if (s != null)
+            {
+                s.CreateEventHandler(PropertyNode.FirstProperty);
+            }
+        }
+    }
 }

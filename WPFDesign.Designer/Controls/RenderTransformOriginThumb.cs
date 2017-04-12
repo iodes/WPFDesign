@@ -21,16 +21,17 @@ using System.Windows.Controls.Primitives;
 
 namespace WPFDesign.Designer.Controls
 {
-	/// <summary>
-	/// Description of RenderTransformThumb.
-	/// </summary>
-	public class RenderTransformOriginThumb : Thumb
-	{
-		static RenderTransformOriginThumb()
-		{
-			//This OverrideMetadata call tells the system that this element wants to provide a style that is different than its base class.
-			//This style is defined in themes\generic.xaml
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(RenderTransformOriginThumb), new FrameworkPropertyMetadata(typeof(RenderTransformOriginThumb)));
-		}
-	}
+    /// <summary>
+    /// Description of RenderTransformThumb.
+    /// </summary>
+    public class RenderTransformOriginThumb : Thumb
+    {
+        static RenderTransformOriginThumb()
+        {
+            //This OverrideMetadata call tells the system that this element wants to provide a style that is different than its base class.
+            //This style is defined in themes\generic.xaml
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RenderTransformOriginThumb),
+                new FrameworkPropertyMetadata(typeof(RenderTransformOriginThumb)));
+        }
+    }
 }

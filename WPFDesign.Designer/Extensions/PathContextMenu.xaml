@@ -1,6 +1,5 @@
 ﻿<ContextMenu x:Class="WPFDesign.Designer.Extensions.PathContextMenu"
              xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <MenuItem Header="Convert To Figures" Click="Click_ConvertToFigures">
-    </MenuItem>
+    <MenuItem Header="Convert To Figures" Click="Click_ConvertToFigures" />
 </ContextMenu>

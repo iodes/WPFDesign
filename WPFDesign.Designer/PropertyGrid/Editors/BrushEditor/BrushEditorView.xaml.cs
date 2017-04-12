@@ -22,30 +22,32 @@ using WPFDesign.Designer.themes;
 
 namespace WPFDesign.Designer.PropertyGrid.Editors.BrushEditor
 {
-	public partial class BrushEditorView
-	{
-		public BrushEditorView()
-		{
-			BrushEditor = new BrushEditor();
-			DataContext = BrushEditor;
+    public partial class BrushEditorView
+    {
+        public BrushEditorView()
+        {
+            BrushEditor = new BrushEditor();
+            DataContext = BrushEditor;
 
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
+            SpecialInitializeComponent();
+        }
 
-		public BrushEditor BrushEditor { get; private set; }
-	}
+        /// <summary>
+        /// Fixes InitializeComponent with multiple Versions of same Assembly loaded
+        /// </summary>
+        public void SpecialInitializeComponent()
+        {
+            if (!this._contentLoaded)
+            {
+                this._contentLoaded = true;
+                Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()),
+                    UriKind.Relative);
+                Application.LoadComponent(this, resourceLocator);
+            }
+
+            this.InitializeComponent();
+        }
+
+        public BrushEditor BrushEditor { get; private set; }
+    }
 }

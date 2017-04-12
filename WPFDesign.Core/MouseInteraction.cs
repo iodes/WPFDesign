@@ -20,17 +20,18 @@ using System.Windows.Input;
 
 namespace WPFDesign.Core
 {
-	// Interfaces for mouse interaction on the design surface.
-	
-	/// <summary>
-	/// Behavior interface implemented by elements to handle the mouse down event
-	/// on them.
-	/// </summary>
-	public interface IHandlePointerToolMouseDown
-	{
-		/// <summary>
-		/// Called to handle the mouse down event.
-		/// </summary>
-		void HandleSelectionMouseDown(IDesignPanel designPanel, MouseButtonEventArgs e, DesignPanelHitTestResult result);
-	}
+    // Interfaces for mouse interaction on the design surface.
+
+    /// <summary>
+    /// Behavior interface implemented by elements to handle the mouse down event
+    /// on them.
+    /// </summary>
+    public interface IHandlePointerToolMouseDown
+    {
+        /// <summary>
+        /// Called to handle the mouse down event.
+        /// </summary>
+        void HandleSelectionMouseDown(IDesignPanel designPanel, MouseButtonEventArgs e,
+            DesignPanelHitTestResult result);
+    }
 }

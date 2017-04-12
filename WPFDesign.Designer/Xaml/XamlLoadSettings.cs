@@ -24,30 +24,35 @@ using WPFDesign.XamlDom;
 
 namespace WPFDesign.Designer.Xaml
 {
-	/// <summary>
-	/// Settings used to load a XAML document.
-	/// </summary>
-	public sealed class XamlLoadSettings
-	{
-		public readonly ICollection<Assembly> DesignerAssemblies = new List<Assembly>();
-		public readonly List<Action<XamlDesignContext>> CustomServiceRegisterFunctions = new List<Action<XamlDesignContext>>();
-		public Action<XamlErrorService> ReportErrors = (errorService) => { };
-		XamlTypeFinder typeFinder = XamlTypeFinder.CreateWpfTypeFinder();
-		
-		public XamlTypeFinder TypeFinder {
-			get { return typeFinder; }
-			set {
-				if (value == null)
-					throw new ArgumentNullException("value");
-				typeFinder = value;
-			}
-		}
+    /// <summary>
+    /// Settings used to load a XAML document.
+    /// </summary>
+    public sealed class XamlLoadSettings
+    {
+        public readonly ICollection<Assembly> DesignerAssemblies = new List<Assembly>();
 
-		public string CurrentProjectAssemblyName { get; set; }
+        public readonly List<Action<XamlDesignContext>> CustomServiceRegisterFunctions =
+            new List<Action<XamlDesignContext>>();
 
-		public XamlLoadSettings()
-		{
-			DesignerAssemblies.Add(typeof(XamlDesignContext).Assembly);
-		}
-	}
+        public Action<XamlErrorService> ReportErrors = (errorService) => { };
+        XamlTypeFinder typeFinder = XamlTypeFinder.CreateWpfTypeFinder();
+
+        public XamlTypeFinder TypeFinder
+        {
+            get { return typeFinder; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                typeFinder = value;
+            }
+        }
+
+        public string CurrentProjectAssemblyName { get; set; }
+
+        public XamlLoadSettings()
+        {
+            DesignerAssemblies.Add(typeof(XamlDesignContext).Assembly);
+        }
+    }
 }

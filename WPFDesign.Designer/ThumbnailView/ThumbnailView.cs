@@ -26,168 +26,171 @@ using WPFDesign.Designer.Controls;
 
 namespace WPFDesign.Designer.ThumbnailView
 {
-	public class ThumbnailView : Control, INotifyPropertyChanged
-	{
-		public DesignSurface DesignSurface
-		{
-			get { return (DesignSurface)GetValue(DesignSurfaceProperty); }
-			set { SetValue(DesignSurfaceProperty, value); }
-		}
+    public class ThumbnailView : Control, INotifyPropertyChanged
+    {
+        public DesignSurface DesignSurface
+        {
+            get { return (DesignSurface) GetValue(DesignSurfaceProperty); }
+            set { SetValue(DesignSurfaceProperty, value); }
+        }
 
-		public static readonly DependencyProperty DesignSurfaceProperty =
-			DependencyProperty.Register("DesignSurface", typeof(DesignSurface), typeof(ThumbnailView), new PropertyMetadata(OnDesignSurfaceChanged));
+        public static readonly DependencyProperty DesignSurfaceProperty =
+            DependencyProperty.Register("DesignSurface", typeof(DesignSurface), typeof(ThumbnailView),
+                new PropertyMetadata(OnDesignSurfaceChanged));
 
-		private static void OnDesignSurfaceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		{
-			var ctl = d as ThumbnailView;
-			
-			
-			if (ctl.oldSurface != null)
-				ctl.oldSurface.LayoutUpdated -= ctl.DesignSurface_LayoutUpdated;
-			
-			ctl.oldSurface = ctl.DesignSurface;
-			ctl.scrollViewer = null;
-
-			if (ctl.DesignSurface != null)
-			{
-				ctl.DesignSurface.LayoutUpdated += ctl.DesignSurface_LayoutUpdated;
-			}
-
-			ctl.OnPropertyChanged("ScrollViewer");
-		}
-		
-		static ThumbnailView()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(ThumbnailView), new FrameworkPropertyMetadata(typeof(ThumbnailView)));
-		}
-
-		public ScrollViewer ScrollViewer
-		{
-			get
-			{
-				if (DesignSurface != null && scrollViewer == null)
-					scrollViewer = DesignSurface.TryFindChild<ZoomControl>();
-
-				return scrollViewer;
-			}
-		}
+        private static void OnDesignSurfaceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ctl = d as ThumbnailView;
 
 
-		void DesignSurface_LayoutUpdated(object sender, EventArgs e)
-		{
-			if (this.scrollViewer == null)
-				OnPropertyChanged("ScrollViewer");
+            if (ctl.oldSurface != null)
+                ctl.oldSurface.LayoutUpdated -= ctl.DesignSurface_LayoutUpdated;
 
-			if (this.scrollViewer != null)
-			{
-				double scale, xOffset, yOffset;
-				this.InvalidateScale(out scale, out xOffset, out yOffset);
+            ctl.oldSurface = ctl.DesignSurface;
+            ctl.scrollViewer = null;
 
-				this.zoomThumb.Width = scrollViewer.ViewportWidth * scale;
-				this.zoomThumb.Height = scrollViewer.ViewportHeight * scale;
-				
-				Canvas.SetLeft(this.zoomThumb, xOffset + this.ScrollViewer.HorizontalOffset*scale);
-				Canvas.SetTop(this.zoomThumb, yOffset + this.ScrollViewer.VerticalOffset*scale);
-			}
-		}
+            if (ctl.DesignSurface != null)
+            {
+                ctl.DesignSurface.LayoutUpdated += ctl.DesignSurface_LayoutUpdated;
+            }
 
-		private DesignSurface oldSurface;
-		private ZoomControl scrollViewer;
-		private Canvas zoomCanvas;
-		private Thumb zoomThumb;
-		
-		public override void OnApplyTemplate()
-		{
-			base.OnApplyTemplate();
+            ctl.OnPropertyChanged("ScrollViewer");
+        }
 
-			this.zoomThumb = Template.FindName("PART_ZoomThumb", this) as Thumb;
-			this.zoomCanvas = Template.FindName("PART_ZoomCanvas", this) as Canvas;
-			
-			this.zoomThumb.DragDelta += this.Thumb_DragDelta;
-			this.zoomCanvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;			
-		}
+        static ThumbnailView()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ThumbnailView),
+                new FrameworkPropertyMetadata(typeof(ThumbnailView)));
+        }
 
-		private void Canvas_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-		{
-			var pos = e.GetPosition(zoomCanvas);
-			var cl = Canvas.GetLeft(this.zoomThumb);
-			var ct = Canvas.GetTop(this.zoomThumb);
+        public ScrollViewer ScrollViewer
+        {
+            get
+            {
+                if (DesignSurface != null && scrollViewer == null)
+                    scrollViewer = DesignSurface.TryFindChild<ZoomControl>();
 
-			double scale, xOffset, yOffset;
-			this.InvalidateScale(out scale, out xOffset, out yOffset);
-			var dl = pos.X - cl - (zoomThumb.Width / 2);
-			var dt = pos.Y - ct - (zoomThumb.Height / 2);
+                return scrollViewer;
+            }
+        }
 
-			scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + dl / scale);
-			scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + dt / scale);
-		}
 
-		private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
-		{
-			if (DesignSurface != null)
-			{
-				if (scrollViewer != null)
-				{
-					double scale, xOffset, yOffset;
-					this.InvalidateScale(out scale, out xOffset, out yOffset);
+        void DesignSurface_LayoutUpdated(object sender, EventArgs e)
+        {
+            if (this.scrollViewer == null)
+                OnPropertyChanged("ScrollViewer");
 
-					scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + e.HorizontalChange / scale);
-					scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + e.VerticalChange / scale);
-				}
-			}
-		}
+            if (this.scrollViewer != null)
+            {
+                double scale, xOffset, yOffset;
+                this.InvalidateScale(out scale, out xOffset, out yOffset);
 
-		private void InvalidateScale(out double scale, out double xOffset, out double yOffset)
-		{
-			scale = 1;
-			xOffset = 0;
-			yOffset = 0;
-			
-			if (this.DesignSurface.DesignContext != null && this.DesignSurface.DesignContext.RootItem != null)
-			{
-				var designedElement = this.DesignSurface.DesignContext.RootItem.Component as FrameworkElement;
+                this.zoomThumb.Width = scrollViewer.ViewportWidth * scale;
+                this.zoomThumb.Height = scrollViewer.ViewportHeight * scale;
 
-				if (designedElement != null)
-				{
-					var fac1 = designedElement.ActualWidth/zoomCanvas.ActualWidth;
-					var fac2 = designedElement.ActualHeight/zoomCanvas.ActualHeight;
+                Canvas.SetLeft(this.zoomThumb, xOffset + this.ScrollViewer.HorizontalOffset * scale);
+                Canvas.SetTop(this.zoomThumb, yOffset + this.ScrollViewer.VerticalOffset * scale);
+            }
+        }
 
-					// zoom canvas size
-					double x = this.zoomCanvas.ActualWidth;
-					double y = this.zoomCanvas.ActualHeight;
+        private DesignSurface oldSurface;
+        private ZoomControl scrollViewer;
+        private Canvas zoomCanvas;
+        private Thumb zoomThumb;
 
-					if (fac1 < fac2)
-					{
-						x = designedElement.ActualWidth/fac2;
-						xOffset = (zoomCanvas.ActualWidth - x)/2;
-						yOffset = 0;
-					}
-					else
-					{
-						y = designedElement.ActualHeight/fac1;
-						xOffset = 0;
-						yOffset = (zoomCanvas.ActualHeight - y)/2;
-					}
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
 
-					double w = designedElement.ActualWidth;
-					double h = designedElement.ActualHeight;
+            this.zoomThumb = Template.FindName("PART_ZoomThumb", this) as Thumb;
+            this.zoomCanvas = Template.FindName("PART_ZoomCanvas", this) as Canvas;
 
-					double scaleX = x/w;
-					double scaleY = y/h;
+            this.zoomThumb.DragDelta += this.Thumb_DragDelta;
+            this.zoomCanvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
+        }
 
-					scale = (scaleX < scaleY) ? scaleX : scaleY;
+        private void Canvas_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var pos = e.GetPosition(zoomCanvas);
+            var cl = Canvas.GetLeft(this.zoomThumb);
+            var ct = Canvas.GetTop(this.zoomThumb);
 
-					xOffset += (x - scale*w)/2;
-					yOffset += (y - scale*h)/2;
-				}
-			}
-		}
+            double scale, xOffset, yOffset;
+            this.InvalidateScale(out scale, out xOffset, out yOffset);
+            var dl = pos.X - cl - (zoomThumb.Width / 2);
+            var dt = pos.Y - ct - (zoomThumb.Height / 2);
 
-		public event PropertyChangedEventHandler PropertyChanged;
-		protected virtual void OnPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
+            scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + dl / scale);
+            scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + dt / scale);
+        }
+
+        private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
+        {
+            if (DesignSurface != null)
+            {
+                if (scrollViewer != null)
+                {
+                    double scale, xOffset, yOffset;
+                    this.InvalidateScale(out scale, out xOffset, out yOffset);
+
+                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + e.HorizontalChange / scale);
+                    scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + e.VerticalChange / scale);
+                }
+            }
+        }
+
+        private void InvalidateScale(out double scale, out double xOffset, out double yOffset)
+        {
+            scale = 1;
+            xOffset = 0;
+            yOffset = 0;
+
+            if (this.DesignSurface.DesignContext != null && this.DesignSurface.DesignContext.RootItem != null)
+            {
+                var designedElement = this.DesignSurface.DesignContext.RootItem.Component as FrameworkElement;
+
+                if (designedElement != null)
+                {
+                    var fac1 = designedElement.ActualWidth / zoomCanvas.ActualWidth;
+                    var fac2 = designedElement.ActualHeight / zoomCanvas.ActualHeight;
+
+                    // zoom canvas size
+                    double x = this.zoomCanvas.ActualWidth;
+                    double y = this.zoomCanvas.ActualHeight;
+
+                    if (fac1 < fac2)
+                    {
+                        x = designedElement.ActualWidth / fac2;
+                        xOffset = (zoomCanvas.ActualWidth - x) / 2;
+                        yOffset = 0;
+                    }
+                    else
+                    {
+                        y = designedElement.ActualHeight / fac1;
+                        xOffset = 0;
+                        yOffset = (zoomCanvas.ActualHeight - y) / 2;
+                    }
+
+                    double w = designedElement.ActualWidth;
+                    double h = designedElement.ActualHeight;
+
+                    double scaleX = x / w;
+                    double scaleY = y / h;
+
+                    scale = (scaleX < scaleY) ? scaleX : scaleY;
+
+                    xOffset += (x - scale * w) / 2;
+                    yOffset += (y - scale * h) / 2;
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
 }

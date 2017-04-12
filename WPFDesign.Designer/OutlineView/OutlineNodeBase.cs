@@ -28,235 +28,239 @@ using WPFDesign.XamlDom;
 
 namespace WPFDesign.Designer.OutlineView
 {
-	/// <summary>
-	/// Description of OutlineNodeBase.
-	/// </summary>
-	public abstract class OutlineNodeBase : INotifyPropertyChanged, IOutlineNode
-	{
-		protected abstract void UpdateChildren();
-		protected abstract void UpdateChildrenCollectionChanged(NotifyCollectionChangedEventArgs e);
-		//Used to check if element can enter other containers
-		protected static PlacementType DummyPlacementType;
+    /// <summary>
+    /// Description of OutlineNodeBase.
+    /// </summary>
+    public abstract class OutlineNodeBase : INotifyPropertyChanged, IOutlineNode
+    {
+        protected abstract void UpdateChildren();
 
-		private bool _collectionWasChanged;
+        protected abstract void UpdateChildrenCollectionChanged(NotifyCollectionChangedEventArgs e);
 
-		protected OutlineNodeBase(DesignItem designItem)
-		{
-			DesignItem = designItem;
+        //Used to check if element can enter other containers
+        protected static PlacementType DummyPlacementType;
 
-			bool hidden = false;
-			try
-			{
-				hidden = (bool)designItem.Properties.GetAttachedProperty(DesignTimeProperties.IsHiddenProperty).ValueOnInstance;
-			}
-			catch (Exception)
-			{ }
-			if (hidden) {
-				_isDesignTimeVisible = false;
-			}
+        private bool _collectionWasChanged;
 
-			bool locked = false;
-			try
-			{
-				locked = (bool)designItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).ValueOnInstance;
-			}
-			catch (Exception)
-			{ }
-			if (locked) {
-				_isDesignTimeLocked = true;
-			}
+        protected OutlineNodeBase(DesignItem designItem)
+        {
+            DesignItem = designItem;
 
-			//TODO
+            bool hidden = false;
+            try
+            {
+                hidden = (bool) designItem.Properties.GetAttachedProperty(DesignTimeProperties.IsHiddenProperty)
+                    .ValueOnInstance;
+            }
+            catch (Exception)
+            {
+            }
+            if (hidden)
+            {
+                _isDesignTimeVisible = false;
+            }
 
-			DesignItem.NameChanged += new EventHandler(DesignItem_NameChanged);
+            bool locked = false;
+            try
+            {
+                locked = (bool) designItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty)
+                    .ValueOnInstance;
+            }
+            catch (Exception)
+            {
+            }
+            if (locked)
+            {
+                _isDesignTimeLocked = true;
+            }
 
-			if (DesignItem.ContentProperty != null && DesignItem.ContentProperty.IsCollection)
-			{
-				DesignItem.ContentProperty.CollectionElements.CollectionChanged += CollectionElements_CollectionChanged;
-				DesignItem.PropertyChanged += new PropertyChangedEventHandler(DesignItem_PropertyChanged);
-			}
-			else
-			{
-				DesignItem.PropertyChanged += new PropertyChangedEventHandler(DesignItem_PropertyChanged);
+            //TODO
 
-			}
+            DesignItem.NameChanged += new EventHandler(DesignItem_NameChanged);
 
-		}
-		 
-		public DesignItem DesignItem { get; set; }
+            if (DesignItem.ContentProperty != null && DesignItem.ContentProperty.IsCollection)
+            {
+                DesignItem.ContentProperty.CollectionElements.CollectionChanged += CollectionElements_CollectionChanged;
+                DesignItem.PropertyChanged += new PropertyChangedEventHandler(DesignItem_PropertyChanged);
+            }
+            else
+            {
+                DesignItem.PropertyChanged += new PropertyChangedEventHandler(DesignItem_PropertyChanged);
+            }
+        }
 
-		public ISelectionService SelectionService
-		{
-			get { return DesignItem.Services.Selection; }
-		}
+        public DesignItem DesignItem { get; set; }
 
-		bool isExpanded = true;
+        public ISelectionService SelectionService
+        {
+            get { return DesignItem.Services.Selection; }
+        }
 
-		public bool IsExpanded
-		{
-			get
-			{
-				return isExpanded;
-			}
-			set
-			{
-				isExpanded = value;
-				RaisePropertyChanged("IsExpanded");
-			}
-		}
+        bool isExpanded = true;
 
-		bool isSelected;
+        public bool IsExpanded
+        {
+            get { return isExpanded; }
+            set
+            {
+                isExpanded = value;
+                RaisePropertyChanged("IsExpanded");
+            }
+        }
 
-		public bool IsSelected
-		{
-			get
-			{
-				return isSelected;
-			}
-			set
-			{
-				if (isSelected != value) {
-					isSelected = value;
-					SelectionService.SetSelectedComponents(new[] { DesignItem },
-					                                       value ? SelectionTypes.Add : SelectionTypes.Remove);
-					RaisePropertyChanged("IsSelected");
-				}
-			}
-		}
+        bool isSelected;
 
-		bool _isDesignTimeVisible = true;
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                if (isSelected != value)
+                {
+                    isSelected = value;
+                    SelectionService.SetSelectedComponents(new[] {DesignItem},
+                        value ? SelectionTypes.Add : SelectionTypes.Remove);
+                    RaisePropertyChanged("IsSelected");
+                }
+            }
+        }
 
-		public bool IsDesignTimeVisible
-		{
-			get
-			{
-				return _isDesignTimeVisible;
-			}
-			set
-			{
-				_isDesignTimeVisible = value;
+        bool _isDesignTimeVisible = true;
 
-				RaisePropertyChanged("IsDesignTimeVisible");
+        public bool IsDesignTimeVisible
+        {
+            get { return _isDesignTimeVisible; }
+            set
+            {
+                _isDesignTimeVisible = value;
 
-				if (!value)
-					DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsHiddenProperty).SetValue(true);
-				else
-					DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsHiddenProperty).Reset();
-			}
-		}
+                RaisePropertyChanged("IsDesignTimeVisible");
 
-		bool _isDesignTimeLocked = false;
+                if (!value)
+                    DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsHiddenProperty).SetValue(true);
+                else
+                    DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsHiddenProperty).Reset();
+            }
+        }
 
-		public bool IsDesignTimeLocked
-		{
-			get
-			{
-				return _isDesignTimeLocked;
-			}
-			set
-			{
-				_isDesignTimeLocked = value;
-				((XamlDesignItem)DesignItem).IsDesignTimeLocked = _isDesignTimeLocked;
+        bool _isDesignTimeLocked = false;
 
-				RaisePropertyChanged("IsDesignTimeLocked");
+        public bool IsDesignTimeLocked
+        {
+            get { return _isDesignTimeLocked; }
+            set
+            {
+                _isDesignTimeLocked = value;
+                ((XamlDesignItem) DesignItem).IsDesignTimeLocked = _isDesignTimeLocked;
 
-				//				if (value)
-				//					DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).SetValue(true);
-				//				else
-				//					DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).Reset();
-			}
-		}
+                RaisePropertyChanged("IsDesignTimeLocked");
 
-		ObservableCollection<IOutlineNode> children = new ObservableCollection<IOutlineNode>();
+                //				if (value)
+                //					DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).SetValue(true);
+                //				else
+                //					DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).Reset();
+            }
+        }
 
-		public ObservableCollection<IOutlineNode> Children
-		{
-			get { return children; }
-		}
+        ObservableCollection<IOutlineNode> children = new ObservableCollection<IOutlineNode>();
 
-		public string Name
-		{
-			get
-			{
-				return DesignItem.Services.GetService<IOutlineNodeNameService>().GetOutlineNodeName(DesignItem);
-			}
-		}
+        public ObservableCollection<IOutlineNode> Children
+        {
+            get { return children; }
+        }
 
-		void DesignItem_NameChanged(object sender, EventArgs e)
-		{
-			RaisePropertyChanged("Name");
-		}
+        public string Name
+        {
+            get { return DesignItem.Services.GetService<IOutlineNodeNameService>().GetOutlineNodeName(DesignItem); }
+        }
 
-		void DesignItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName == DesignItem.ContentPropertyName) {
-				if (!_collectionWasChanged)	{
-					UpdateChildren();
-				}
-				_collectionWasChanged = false;
-			}
-		}
+        void DesignItem_NameChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("Name");
+        }
 
-		private void CollectionElements_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			_collectionWasChanged = true;
-			UpdateChildrenCollectionChanged(e);
-		}
+        void DesignItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == DesignItem.ContentPropertyName)
+            {
+                if (!_collectionWasChanged)
+                {
+                    UpdateChildren();
+                }
+                _collectionWasChanged = false;
+            }
+        }
+
+        private void CollectionElements_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            _collectionWasChanged = true;
+            UpdateChildrenCollectionChanged(e);
+        }
 
 
+        public bool CanInsert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy)
+        {
+            var placementBehavior = DesignItem.GetBehavior<IPlacementBehavior>();
+            if (placementBehavior == null)
+                return false;
+            var operation = PlacementOperation.Start(nodes.Select(node => node.DesignItem).ToArray(),
+                DummyPlacementType);
+            if (operation != null)
+            {
+                bool canEnter = placementBehavior.CanEnterContainer(operation, true);
+                operation.Abort();
+                return canEnter;
+            }
+            return false;
+        }
 
-		public bool CanInsert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy)
-		{
-			var placementBehavior = DesignItem.GetBehavior<IPlacementBehavior>();
-			if (placementBehavior == null)
-				return false;
-			var operation = PlacementOperation.Start(nodes.Select(node => node.DesignItem).ToArray(), DummyPlacementType);
-			if (operation != null) {
-				bool canEnter = placementBehavior.CanEnterContainer(operation, true);
-				operation.Abort();
-				return canEnter;
-			}
-			return false;
-		}
+        public virtual void Insert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy)
+        {
+            using (var moveTransaction =
+                DesignItem.Context.OpenGroup("Item moved in outline view", nodes.Select(n => n.DesignItem).ToList()))
+            {
+                if (copy)
+                {
+                    nodes = nodes.Select(n => OutlineNode.Create(n.DesignItem.Clone())).ToList();
+                }
+                else
+                {
+                    foreach (var node in nodes)
+                    {
+                        node.DesignItem.Remove();
+                    }
+                }
 
-		public virtual void Insert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy)
-		{
-			using (var moveTransaction = DesignItem.Context.OpenGroup("Item moved in outline view", nodes.Select(n => n.DesignItem).ToList()))
-			{
-				if (copy) {
-					nodes = nodes.Select(n => OutlineNode.Create(n.DesignItem.Clone())).ToList();
-				} else {
-					foreach (var node in nodes) {
-						node.DesignItem.Remove();
-					}
-				}
+                var index = after == null ? 0 : Children.IndexOf(after) + 1;
 
-				var index = after == null ? 0 : Children.IndexOf(after) + 1;
+                var content = DesignItem.ContentProperty;
+                if (content.IsCollection)
+                {
+                    foreach (var node in nodes)
+                    {
+                        content.CollectionElements.Insert(index++, node.DesignItem);
+                    }
+                }
+                else
+                {
+                    content.SetValue(nodes.First().DesignItem);
+                }
+                moveTransaction.Commit();
+            }
+        }
 
-				var content = DesignItem.ContentProperty;
-				if (content.IsCollection) {
-					foreach (var node in nodes) {
-						content.CollectionElements.Insert(index++, node.DesignItem);
-					}
-				} else {
-					content.SetValue(nodes.First().DesignItem);
-				}
-				moveTransaction.Commit();
-			}
-		}
+        #region INotifyPropertyChanged Members
 
-		#region INotifyPropertyChanged Members
+        public event PropertyChangedEventHandler PropertyChanged;
 
-		public event PropertyChangedEventHandler PropertyChanged;
+        public void RaisePropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
 
-		public void RaisePropertyChanged(string name)
-		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(name));
-			}
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

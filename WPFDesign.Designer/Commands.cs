@@ -20,12 +20,12 @@ using System.Windows.Input;
 
 namespace WPFDesign.Designer
 {
-	/// <summary>
-	/// Description of Commands.
-	/// </summary>
-	public static class Commands
-	{
-		public static ICommand AlignTopCommand = new RoutedCommand();
+    /// <summary>
+    /// Description of Commands.
+    /// </summary>
+    public static class Commands
+    {
+        public static ICommand AlignTopCommand = new RoutedCommand();
         public static ICommand AlignMiddleCommand = new RoutedCommand();
         public static ICommand AlignBottomCommand = new RoutedCommand();
         public static ICommand AlignLeftCommand = new RoutedCommand();
@@ -33,11 +33,11 @@ namespace WPFDesign.Designer
         public static ICommand AlignRightCommand = new RoutedCommand();
         public static ICommand RotateLeftCommand = new RoutedCommand();
         public static ICommand RotateRightCommand = new RoutedCommand();
-		public static ICommand StretchToSameWidthCommand = new RoutedCommand();
-		public static ICommand StretchToSameHeightCommand = new RoutedCommand();
+        public static ICommand StretchToSameWidthCommand = new RoutedCommand();
+        public static ICommand StretchToSameHeightCommand = new RoutedCommand();
 
-		static Commands()
+        static Commands()
         {
         }
-	}
+    }
 }

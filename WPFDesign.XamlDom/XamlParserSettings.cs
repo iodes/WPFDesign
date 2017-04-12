@@ -20,75 +20,80 @@ using System;
 
 namespace WPFDesign.XamlDom
 {
-	/// <summary>
-	/// Delegate used for XamlParserSettings.CreateInstanceCallback.
-	/// </summary>
-	public delegate object CreateInstanceCallback(Type type, object[] arguments);
-	
-	/// <summary>
-	/// Settings used for the XamlParser.
-	/// </summary>
-	public sealed class XamlParserSettings
-	{
-		CreateInstanceCallback _createInstanceCallback = Activator.CreateInstance;
-		XamlTypeFinder _typeFinder = XamlTypeFinder.CreateWpfTypeFinder();
-		IServiceProvider _serviceProvider = DummyServiceProvider.Instance;
-		string _currentProjectAssemblyName;
+    /// <summary>
+    /// Delegate used for XamlParserSettings.CreateInstanceCallback.
+    /// </summary>
+    public delegate object CreateInstanceCallback(Type type, object[] arguments);
 
-		/// <summary>
-		/// Gets/Sets the method used to create object instances.
-		/// </summary>
-		public CreateInstanceCallback CreateInstanceCallback {
-			get { return _createInstanceCallback; }
-			set {
-				if (value == null)
-					throw new ArgumentNullException("value");
-				_createInstanceCallback = value;
-			}
-		}
-		
-		/// <summary>
-		/// Gets/Sets the type finder to do type lookup.
-		/// </summary>
-		public XamlTypeFinder TypeFinder {
-			get { return _typeFinder; }
-			set {
-				if (value == null)
-					throw new ArgumentNullException("value");
-				_typeFinder = value;
-			}
-		}
-		
-		/// <summary>
-		/// Gets/Sets the service provider to use to initialize markup extensions.
-		/// </summary>
-		public IServiceProvider ServiceProvider {
-			get { return _serviceProvider; }
-			set {
-				if (value == null)
-					throw new ArgumentNullException("value");
-				_serviceProvider = value;
-			}
-		}
+    /// <summary>
+    /// Settings used for the XamlParser.
+    /// </summary>
+    public sealed class XamlParserSettings
+    {
+        CreateInstanceCallback _createInstanceCallback = Activator.CreateInstance;
+        XamlTypeFinder _typeFinder = XamlTypeFinder.CreateWpfTypeFinder();
+        IServiceProvider _serviceProvider = DummyServiceProvider.Instance;
+        string _currentProjectAssemblyName;
 
-		/// <summary>
-		/// Gets/Sets the Current Projects Assembly Name.
-		/// </summary>
-		public string CurrentProjectAssemblyName {
-			get { return _currentProjectAssemblyName; }
-			set {
-				_currentProjectAssemblyName = value;
-			}
-		}
+        /// <summary>
+        /// Gets/Sets the method used to create object instances.
+        /// </summary>
+        public CreateInstanceCallback CreateInstanceCallback
+        {
+            get { return _createInstanceCallback; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                _createInstanceCallback = value;
+            }
+        }
 
-		sealed class DummyServiceProvider : IServiceProvider
-		{
-			public static readonly DummyServiceProvider Instance = new DummyServiceProvider();
-			
-			public object GetService(Type serviceType)
-			{
-				return null;
-			}
-		}
-	}
+        /// <summary>
+        /// Gets/Sets the type finder to do type lookup.
+        /// </summary>
+        public XamlTypeFinder TypeFinder
+        {
+            get { return _typeFinder; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                _typeFinder = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets/Sets the service provider to use to initialize markup extensions.
+        /// </summary>
+        public IServiceProvider ServiceProvider
+        {
+            get { return _serviceProvider; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                _serviceProvider = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets/Sets the Current Projects Assembly Name.
+        /// </summary>
+        public string CurrentProjectAssemblyName
+        {
+            get { return _currentProjectAssemblyName; }
+            set { _currentProjectAssemblyName = value; }
+        }
+
+        sealed class DummyServiceProvider : IServiceProvider
+        {
+            public static readonly DummyServiceProvider Instance = new DummyServiceProvider();
+
+            public object GetService(Type serviceType)
+            {
+                return null;
+            }
+        }
+    }
 }

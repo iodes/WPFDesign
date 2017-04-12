@@ -23,32 +23,33 @@ using System.Xaml;
 
 namespace WPFDesign.Core.Extensions
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	[ExtensionServer(typeof(NeverApplyExtensionsExtensionServer))]
-	public class XamlInstanceFactory : Extension
-	{
-		/// <summary>
-		/// Gets a default instance factory that uses Activator.CreateInstance to create instances.
-		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-		public static readonly XamlInstanceFactory DefaultInstanceFactory = new XamlInstanceFactory();
-		
-		/// <summary>
-		/// Creates a new CustomInstanceFactory instance.
-		/// </summary>
-		protected XamlInstanceFactory()
-		{
-		}
+    /// <summary>
+    /// 
+    /// </summary>
+    [ExtensionServer(typeof(NeverApplyExtensionsExtensionServer))]
+    public class XamlInstanceFactory : Extension
+    {
+        /// <summary>
+        /// Gets a default instance factory that uses Activator.CreateInstance to create instances.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",
+            "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly XamlInstanceFactory DefaultInstanceFactory = new XamlInstanceFactory();
 
-		/// <summary>
-		/// A Instance Factory that uses XAML to instanciate the Control!
-		/// So you can add the 
-		/// </summary>
-		public virtual object CreateInstance(Type type, params object[] arguments)
-		{
-			var txt = @"<ContentControl xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"">
+        /// <summary>
+        /// Creates a new CustomInstanceFactory instance.
+        /// </summary>
+        protected XamlInstanceFactory()
+        {
+        }
+
+        /// <summary>
+        /// A Instance Factory that uses XAML to instanciate the Control!
+        /// So you can add the 
+        /// </summary>
+        public virtual object CreateInstance(Type type, params object[] arguments)
+        {
+            var txt = @"<ContentControl xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"">
 <ContentControl.ResourceDictionary>
 <ResourceDictionary>
 <ResourceDictionary.MergedDictionarys>
@@ -57,11 +58,10 @@ namespace WPFDesign.Core.Extensions
 </ContentControl.ResourceDictionary>
 <a:{0} xmlns:a=""clr-namespace:{1};assembly={2}"" /></ContentControl>";
 
-			var xaml = string.Format(txt, type.Name, type.Namespace, type.Assembly.GetName().Name);
-			var contentControl = XamlServices.Load(new XamlXmlReader(new StringReader(xaml))) as ContentControl;
+            var xaml = string.Format(txt, type.Name, type.Namespace, type.Assembly.GetName().Name);
+            var contentControl = XamlServices.Load(new XamlXmlReader(new StringReader(xaml))) as ContentControl;
 
-			return contentControl.Content;
-
-		}
-	}
+            return contentControl.Content;
+        }
+    }
 }

@@ -20,14 +20,15 @@ using System.Windows;
 
 namespace WPFDesign.Designer.Controls
 {
-	/// <summary>
-	/// An ErrorBalloon window.
-	/// </summary>
-	public class ErrorBalloon : Window
-	{
-		static ErrorBalloon()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(ErrorBalloon), new FrameworkPropertyMetadata(typeof(ErrorBalloon)));
-		}
-	}
+    /// <summary>
+    /// An ErrorBalloon window.
+    /// </summary>
+    public class ErrorBalloon : Window
+    {
+        static ErrorBalloon()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ErrorBalloon),
+                new FrameworkPropertyMetadata(typeof(ErrorBalloon)));
+        }
+    }
 }
