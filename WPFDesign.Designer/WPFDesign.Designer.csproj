@@ -506,13 +506,13 @@
     <Content Include="Images\ZoomOut.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WPFDesign.Core\WPFDesign.Core.csproj">
+      <Project>{2ac77acf-4a6f-4eb6-8cfd-4918ba8c9b48}</Project>
+      <Name>WPFDesign.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WPFDesign.XamlDom\WPFDesign.XamlDom.csproj">
       <Project>{42adfe8c-0451-4fc3-b4bc-5da03a3ee07c}</Project>
       <Name>WPFDesign.XamlDom</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WPFDesign\WPFDesign.csproj">
-      <Project>{e1b5ba57-08ef-4f51-80ba-85780144f9a1}</Project>
-      <Name>WPFDesign</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
